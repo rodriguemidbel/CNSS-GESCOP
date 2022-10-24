@@ -57,7 +57,7 @@ const litigeController = require('../controller/litige');
 const signataireController = require('../controller/signataire');
 const seuilmodeController = require('../controller/seuilmode');
 
-const groupementController = require('../controller/groupement');
+const delibfrsController = require('../controller/delibfrs');
 
 
 const router = express.Router();
@@ -75,7 +75,8 @@ router.get('/getOneUser/:id', userController.getOneUser);
 router.delete('/removeUser/:id', userController.removeUser);
 router.patch('/updateUser/:id', userController.updateUser);
 router.get('/findUser/:username', userController.findUser);
-router.post('/login', userController.login);
+router.post('/login', userController.login); // findUserByFonction
+router.get('/findUserByFonction', userController.findUserByFonction);
 /*-------------------------FONCTIONALITE---------------------------------*/
 router.post('/createFonctionalite', fonctionaliteController.createFonctionalite);
 router.get('/getAllFonctionalite', fonctionaliteController.getAllFonctionalite);
@@ -201,6 +202,12 @@ router.delete('/removeVente/:id', venteController.removeVente);
 router.patch('/updateVente/:id', venteController.updateVente);
 router.get('/findVente/:lot_id', venteController.findVente);
 router.get('/findVenteByNum/:num_vente', venteController.findVenteByNum);
+
+router.get('/findVenteByDossID/:vent_dossier_id', venteController.findVenteByDossID);
+router.get('/findVenteByStatut/:vent_statut',venteController.findVenteByStatut);
+
+router.get('/sumMontantAllVente',venteController.sumMontantAllVente);
+router.get('/sumMontantVenteByStatut/:vent_statut',venteController.sumMontantVenteByStatut);
 /*-------------------------CAISSE---------------------------------*/
 router.post('/createCaisse', caisseController.createCaisse);
 router.get('/getAllCaisse', caisseController.getAllCaisse);
@@ -240,11 +247,11 @@ router.patch('/updateScaminv/:id', scaminvController.updateScaminv);
 router.get('/findScaminv/:dossier_id', scaminvController.findScaminv);
 /*-------------------------OFFRE---------------------------------*/
 router.post('/createOffre',offreController.createOffre);
-router.get('/getAllOffre/:dossier_id', offreController.getAllOffre);
+router.get('/getAllOffre/:off_dossier_id', offreController.getAllOffre);
 router.get('/getOneOffre/:id', offreController.getOneOffre);
 router.delete('/removeOffre/:id', offreController.removeOffre);
 router.patch('/updateOffre/:id', offreController.updateOffre);
-router.get('/findOffre/:dossier_id', offreController.findOffre);
+router.get('/findOffre/:off_dossier_id', offreController.findOffre);
 router.get('/getOffreById/:id', offreController.getOffreById);
 /*-------------------------Ouverture---------------------------------*/
 router.post('/createProceverb',proceverbController.createProceverb);
@@ -269,6 +276,9 @@ router.get('/getOneDeliberation/:id', deliberationController.getOneDeliberation)
 router.delete('/removeDeliberation/:id', deliberationController.removeDeliberation);
 router.patch('/updateDeliberation/:id', deliberationController.updateDeliberation);
 router.get('/findDeliberation/:dossier_id', deliberationController.findDeliberation);
+
+router.get('/findDelibByLotID/:lot_id', deliberationController.findDelibByLotID);
+
 
 
 
@@ -302,7 +312,7 @@ router.get('/getAllNotification', notificationController.getAllNotification);
 router.get('/getOneNotification/:id', notificationController.getOneNotification);
 router.delete('/removeNotification/:id', notificationController.removeNotification);
 router.patch('/updateNotification/:id', notificationController.updateNotification);
-router.get('/findNotification/:dossier_id', notificationController.findNotification);
+router.get('/findNotification/:not_dossier_id', notificationController.findNotification);
 router.get('/countNotification/:annee', notificationController.countNotification);
 
 /*-------------------------MARCHES----------------------------------*/
@@ -442,10 +452,10 @@ router.patch('/updateSeuilmode/:id', seuilmodeController.updateSeuilmode);
 router.get('/findSeuilmode/:type_id/:mode', seuilmodeController.findSeuilmode);
 
 /*-------------------------Groupement----------------------------------*/
-router.post('/createGroupement',groupementController.createGroupement);
-router.get('/getAllGroupement', groupementController.getAllGroupement);
-router.get('/getOneSeuilmode/:id', groupementController.getOneGroupement);
-router.delete('/getOneGroupement/:id', groupementController.removeGroupement);
-router.patch('/updateGroupement/:id', groupementController.updateGroupement);
+router.post('/createDelibFrs',delibfrsController.createDelibFrs);
+router.get('/getAllDelibFrs', delibfrsController.getAllDelibFrs);
+router.get('/getOneDelibFrs/:id', delibfrsController.getOneDelibFrs);
+router.delete('/removeDelibFrs/:id', delibfrsController.removeDelibFrs);
+router.patch('/updateDelibFrs/:id', delibfrsController.updateDelibFrs);
 
 module.exports = router;

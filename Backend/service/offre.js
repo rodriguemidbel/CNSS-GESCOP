@@ -2,11 +2,11 @@ const offreDAO = require('../dao/offre');
 
 class offreService {
   createOffre(OffreDto) {
-    const { dossier_id,fournisseur_id,lot_id,montant_offre,date_depot,heure_depot,nom_prenom_dep,telephone_dep } = OffreDto;
-    return offreDAO.createOffre(dossier_id,fournisseur_id,lot_id,montant_offre,date_depot,heure_depot,nom_prenom_dep,telephone_dep);
+    const { off_dossier_id,fournisseur_id,lot_id,montant_offre,date_depot,heure_depot,nom_prenom_dep,telephone_dep } = OffreDto;
+    return offreDAO.createOffre(off_dossier_id,fournisseur_id,lot_id,montant_offre,date_depot,heure_depot,nom_prenom_dep,telephone_dep);
   };
-  getAllOffre(dossier_id) {
-    return offreDAO.getAllOffre(dossier_id);
+  getAllOffre(off_dossier_id) {
+    return offreDAO.getAllOffre(off_dossier_id);
   };
   getOneOffre(id) {
     return offreDAO.getOneOffre(id);
@@ -18,8 +18,8 @@ class offreService {
     return offreDAO.updateOffre(id,changes);
   };
 
-  findOffre(dossier_id){
-      return offreDAO.findOffre(dossier_id)
+  findOffre(off_dossier_id){
+      return offreDAO.findOffre(off_dossier_id)
   }
   // getOffreById
 

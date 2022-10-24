@@ -8,6 +8,9 @@ class UserService {
   getAllUser() {
     return userDAO.getAllUser();
   };
+  findUserByFonction(){
+    return userDAO.findUserByFonction();
+  };
   getOneUser(id) {
     return userDAO.getOneUser(id);
   };

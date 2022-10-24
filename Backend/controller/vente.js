@@ -108,6 +108,80 @@ class VenteController {
     }
   };
 
+  async findVenteByDossID(req, res) {
+    try {
+      const {vent_dossier_id} = req.params;
+      const item = await venteService.findVenteByDossID(vent_dossier_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  async findVenteByStatut(req, res) {
+    try {
+      const {vent_statut} = req.params;
+      const item = await venteService.findVenteByStatut(vent_statut);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  async sumMontantAllVente(req, res) {
+    try {
+      //const {dossier_id} = req.params;
+      const item = await venteService.sumMontantAllVente();
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  async sumMontantVenteByStatut(req, res) {
+    try {
+      const {vent_statut} = req.params;
+      const item = await venteService.sumMontantVenteByStatut(vent_statut);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
+
   
 }
 

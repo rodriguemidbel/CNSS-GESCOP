@@ -119,7 +119,8 @@ class PlanitemDAO {
   };*/
 
   async getOnePlanitem(id) {
-    return await db('planitems').where({id}).first();
+    return await db('planitems')
+    .where({id}).first();
   };
 
   async removePlanitem(id) {

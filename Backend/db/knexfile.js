@@ -6,7 +6,7 @@ module.exports = {
     client: 'oracledb',
     connection: {
       user: 'root',
-      password: 'admin1',
+      password: 'cnss',
       connectString: 'XE',
       database : 'cnss'
     },

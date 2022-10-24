@@ -1,10 +1,10 @@
 const db = require('../db/db');
 
 class OffreDAO {
-  async createOffre(dossier_id,fournisseur_id,lot_id,montant_offre,date_depot,heure_depot,nom_prenom_dep,telephone_dep) {
+  async createOffre(off_dossier_id,fournisseur_id,lot_id,montant_offre,date_depot,heure_depot,nom_prenom_dep,telephone_dep) {
     const [id] = await db('offres')
       .insert({
-        dossier_id,
+        off_dossier_id,
         fournisseur_id,
         lot_id,
         montant_offre,
@@ -21,14 +21,17 @@ class OffreDAO {
  /* async getAllDossier() {
     return await db('offres');
   };*/
-  async getAllOffre(dossier_id) {
+  async getAllOffre(off_dossier_id) {
     return await db('offres')
-      .join('dossiers', 'dossiers.id', 'offres.dossier_id')
+      .join('dossiers', 'dossiers.id', 'offres.off_dossier_id')
+      .join('lots', 'lots.id', 'offres.lot_id')
       .join('fournisseurs', 'fournisseurs.id', 'offres.fournisseur_id')
       .select(
         'dossiers.numero_doss as numero',
         'dossiers.intitule_doss as intitule',
         'fournisseurs.raison_sociale as raison_sociale',
+        'lots.num_lot as num_lot',
+        'lots.intitule_lot as intitule_lot',
         'offres.id as id',
         'offres.fournisseur_id as fournisseur_id',
         'offres.montant_offre as montant_offre',
@@ -37,7 +40,7 @@ class OffreDAO {
         'offres.nom_prenom_dep as nom_prenom_dep',
         'offres.telephone_dep as telephone_dep'
       )
-      .where({dossier_id})
+      .where({off_dossier_id})
   };
 
   async getOneOffre(id) {
@@ -55,9 +58,9 @@ class OffreDAO {
     });
   };
 
-  async findOffre(dossier_id) {
+  async findOffre(off_dossier_id) {
     return await db('offres')
-    .join('dossiers', 'dossiers.id', 'offres.dossier_id')
+    .join('dossiers', 'dossiers.id', 'offres.off_dossier_id')
     .select(
       'dossiers.numero_doss as numero',
       'dossiers.intitule_doss as intitule',
@@ -70,7 +73,7 @@ class OffreDAO {
       'offres.nom_prenom_dep as nom_prenom_dep',
       'offres.telephone_dep as telephone_dep'
     )
-    .where({dossier_id})
+    .where({off_dossier_id})
   };
 
   async getOffreById(id) {

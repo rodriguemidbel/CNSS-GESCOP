@@ -77,10 +77,8 @@ class DossierDAO {
     .join('planitems', 'planitems.id', 'dossiers.planitem_id')
     .join('plans', 'plans.id', 'planitems.plan_id')
     .select(
-      'plans.id as planid',
-      'plans.annee as annee',
-      'plans.statut as statut',
-      'planitems.id as id',
+     'plans.annee as annee',
+     'plans.statut as statut',
      'planitems.num_ordre as num_ordre',
      'planitems.budget as budget',
      'planitems.imputation as imputation',
@@ -103,7 +101,8 @@ class DossierDAO {
      'planitems.date_prob_fin as date_prob_fin',
      'planitems.date_reel_fin as date_reel_fin',
      'planitems.gestionnaire as gestionnaire',    
-      'dossiers.id as id',
+     'planitems.localisation_id as localisation_id',    
+     'dossiers.id as id',
       'dossiers.numero_doss as numero_doss',
       'dossiers.intitule_doss as intitule_doss',
       'dossiers.date_trans_sign as date_trans_sign',

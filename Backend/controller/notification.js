@@ -11,8 +11,8 @@ class NotificationController {
   };
   async getAllNotification(req, res) {
     try {
-      const {dossier_id} = req.params;
-      const Notifications = await notificationService.getAllNotification(dossier_id);
+      const {not_dossier_id} = req.params;
+      const Notifications = await notificationService.getAllNotification(not_dossier_id);
       res.status(201).json(Notifications);
     } catch (err) {
       console.error(err);
@@ -75,8 +75,8 @@ class NotificationController {
 
   async findNotification(req, res) {
     try {
-      const {dossier_id} = req.params;
-      const item = await notificationService.findNotification(dossier_id);
+      const {not_dossier_id} = req.params;
+      const item = await notificationService.findNotification(not_dossier_id);
       if(item)
       {
         res.status(201).json(item);

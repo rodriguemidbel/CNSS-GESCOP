@@ -2,8 +2,8 @@ const VentefrsDAO = require('../dao/ventefrs');
 
 class VentefrsService {
   createVentefrs(VentefrsDto) {
-    const {vente_id,lot_id,fournisseur_id,grpent } = VentefrsDto;
-    return VentefrsDAO.createVentefrs(vente_id,lot_id,fournisseur_id,grpent);
+    const { vente_id,fournisseur_id,chef_file } = VentefrsDto;
+    return VentefrsDAO.createVentefrs( vente_id,fournisseur_id,chef_file);
   };
   getAllVentefrs(vente_id) {
     return VentefrsDAO.getAllVentefrs(vente_id);

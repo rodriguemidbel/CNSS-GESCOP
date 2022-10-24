@@ -1,0 +1,45 @@
+/*============================USER=====================================*/
+REM INSERTING into GCP."users"
+SET DEFINE OFF;
+Insert into "users" ("id","usergroup_id","matricule","name","username","password","fonction","localisation_id","service","telephone","email","adresse","statut","isconnected","created_by","modified_by","created_at","updated_at") values ('6','2','2226317A','DAKISSAGA P. Jacqueline','jdakissaga','cnss','Chef de service administratif et du personnel','2',null,null,null,null,'1',null,null,null,null,null);
+Insert into "users" ("id","usergroup_id","matricule","name","username","password","fonction","localisation_id","service","telephone","email","adresse","statut","isconnected","created_by","modified_by","created_at","updated_at") values ('8','1','2226494B','YAMEOGO Jean Noel','jyameogo','cnss',null,'1',null,null,null,null,'1',null,null,null,null,null);
+Insert into "users" ("id","usergroup_id","matricule","name","username","password","fonction","localisation_id","service","telephone","email","adresse","statut","isconnected","created_by","modified_by","created_at","updated_at") values ('1','1',null,'Rondouba Rodrigue','U202101','admin2021',null,null,null,'66484220','rodrigue.midbel@gmail.com','Secteur 24','1',null,null,null,null,null);
+Insert into "users" ("id","usergroup_id","matricule","name","username","password","fonction","localisation_id","service","telephone","email","adresse","statut","isconnected","created_by","modified_by","created_at","updated_at") values ('2','1',null,'Nikiema Laurent','U202102','admin',null,null,null,'77505873','lnikiema@gmail.com','Samandin','1',null,null,null,null,null);
+Insert into "users" ("id","usergroup_id","matricule","name","username","password","fonction","localisation_id","service","telephone","email","adresse","statut","isconnected","created_by","modified_by","created_at","updated_at") values ('3','2',null,'Topan Zakaria','U202103','admin',null,null,null,'76403214','ztopan@logo_services.com','Somgandé, secteur 13','1',null,null,null,null,null);
+Insert into "users" ("id","usergroup_id","matricule","name","username","password","fonction","localisation_id","service","telephone","email","adresse","statut","isconnected","created_by","modified_by","created_at","updated_at") values ('4','1',null,'CNSS','cnss','cnss',null,null,null,'25369874','cnss@cnss.bf','Centre ville, secteur 03','1',null,null,null,null,null);
+Insert into "users" ("id","usergroup_id","matricule","name","username","password","fonction","localisation_id","service","telephone","email","adresse","statut","isconnected","created_by","modified_by","created_at","updated_at") values ('5','1','2226849J','OUEDRAOGO Mohomed','moouedraogo','cnss','PRM','1','Service des marchés',null,null,null,'1',null,null,null,null,null);
+commit;
+Insert into GCP."users" ("id","usergroup_id","matricule","name","username","password","fonction","localisation_id","service","telephone","email","adresse","statut","isconnected","created_by","modified_by","created_at","updated_at") values ('7','2','2226498W','OUEDRAOGO Koniba','kouattara','cnss','Chef de service financier et comptable','2',null,null,null,null,'1',null,null,null,null,null);
+commit;
+
+/*============================FONCTIONNALITE=====================================*/
+REM INSERTING into ROOT."fonctionalites"
+SET DEFINE OFF;
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('1','Utilisateur',null,null,null,null,null);
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('2','Privilège',null,null,null,null,null);
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('3','Paramètre',null,null,null,null,null);
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('4','Fournisseur',null,null,null,null,null);
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('5','PPM',null,null,null,null,null);
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('6','Ligne du PPM',null,null,null,null,null);
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('7','Dossier & Lot',null,null,null,null,null);
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('8','Selection',null,null,null,null,null);
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('9','Caisse',null,null,null,null,null);
+Insert into "fonctionalites" ("id","libelle","description","created_by","modified_by","created_at","updated_at") values ('10','Execution',null,null,null,null,null);
+commit;
+
+
+/*============================PRIVILEGE==========================================*/
+REM INSERTING into ROOT."privileges"
+SET DEFINE OFF;
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('1','1','1','1','1','1','1',null,null,null,null);
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('2','1','2','1','1','1','1',null,null,null,null);
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('3','1','3','1','1','1','1',null,null,null,null);
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('4','1','4','1','1','1','0',null,null,null,null);
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('5','1','5','1','1','1','1',null,null,null,null);
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('6','1','6','1','1','1','1',null,null,null,null);
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('7','1','7','1','1','1','1',null,null,null,null);
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('8','1','8','1','1','1','1',null,null,null,null);
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('9','1','9','1','1','1','1',null,null,null,null);
+Insert into "privileges" ("id","usergroup_id","fonctionalite_id","view","add","edit","remove","created_by","modified_by","created_at","updated_at") values ('10','1','10','1','1','1','1',null,null,null,null);
+commit;
+

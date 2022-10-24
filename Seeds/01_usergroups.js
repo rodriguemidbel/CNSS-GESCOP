@@ -7,7 +7,8 @@ exports.seed = function(knex) {
       return knex('usergroups').insert([
         {id: 1, name: 'Super Administrateur', description: 'Groupe super admin'},
         {id: 2, name: 'Administrateur', description: 'Groupe admin'},
-        {id: 3, name: 'Informaticien', description: 'Groupe Informaticien'}
+        {id: 3, name: 'Informaticien', description: 'Groupe Informaticien'},
+		{id: 4, name: 'Caissier', description: 'Groupe caisse'}
       ]);
     });
 };

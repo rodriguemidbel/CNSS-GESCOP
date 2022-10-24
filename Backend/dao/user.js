@@ -29,6 +29,20 @@ class UserDAO {
     return await db('users');
   };
 
+  async findUserByFonction() {
+    return await db('users')
+    .select(
+      'users.id as id',
+      'users.usergroup_id as usergroup_id',
+      'users.name as name',
+      'users.username as username',
+      'users.fonction as fonction'
+    )
+    .where({
+      fonction : 'Caissier'
+    })
+  };
+
   async getOneUser(id) {
     return await db('users').where({id}).first();
   };

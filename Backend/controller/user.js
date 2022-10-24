@@ -25,6 +25,16 @@ class UserController {
       console.error(err);
     }
   };
+
+  async findUserByFonction(req, res) {
+    try {
+      const user = await userService.findUserByFonction();
+      res.status(201).json(user);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   async getOneUser(req, res) {
     try {
       const {id} = req.params;

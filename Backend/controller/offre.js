@@ -11,8 +11,8 @@ class OffreController {
   };
   async getAllOffre(req, res) {
     try {
-      const {dossier_id} = req.params;
-      const Offres = await offreService.getAllOffre(dossier_id);
+      const {off_dossier_id} = req.params;
+      const Offres = await offreService.getAllOffre(off_dossier_id);
       res.status(201).json(Offres);
     } catch (err) {
       console.error(err);
@@ -75,8 +75,8 @@ class OffreController {
 
   async findOffre(req, res) {
     try {
-      const {dossier_id} = req.params;
-      const item = await offreService.findOffre(dossier_id);
+      const {off_dossier_id} = req.params;
+      const item = await offreService.findOffre(off_dossier_id);
       if(item)
       {
         res.status(201).json(item);

@@ -2,8 +2,8 @@ const venteDAO = require('../dao/vente');
 
 class VenteService {
   createVente(VenteDto) {
-    const {dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,statut} = VenteDto;
-    return venteDAO.createVente(dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,statut);
+    const {vent_dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,vent_statut,grpent} = VenteDto;
+    return venteDAO.createVente(vent_dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,vent_statut,grpent);
   };
   getAllVente() {
     return venteDAO.getAllVente();
@@ -24,6 +24,22 @@ class VenteService {
 
   findVenteByNum(num_vente){
     return venteDAO.findVenteByNum(num_vente);
+  }
+
+  findVenteByDossID(vent_dossier_id){
+    return venteDAO.findVenteByDossID(vent_dossier_id);
+  }
+
+  findVenteByStatut(vent_statut){
+    return venteDAO.findVenteByStatut(vent_statut);
+  }
+
+  sumMontantAllVente(){
+    return venteDAO.sumMontantAllVente();
+  }
+
+  sumMontantVenteByStatut(vent_statut){
+    return venteDAO.sumMontantVenteByStatut(vent_statut);
   }
   
 }

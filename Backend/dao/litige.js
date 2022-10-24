@@ -1,7 +1,7 @@
 const db = require('../db/db');
 
 class LitigeDAO {
-  async createLitige(dossier_id,lot_id,motif,decision,date_ord,observation,resultat,plainte) {
+  async createLitige(dossier_id,lot_id,motif,decision,date_ord,fournisseur_id,resultat,plainte,fichier) {
     const [id] = await db('litiges')
       .insert({
         dossier_id,
@@ -9,9 +9,10 @@ class LitigeDAO {
         motif,
         decision,
         date_ord,
-        observation,
+        fournisseur_id,
         resultat,
-        plainte
+        plainte,
+        fichier
       })
       .returning('id');
 
@@ -32,8 +33,9 @@ class LitigeDAO {
         'litiges.motif as motif',
         'litiges.decision as decision',
         'litiges.date_ord as date_ord',
-        'litiges.observation as observation',
-        'litiges.resultat as resultat'
+        'litiges.fournisseur_id as fournisseur_id',
+        'litiges.resultat as resultat',
+        'litiges.fichier as fichier'
       )
       .where({dossier_id})
   };
@@ -68,8 +70,10 @@ class LitigeDAO {
         'litiges.motif as motif',
         'litiges.decision as decision',
         'litiges.date_ord as date_ord',
-        'litiges.observation as observation',
-        'litiges.resultat as resultat')
+        'litiges.fournisseur_id as fournisseur_id',
+        'litiges.resultat as resultat',
+        'litiges.fichier as fichier'
+        )
       .where({dossier_id})
   };
 

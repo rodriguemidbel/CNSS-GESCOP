@@ -2,11 +2,11 @@ const notificationDAO = require('../dao/notification');
 
 class notificationService {
   createNotification(NotificationDto) {
-    const { dossier_id,offre_id,numero,objet,date_notif,fournisseur_id,lot_id } = NotificationDto;
-    return notificationDAO.createNotification(dossier_id,offre_id,numero,objet,date_notif,fournisseur_id,lot_id);
+    const { not_dossier_id,offre_id,numero,objet,date_notif,fournisseur_id,lot_id } = NotificationDto;
+    return notificationDAO.createNotification(not_dossier_id,offre_id,numero,objet,date_notif,fournisseur_id,lot_id);
   };
-  getAllNotification(dossier_id) {
-    return notificationDAO.getAllNotification(dossier_id);
+  getAllNotification(not_dossier_id) {
+    return notificationDAO.getAllNotification(not_dossier_id);
   };
   getOneNotification(id) {
     return notificationDAO.getOneNotification(id);
@@ -18,8 +18,8 @@ class notificationService {
     return notificationDAO.updateNotification(id,changes);
   };
 
-  findNotification(dossier_id){
-      return notificationDAO.findNotification(dossier_id)
+  findNotification(not_dossier_id){
+      return notificationDAO.findNotification(not_dossier_id)
   }
 
   countNotification(annee){

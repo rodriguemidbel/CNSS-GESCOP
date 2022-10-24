@@ -1,13 +1,12 @@
 const db = require('../db/db');
 
 class VentefrsDAO {
-  async createVentefrs(vente_id,lot_id,fournisseur_id,grpent) {
+  async createVentefrs(vente_id,fournisseur_id,chef_file) {
     const [id] = await db('ventefrs')
       .insert({
         vente_id,
-        lot_id,
         fournisseur_id,
-        grpent
+        chef_file
       })
       .returning('id');
     return id;

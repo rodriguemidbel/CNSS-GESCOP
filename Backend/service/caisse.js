@@ -2,8 +2,8 @@ const caisseDAO = require('../dao/caisse');
 
 class caisseService {
   createCaisse(CaisseDto) {
-    const { num_recu,date_recu,vente_id,modepaiement_id } = CaisseDto;
-    return caisseDAO.createCaisse(num_recu,date_recu,vente_id,modepaiement_id);
+    const { num_recu,date_recu,vente_id,modepaiement_id,user_id } = CaisseDto;
+    return caisseDAO.createCaisse(num_recu,date_recu,vente_id,modepaiement_id,user_id);
   };
   getAllCaisse() {
     return caisseDAO.getAllCaisse();

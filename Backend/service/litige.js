@@ -2,8 +2,8 @@ const litigeDAO = require('../dao/litige');
 
 class litigeService {
   createLitige(LitigeDto) {
-    const { dossier_id,Litige_id,motif,decision,date_ord,observation,resultat,plainte } = LitigeDto;
-    return litigeDAO.createLitige(dossier_id,Litige_id,motif,decision,date_ord,observation,resultat,plainte);
+    const { dossier_id,lot_id,motif,decision,date_ord,fournisseur_id,resultat,plainte,fichier } = LitigeDto;
+    return litigeDAO.createLitige(dossier_id,lot_id,motif,decision,date_ord,fournisseur_id,resultat,plainte,fichier);
   };
   getAllLitige() {
     return litigeDAO.getAllLitige();

@@ -91,6 +91,24 @@ class DeliberationController {
     }
   };
 
+  async findDelibByLotID(req, res) {
+    try {
+      const {lot_id} = req.params;
+      const item = await deliberationService.findDelibByLotID(lot_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   
 }
 

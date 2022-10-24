@@ -74,6 +74,30 @@ class DeliberationDAO {
       .where({dossier_id})
   };
 
+  
+  async findDelibByLotID(lot_id) {
+    return await db('deliberations')
+    .join('dossiers', 'dossiers.id', 'deliberations.dossier_id')
+      .select(
+        'dossiers.numero_doss as numero',
+        'dossiers.intitule_doss as intitule',
+        'deliberations.id as id',
+        'deliberations.lot_id as lot_id',
+        'deliberations.date_convocation as date_convocation',
+        'deliberations.date_transpv_sign as date_transpv_sign',
+        'deliberations.date_retourpv_sign as date_retourpv_sign',
+        'deliberations.date_transpv_dgcmef as date_transpv_dgcmef',
+        'deliberations.typedelib as typedelib',
+        'deliberations.pvdeliberation as pv',
+        'deliberations.duree_execution as duree_execution',
+        'deliberations.montant_initiale as montant_initiale',
+        'deliberations.montant_corrige as montant_corrige'
+        
+      )
+      .where({lot_id})
+  };
+
+
  
 }
 

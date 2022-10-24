@@ -23,6 +23,10 @@ class deliberationService {
   findDeliberation(dossier_id){
       return deliberationDAO.findDeliberation(dossier_id)
   }
+
+  findDelibByLotID(lot_id){
+    return deliberationDAO.findDelibByLotID(lot_id)
+  }
   
 }
 

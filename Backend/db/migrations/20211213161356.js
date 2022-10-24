@@ -193,38 +193,26 @@ exports.up = function(knex) {
     })
     .createTable('ventes', (table) => {
       table.increments('id');
-      table.integer('dossier_id').references('id').inTable('dossiers').notNullable();
+      table.integer('vent_dossier_id').references('id').inTable('dossiers').notNullable();
       table.string('num_vente').notNullable();
       table.integer('fournisseur_id').references('id').inTable('fournisseurs');
       table.integer('lot_id').references('id').inTable('lots').notNullable();
       table.string('date_vente').notNullable();
       table.string('montant').notNullable();
-      table.string('statut');
+      table.boolean('vent_statut');
+      table.integer('grpent');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
     })
-    .createTable('ventefrs', (table) => {
-      table.increments('id');
-      table.integer('vente_id').references('id').inTable('ventes').notNullable();
-      table.integer('lot_id').references('id').inTable('lots').notNullable();
-      table.integer('fournisseur_id').references('id').inTable('fournisseurs').notNullable();
-      table.integer('grpent');
-      table.boolean('chef_file').defaultTo(false);
-      table.boolean('asf').defaultTo(false);
-      table.boolean('asc').defaultTo(false);
-      table.boolean('ajt').defaultTo(false);
-      table.boolean('drtss').defaultTo(false);
-      table.boolean('rccm').defaultTo(false);
-      table.boolean('cnf').defaultTo(false);
-      table.boolean('caut').defaultTo(false);
-    })
+    
     .createTable('caisses', (table) => {
       table.increments('id');
       table.string('num_recu').notNullable();
       table.string('date_recu').notNullable();
       table.integer('vente_id').references('id').inTable('ventes').notNullable();
       table.integer('modepaiement_id').references('id').inTable('modepaiements').notNullable();
+      table.integer('user_id').references('id').inTable('users');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -274,7 +262,7 @@ exports.up = function(knex) {
     })
     .createTable('offres', (table) => {
       table.increments('id');
-      table.integer('dossier_id').references('id').inTable('dossiers').notNullable();
+      table.integer('off_dossier_id').references('id').inTable('dossiers').notNullable();
       table.integer('fournisseur_id').references('id').inTable('fournisseurs').notNullable();
       table.integer('lot_id').references('id').inTable('lots').notNullable();
       table.string('date_depot');
@@ -359,9 +347,10 @@ exports.up = function(knex) {
       table.string('motif');
       table.string('decision').notNullable();
       table.string('date_ord');
-      table.string('observation');
+      table.integer('fournisseur_id').references('id').inTable('fournisseurs').notNullable();;
       table.string('resultat');
       table.string('plainte');
+      table.string('fichier');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -377,7 +366,7 @@ exports.up = function(knex) {
     })
     .createTable('notifications', (table) => {
       table.increments('id');
-      table.integer('dossier_id').references('id').inTable('dossiers').notNullable();
+      table.integer('not_dossier_id').references('id').inTable('dossiers').notNullable();
       table.integer('offre_id').references('id').inTable('offres').notNullable();
       table.string('numero');
       table.string('objet');
@@ -528,6 +517,26 @@ exports.up = function(knex) {
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
+    })
+    .createTable('ventefrs', (table) => {
+      table.increments('id');
+      table.integer('vente_id').references('id').inTable('ventes').notNullable();
+      table.integer('fournisseur_id').references('id').inTable('fournisseurs').notNullable();
+      table.boolean('chef_file').defaultTo(false);
+      table.integer('offre_id').references('id').inTable('offres');
+      table.boolean('asf').defaultTo(false);
+      table.boolean('asc').defaultTo(false);
+      table.boolean('ajt').defaultTo(false);
+      table.boolean('drtss').defaultTo(false);
+      table.boolean('rccm').defaultTo(false);
+      table.boolean('cnf').defaultTo(false);
+      table.boolean('caut').defaultTo(false);
+    })
+    .createTable('delibfrs', (table) => {
+      table.increments('id');
+      table.integer('delib_id').references('id').inTable('deliberations').notNullable();
+      table.integer('fournisseur_id').references('id').inTable('fournisseurs').notNullable();
+      table.boolean('statut').defaultTo(false);
     })
     
 };
