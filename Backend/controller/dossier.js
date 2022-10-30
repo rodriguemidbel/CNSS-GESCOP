@@ -115,6 +115,44 @@ class DossierController {
     }
   };
 
+  /*=========================*/
+  async findDossierByLoca(req, res) {
+    try {
+      const {annee,localisation_id} = req.params;
+      const item = await dossierService.findDossierByLoca(annee,localisation_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  async findDossierByLocaAndType(req, res) {
+    try {
+      const {annee,type_id,localisation_id} = req.params;
+      const item = await dossierService.findDossierByLocaAndType(annee,type_id,localisation_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  /*=========================*/
+
 
   async countDossier(req, res) {
     try {

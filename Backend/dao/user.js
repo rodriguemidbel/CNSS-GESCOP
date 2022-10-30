@@ -26,7 +26,25 @@ class UserDAO {
 
   
   async getAllUser() {
-    return await db('users');
+    return await db('users')
+    .join('usergroups', 'usergroups.id', 'users.usergroup_id')
+    .join('localisations', 'localisations.id', 'users.localisation_id')
+    .select(
+      'usergroups.id as groupid',
+      'usergroups.name as groupname',
+      'users.id as userid',
+      'users.name as name',
+      'users.username as username',
+      'users.password as password',
+      'users.telephone as telephone',
+      'users.email as email',
+      'users.adresse as adresse',
+      'users.service as service',
+      'users.localisation_id as localisation_id',
+      'users.created_by as created_by',
+      'users.modified_by as modified_by',
+      'localisations.sigle as localisation'
+    );
   };
 
   async findUserByFonction() {

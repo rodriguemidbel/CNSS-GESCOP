@@ -1,10 +1,41 @@
 const userService = require('../service/user');
 
-//const { genSaltSync,hashSync,compareSync } = require("bcrypt");
-
-//const { sign} = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 class UserController {
+  /*/////////////////////////////////////////////*/
+  async login(req, res) {
+    try
+    {
+      const { username } = req.body;
+      const { password } = req.body;
+      const user = await userService.login(username,password);
+      if(user)
+      {
+       
+       /*---*/
+       const accessToken = jwt.sign({user}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: 604800});
+       const refreshToken = jwt.sign({user}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1y'});
+       
+       /*----*/
+        res.status(201).json({user: user,accessToken: accessToken, refreshToken: refreshToken});
+        //console.log(user);
+       // console.log('AccessToken is :' +accessToken);
+        //console.log('RefreshToken is :' +refreshToken);
+      }
+      else
+      {
+        res.status(404).json({message: 'This username and/or password  not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+ 
+  }
+  
+  /*/////////////////////////////////////////////*/
   async createUser(req, res) {
     try {
      const body = req.body;
@@ -129,7 +160,7 @@ class UserController {
   };
 
  
-  async login(req, res) {
+  /*async login(req, res) {
     try
     {
       const { username } = req.body;
@@ -138,12 +169,12 @@ class UserController {
       if(user)
       {
         //const result = compareSync( password, user.password );
-        /*user.password = undefined;
-        const jsontoken = sign({user : user},process.env.JWT_KEY,{
+       /*user.password = undefined;
+        const jsontoken = jwt({user : user},process.env.JWT_KEY,{
           expiresIn : "1h"
         });*/
         // token: jsontoken
-        res.status(201).json({user: user});
+       /* res.status(201).json({user: user});
       }
       else
       {
@@ -154,6 +185,6 @@ class UserController {
       console.error(err);
     }
  
-  }
+  }*/
 }
 module.exports = new UserController();

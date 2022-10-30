@@ -168,6 +168,50 @@ class DossierDAO {
     .orderBy('dossiers.id', 'asc')
   };
 
+  async findDossierByLoca(annee,localisation_id) {
+    return await db('dossiers')
+    .join('planitems', 'planitems.id', 'dossiers.planitem_id')
+    .join('plans', 'plans.id', 'planitems.plan_id')
+    .select(
+     'plans.id as planid',
+     'plans.annee as annee',
+     'plans.statut as statut',
+     'planitems.id as planitemid',
+     'planitems.num_ordre as num_ordre',
+     'planitems.budget as budget',
+     'planitems.imputation as imputation',
+     'planitems.montant_estime as montant_estime',
+     'planitems.montant_depense as montant_depense',
+     'planitems.credit as credit',
+     'planitems.designation as designation',
+     'planitems.nbr_lot as nbr_lot',
+     'planitems.mode as mode',
+     'planitems.date_lanc as periode_lanc',
+     'planitems.date_reel_lanc as periode_reel_lanc',
+     'planitems.date_remise as periode_remise',
+     'planitems.date_reel_remise as periode_reel_remise',
+     'planitems.temp as temp',
+     'planitems.temp_reel as temp_reel',
+     'planitems.date_prob_demarrage as date_prob_demarrage',
+     'planitems.date_reel_demarrage as date_reel_demarrage',
+     'planitems.delai_exe as delai_exe',
+     'planitems.delai_reel_exe as delai_reel_exe',
+     'planitems.date_prob_fin as date_prob_fin',
+     'planitems.date_reel_fin as date_reel_fin',
+     'planitems.gestionnaire as gestionnaire',
+     'planitems.localisation_id as localisation_id',    
+     'dossiers.id as id',
+     'dossiers.numero_doss as numero_doss',
+     'dossiers.intitule_doss as intitule_doss',
+     'dossiers.date_trans_sign as date_trans_sign',
+     'dossiers.date_retour_sign as date_retour_sign',
+     'dossiers.date_trans_dgcmef as date_trans_dgcmef',
+     'dossiers.dossier as dossier'
+ )
+ .where({annee,localisation_id})
+ .orderBy('dossiers.id', 'asc')
+};
+
 
   async findDossierByType(annee,type_id) {
     return await db('dossiers')
@@ -211,6 +255,51 @@ class DossierDAO {
  )
  .where({annee,type_id})
  .orderBy('dossiers.id', 'asc')
+};
+
+async findDossierByLocaAndType(annee,type_id,localisation_id) {
+  return await db('dossiers')
+  .join('planitems', 'planitems.id', 'dossiers.planitem_id')
+  .join('plans', 'plans.id', 'planitems.plan_id')
+  .select(
+   'plans.id as planid',
+   'plans.annee as annee',
+   'plans.statut as statut',
+   'planitems.id as planitemid',
+   'planitems.num_ordre as num_ordre',
+   'planitems.budget as budget',
+   'planitems.imputation as imputation',
+   'planitems.montant_estime as montant_estime',
+   'planitems.montant_depense as montant_depense',
+   'planitems.credit as credit',
+   'planitems.designation as designation',
+   'planitems.nbr_lot as nbr_lot',
+   'planitems.mode as mode',
+   'planitems.date_lanc as periode_lanc',
+   'planitems.date_reel_lanc as periode_reel_lanc',
+   'planitems.date_remise as periode_remise',
+   'planitems.date_reel_remise as periode_reel_remise',
+   'planitems.temp as temp',
+   'planitems.temp_reel as temp_reel',
+   'planitems.date_prob_demarrage as date_prob_demarrage',
+   'planitems.date_reel_demarrage as date_reel_demarrage',
+   'planitems.delai_exe as delai_exe',
+   'planitems.delai_reel_exe as delai_reel_exe',
+   'planitems.date_prob_fin as date_prob_fin',
+   'planitems.date_reel_fin as date_reel_fin',
+   'planitems.gestionnaire as gestionnaire', 
+   'planitems.localisation_id as localisation_id',
+   'planitems.type_id as type_id',
+   'dossiers.id as id',
+   'dossiers.numero_doss as numero_doss',
+   'dossiers.intitule_doss as intitule_doss',
+   'dossiers.date_trans_sign as date_trans_sign',
+   'dossiers.date_retour_sign as date_retour_sign',
+   'dossiers.date_trans_dgcmef as date_trans_dgcmef',
+   'dossiers.dossier as dossier'
+)
+.where({annee,type_id,localisation_id})
+.orderBy('dossiers.id', 'asc')
 };
 
   async countDossier(annee) {

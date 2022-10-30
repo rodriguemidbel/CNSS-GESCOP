@@ -31,6 +31,14 @@ class dossierService {
     return dossierDAO.findDossierByType(annee,type_id)
   }
 
+  findDossierByLoca(annee,localisation_id){
+    return dossierDAO.findDossierByLoca(annee,localisation_id)
+  }
+
+  findDossierByLocaAndType(annee,type_id,localisation_id){
+    return dossierDAO.findDossierByLocaAndType(annee,type_id,localisation_id)
+  }
+
 countDossier(annee){
     return dossierDAO.countDossier(annee)
 }

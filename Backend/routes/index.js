@@ -1,4 +1,9 @@
 const express = require('express');
+
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+
 const usergroupController = require('../controller/usergroup');
 const userController = require('../controller/user');
 const modeController = require('../controller/mode');
@@ -61,6 +66,25 @@ const delibfrsController = require('../controller/delibfrs');
 
 
 const router = express.Router();
+
+/*=========================================*/
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+  
+    if (!token) {
+      return res.sendStatus(401);
+    }
+  
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) {
+        return res.sendStatus(401);
+      }
+      req.user = user;
+      next();
+    });
+  }
+  /*=========================================*/
 
 /*-------------------------USERGROUP---------------------------------*/
 router.post('/createUsergroup', usergroupController.createUsergroup);
@@ -179,9 +203,12 @@ router.get('/getAllDossier', dossierController.getAllDossier);
 router.get('/getOneDossier/:id', dossierController.getOneDossier);
 router.delete('/removeDossier/:id', dossierController.removeDossier);
 router.patch('/updateDossier/:id', dossierController.updateDossier);
-router.get('/findDossier/:annee', dossierController.findDossier);
 
+router.get('/findDossier/:annee', dossierController.findDossier);
 router.get('/findDossierByType/:annee/:type_id', dossierController.findDossierByType);
+
+router.get('/findDossierByLoca/:annee/:localisation_id', dossierController.findDossierByLoca);
+router.get('/findDossierByLocaAndType/:annee/:type_id/:localisation_id', dossierController.findDossierByLocaAndType);
 
 router.get('/countDossier/:annee', dossierController.countDossier);
 
@@ -451,11 +478,6 @@ router.delete('/removeSeuilmode/:id', seuilmodeController.removeSeuilmode);
 router.patch('/updateSeuilmode/:id', seuilmodeController.updateSeuilmode);
 router.get('/findSeuilmode/:type_id/:mode', seuilmodeController.findSeuilmode);
 
-/*-------------------------Groupement----------------------------------*/
-router.post('/createDelibFrs',delibfrsController.createDelibFrs);
-router.get('/getAllDelibFrs', delibfrsController.getAllDelibFrs);
-router.get('/getOneDelibFrs/:id', delibfrsController.getOneDelibFrs);
-router.delete('/removeDelibFrs/:id', delibfrsController.removeDelibFrs);
-router.patch('/updateDelibFrs/:id', delibfrsController.updateDelibFrs);
+
 
 module.exports = router;

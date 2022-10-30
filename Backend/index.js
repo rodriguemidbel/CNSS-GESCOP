@@ -2,11 +2,15 @@ const express = require('express');
 const router = require('./routes');
 const multer = require('multer');
 
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const app = express();
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
 
-
+/*---------------*/  
 app.use((request, response, next) => {
    
     response.setHeader('Cross-Origin-Request','*');
@@ -23,6 +27,28 @@ app.use((request, response, next) => {
    
     next();
 });
+/*//////////////////////*/
+app.post('/api/refreshToken', (req, res) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) {
+      return res.sendStatus(401);
+    }
+  
+    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+      if (err) {
+        return res.sendStatus(401);
+      }
+      // TODO : check en bdd que le user a toujours les droit et qu'il existe toujours
+      delete user.iat;
+      delete user.exp;
+      const refreshedToken = generateAccessToken(user);
+      res.send({
+        accessToken: refreshedToken,
+      });
+    });
+  });
+  /*//////////////////////////////////////*/
 
 
 app.use(router);
