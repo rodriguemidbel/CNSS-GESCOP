@@ -15,19 +15,20 @@ class VentefrsDAO {
   
   async getAllVentefrs(vente_id) {
     return await db('ventefrs')
+    .join('fournisseurs','fournisseurs.id','ventefrs.fournisseur_id')
     .select(
-        'ventefrs.id as fourID',
-        'ventefrs.vente_id as vente_id',
-        'ventefrs.lot_id as lot_id',
+        'fournisseurs.raison_sociale as raison_sociale',
+        'ventefrs.id as id',
         'ventefrs.fournisseur_id as fournisseur_id',
-        'ventefrs.groupement_id as groupement_id',
+        'ventefrs.vente_id as vente_id',
         'ventefrs.asf as asf',
         'ventefrs.asc as asc',
         'ventefrs.ajt as ajt',
         'ventefrs.drtss as drtss',
         'ventefrs.rccm as rccm',
         'ventefrs.cnf as cnf',
-        'ventefrs.caut as caut'
+        'ventefrs.caut as caut',
+        'ventefrs.chef_file as chef_file'
     )
     .where({vente_id})
   };

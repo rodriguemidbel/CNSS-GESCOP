@@ -149,6 +149,9 @@ router.delete('/removeFournisseur/:id', fournisseurController.removeFournisseur)
 router.patch('/updateFournisseur/:id', fournisseurController.updateFournisseur);
 
 router.get('/findFrs/:ifu/:rccm', fournisseurController.findFrs);
+
+router.get('/getAllEntreprise', fournisseurController.getAllEntreprise);
+router.get('/getAllGroupement', fournisseurController.getAllGroupement);
 /*-------------------------BUDGET---------------------------------*/
 router.post('/createBudget', budgetController.createBudget);
 router.post('/createMultipleBudget', budgetController.createMultipleBudget);
@@ -196,6 +199,8 @@ router.patch('/updatePlanitem/:id', planitemController.updatePlanitem);
 router.get('/findPlanitem/:annee', planitemController.findPlanitem);
 router.get('/findLigneByPlanID/:plan_id', planitemController.findLigneByPlanID);  
 router.get('/findPlanitemByLoc/:plan_id/:localisation_id', planitemController.findPlanitemByLoc);
+
+router.get('/countPlanitem/:plan_id/:localisation_id/:type_id', planitemController.countPlanitem);
 /*-------------------------DOSSIER---------------------------------*/
 
 router.post('/createDossier', dossierController.createDossier);
@@ -235,6 +240,8 @@ router.get('/findVenteByStatut/:vent_statut',venteController.findVenteByStatut);
 
 router.get('/sumMontantAllVente',venteController.sumMontantAllVente);
 router.get('/sumMontantVenteByStatut/:vent_statut',venteController.sumMontantVenteByStatut);
+
+router.get('/findVenteID/:lot_id/:fournisseur_id', venteController.findVenteID);
 /*-------------------------CAISSE---------------------------------*/
 router.post('/createCaisse', caisseController.createCaisse);
 router.get('/getAllCaisse', caisseController.getAllCaisse);

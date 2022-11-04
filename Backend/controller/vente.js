@@ -180,6 +180,25 @@ class VenteController {
     }
   };
 
+  async findVenteID(req, res) {
+    try {
+      const {lot_id,fournisseur_id} = req.params;
+      const item = await venteService.findVenteID(lot_id,fournisseur_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
 
 
   

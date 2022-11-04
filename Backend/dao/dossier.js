@@ -32,7 +32,6 @@ class DossierDAO {
     .select(
       'plans.id as planID',
       'plans.annee as annee',
-      'plans.statut as statut',
       'planitems.id as planitemid',
       'planitems.num_ordre as num_ordre',
       'planitems.budget as budget',
@@ -162,7 +161,8 @@ class DossierDAO {
         'dossiers.date_trans_sign as date_trans_sign',
         'dossiers.date_retour_sign as date_retour_sign',
         'dossiers.date_trans_dgcmef as date_trans_dgcmef',
-        'dossiers.dossier as dossier'
+        'dossiers.dossier as dossier',
+        'dossiers.statut as statut'
     )
     .where({annee})
     .orderBy('dossiers.id', 'asc')
@@ -206,7 +206,8 @@ class DossierDAO {
      'dossiers.date_trans_sign as date_trans_sign',
      'dossiers.date_retour_sign as date_retour_sign',
      'dossiers.date_trans_dgcmef as date_trans_dgcmef',
-     'dossiers.dossier as dossier'
+     'dossiers.dossier as dossier',
+     'dossiers.statut as statut'
  )
  .where({annee,localisation_id})
  .orderBy('dossiers.id', 'asc')
@@ -251,7 +252,8 @@ class DossierDAO {
      'dossiers.date_trans_sign as date_trans_sign',
      'dossiers.date_retour_sign as date_retour_sign',
      'dossiers.date_trans_dgcmef as date_trans_dgcmef',
-     'dossiers.dossier as dossier'
+     'dossiers.dossier as dossier',
+     'dossiers.statut as statut'
  )
  .where({annee,type_id})
  .orderBy('dossiers.id', 'asc')
@@ -296,7 +298,8 @@ async findDossierByLocaAndType(annee,type_id,localisation_id) {
    'dossiers.date_trans_sign as date_trans_sign',
    'dossiers.date_retour_sign as date_retour_sign',
    'dossiers.date_trans_dgcmef as date_trans_dgcmef',
-   'dossiers.dossier as dossier'
+   'dossiers.dossier as dossier',
+   'dossiers.statut as statut'
 )
 .where({annee,type_id,localisation_id})
 .orderBy('dossiers.id', 'asc')

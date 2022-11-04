@@ -156,6 +156,27 @@ class VenteDAO {
     .where({vent_statut})
   };
 
+  async findVenteID(lot_id,fournisseur_id) {
+    return await db('ventes')
+    .join('lots','lots.id','ventes.lot_id')
+    .join('fournisseurs','fournisseurs.id','ventes.fournisseur_id')
+    .select(
+        'lots.id as lotID',
+        'lots.num_lot as num_lot',
+        'lots.intitule_lot as intitule_lot',
+        'lots.montant_vente as montant_vente',
+        'lots.montant_lot as montant_lot',
+        'fournisseurs.id as fourID',
+        'fournisseurs.raison_sociale as raison_sociale',
+        'ventes.id as vente_id',
+        'ventes.num_vente as num_vente',
+        'ventes.date_vente as date_vente',
+        'ventes.montant as montant',
+        'ventes.grpent as grpent'
+    )
+    .where({lot_id,fournisseur_id})
+  };
+
  
 }
 

@@ -22,6 +22,19 @@ class FournisseurService {
     return fournisseurDAO.findFrs(ifu,rccm);
   }
 
+
+  findFrs(ifu,rccm){
+    return fournisseurDAO.findFrs(ifu,rccm);
+  }
+
+  getAllEntreprise(){
+    return fournisseurDAO.getAllEntreprise();
+  }
+
+  getAllGroupement(){
+    return fournisseurDAO.getAllGroupement();
+  }
+
   
 }
 

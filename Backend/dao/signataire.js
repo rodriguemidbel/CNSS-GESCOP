@@ -76,7 +76,7 @@ class SignataireDAO {
         'localisations.dr_no as dr_no',
         'localisations.sigle as sigle'
       )
-      .where({localisation_id})
+      .where({localisation_id,actif : 1})
   };
 
  

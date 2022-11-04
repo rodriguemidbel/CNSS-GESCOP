@@ -285,6 +285,12 @@ class PlanitemDAO {
   .orWhereLike('email', '%name%')
   */
 
+  async countPlanitem(plan_id,localisation_id,type_id) {
+    return await db('planitems')
+    .count('planitems.id as nbr')
+    .where({plan_id,localisation_id,type_id})
+  };
+
 }
 
 module.exports = new PlanitemDAO();

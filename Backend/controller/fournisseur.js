@@ -108,6 +108,42 @@ class FournisseurController {
     }
   };
 
+  async getAllEntreprise(req, res) {
+    try {
+      //const {ifu,rccm} = req.params;
+      const item = await fournisseurService.getAllEntreprise();
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  async getAllGroupement(req, res) {
+    try {
+      //const {ifu,rccm} = req.params;
+      const item = await fournisseurService.getAllGroupement();
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   
 }
 

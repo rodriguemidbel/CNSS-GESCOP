@@ -67,6 +67,7 @@ class CaisseDAO {
     .select(
         'users.name as name',
         'lots.id as lotID',
+        'lots.num_lot as num_lot',
         'lots.intitule_lot as intitule_lot',
         'fournisseurs.id as fourID',
         'fournisseurs.raison_sociale as raison_sociale',

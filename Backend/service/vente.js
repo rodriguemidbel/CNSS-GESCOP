@@ -41,6 +41,10 @@ class VenteService {
   sumMontantVenteByStatut(vent_statut){
     return venteDAO.sumMontantVenteByStatut(vent_statut);
   }
+
+  findVenteID(lot_id,fournisseur_id){
+    return venteDAO.findVenteID(lot_id,fournisseur_id);
+  }
   
 }
 

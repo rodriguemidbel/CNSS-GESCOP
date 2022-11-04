@@ -35,6 +35,10 @@ class planitemService {
   findPlanitemByLoc(plan_id,localisation_id){
          return planitemDAO.findPlanitemByLoc(plan_id,localisation_id);
   };
+
+  countPlanitem(plan_id,localisation_id,type_id){
+    return planitemDAO.countPlanitem(plan_id,localisation_id,type_id);
+};
 }
 
 module.exports = new planitemService();

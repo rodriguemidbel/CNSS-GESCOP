@@ -51,6 +51,14 @@ class FournisseurDAO {
     .where({ifu,rccm});
 };
 
+async getAllEntreprise() {
+  return await db('fournisseurs').where({type : 'Entreprise'});
+};
+
+async getAllGroupement() {
+  return await db('fournisseurs').where({type : 'Groupement'});
+};
+
  
 }
 

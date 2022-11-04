@@ -9,7 +9,7 @@ exports.seed = function(knex) {
         {id: 2, name: 'PRM', description: 'Personne Responsable des marchés au Siège'},
         {id: 3, name: 'DR', description: 'Direction Régionale'},
 		{id: 4, name: 'Informaticien', description: 'Informaticien'},
-		{id: 5, name: 'Caisse', description: 'Groupe des caissiers'},
+		{id: 5, name: 'Caisse', description: 'Groupe des caissiers'}
       ]);
     });
 };

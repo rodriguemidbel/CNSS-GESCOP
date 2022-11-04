@@ -129,6 +129,24 @@ class PlanitemController {
     }
   };
 
+  async countPlanitem(req, res) {
+    try {
+      const {plan_id,localisation_id,type_id} = req.params;
+      const item = await planitemService.countPlanitem(plan_id,localisation_id,type_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   
 }
 

@@ -34,6 +34,7 @@ class OffreDAO {
         'lots.intitule_lot as intitule_lot',
         'offres.id as id',
         'offres.fournisseur_id as fournisseur_id',
+        'offres.lot_id as lot_id',
         'offres.montant_offre as montant_offre',
         'offres.date_depot as date_depot',
         'offres.heure_depot as heure_depot',
