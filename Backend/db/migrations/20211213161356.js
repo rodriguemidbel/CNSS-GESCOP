@@ -306,6 +306,11 @@ exports.up = function(knex) {
       table.string('date_transpv_dgcmef');
       table.string('lot_id');
       table.string('attributaire');
+      table.boolean('attr_statut').defaultTo(false);
+      table.string('attributaire2');
+      table.boolean('attr_statut2').defaultTo(false);
+      table.string('attributaire3');
+      table.boolean('attr_statut3').defaultTo(false);
       table.string('montant_initiale');
       table.string('montant_corrige');
       table.string('duree_execution');

@@ -3,6 +3,8 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+//const nodemailer = require('nodemailer');
+
 
 const usergroupController = require('../controller/usergroup');
 const userController = require('../controller/user');
@@ -87,7 +89,7 @@ function authenticateToken(req, res, next) {
   /*=========================================*/
 
 /*-------------------------USERGROUP---------------------------------*/
-router.post('/createUsergroup', usergroupController.createUsergroup);
+router.post('/createUsergroup',usergroupController.createUsergroup);
 router.get('/getAllUsergroup', usergroupController.getAllUsergroup);
 router.get('/getOneUsergroup/:id', usergroupController.getOneUsergroup);
 router.delete('/removeUsergroup/:id', usergroupController.removeUsergroup);
@@ -142,16 +144,16 @@ router.delete('/removeModepaie/:id', modepaiementController.removeModepaie);
 router.patch('/updateModepaie/:id', modepaiementController.updateModepaie);
 
 /*-------------------------FOURNISSEUR-------------------------*/
-router.post('/createFournisseur', fournisseurController.createFournisseur);
-router.get('/getAllFournisseur', fournisseurController.getAllFournisseur);
-router.get('/getOneFournisseur/:id', fournisseurController.getOneFournisseur);
-router.delete('/removeFournisseur/:id', fournisseurController.removeFournisseur);
-router.patch('/updateFournisseur/:id', fournisseurController.updateFournisseur);
+router.post('/createFournisseur',authenticateToken, fournisseurController.createFournisseur);
+router.get('/getAllFournisseur',authenticateToken,fournisseurController.getAllFournisseur);
+router.get('/getOneFournisseur/:id',authenticateToken, fournisseurController.getOneFournisseur);
+router.delete('/removeFournisseur/:id',authenticateToken, fournisseurController.removeFournisseur);
+router.patch('/updateFournisseur/:id',authenticateToken, fournisseurController.updateFournisseur);
 
-router.get('/findFrs/:ifu/:rccm', fournisseurController.findFrs);
+router.get('/findFrs/:ifu/:rccm',authenticateToken, fournisseurController.findFrs);
 
-router.get('/getAllEntreprise', fournisseurController.getAllEntreprise);
-router.get('/getAllGroupement', fournisseurController.getAllGroupement);
+router.get('/getAllEntreprise',authenticateToken, fournisseurController.getAllEntreprise);
+router.get('/getAllGroupement',authenticateToken, fournisseurController.getAllGroupement);
 /*-------------------------BUDGET---------------------------------*/
 router.post('/createBudget', budgetController.createBudget);
 router.post('/createMultipleBudget', budgetController.createMultipleBudget);
@@ -312,9 +314,6 @@ router.patch('/updateDeliberation/:id', deliberationController.updateDeliberatio
 router.get('/findDeliberation/:dossier_id', deliberationController.findDeliberation);
 
 router.get('/findDelibByLotID/:lot_id', deliberationController.findDelibByLotID);
-
-
-
 
 /*-------------------------RESULTAT---------------------------------*/
 router.post('/createResultat',resultatController.createResultat);
@@ -483,8 +482,33 @@ router.get('/getAllSeuilmode', seuilmodeController.getAllSeuilmode);
 router.get('/getOneSeuilmode/:id', seuilmodeController.getOneSeuilmode);
 router.delete('/removeSeuilmode/:id', seuilmodeController.removeSeuilmode);
 router.patch('/updateSeuilmode/:id', seuilmodeController.updateSeuilmode);
-router.get('/findSeuilmode/:type_id/:mode', seuilmodeController.findSeuilmode);
+router.get('/findSeuilmode/:type_id/:mode',authenticateToken, seuilmodeController.findSeuilmode);
+/*========Envoie de mail ========================*/
+/*
+let mailTransport = nodemailer.createTransport({
+      service: "smtp.gmail.com",
+      auth:{
+          user:"rodrigue.midbel@gmail.com",
+          pass:"dream787liner"
+      }
+});
 
+let details = {
+  from : "rodrigue.midbel@gmail.com",
+  to: "rodrigue.midbel@gmail.com",
+  subject: "Angular Mail Test 1",
+  text: "My first mail to test nodemailer with Node js"
+}
+
+mailTransport.sendMail(details,(err)=>{
+    if(err){
+       console.log("It has anerror : ", err);
+    }
+    else{
+      console.log("Email has sent !!!!");
+    }
+  }
+)*/
 
 
 module.exports = router;

@@ -2,7 +2,7 @@ const db = require('../db/db');
 
 class DeliberationDAO {
   async createDeliberation(dossier_id,date_convocation,date_transpv_sign,date_retourpv_sign,date_transpv_dgcmef,
-    lot_id,attributaire,montant_initiale,montant_corrige,duree_execution,typedelib,pvdeliberation) {
+         lot_id,attributaire,attr_statut,attributaire2,attr_statut2,attributaire3,attr_statut3,montant_initiale,montant_corrige,duree_execution,typedelib,pvdeliberation) {
     const [id] = await db('deliberations')
       .insert({
         dossier_id,
@@ -12,6 +12,11 @@ class DeliberationDAO {
         date_transpv_dgcmef,
         lot_id,
         attributaire,
+        attr_statut,
+        attributaire2,
+        attr_statut2,
+        attributaire3,
+        attr_statut3,
         montant_initiale,
         montant_corrige,
         duree_execution,

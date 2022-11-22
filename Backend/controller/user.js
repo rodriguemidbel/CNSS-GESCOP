@@ -15,9 +15,8 @@ class UserController {
       {
        
        /*---*/
-       const accessToken = jwt.sign({user}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: 604800});
+       const accessToken = jwt.sign({user}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: 604800});  
        const refreshToken = jwt.sign({user}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1y'});
-       
        /*----*/
         res.status(201).json({user: user,accessToken: accessToken, refreshToken: refreshToken});
         //console.log(user);

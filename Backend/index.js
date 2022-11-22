@@ -10,6 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
+//const nodemailer = require('nodemailer');
+
 /*---------------*/  
 app.use((request, response, next) => {
    
@@ -87,5 +89,29 @@ if (!files) {
 }
     res.send({sttus:  'ok'});
 })
+
+/*====================Envoie de mail====================*/
+/*app.post('/sendmail',(req,res)=>{
+  let transporter = nodemailer.createTransport({
+      service: 'smtp.meditekbf.com',
+      auth: {
+          user: 'rodrigue.midbel@gmail.com',
+          password: 'dream787liner'
+      }
+  });
+  var mailOptions = {
+      from: 'rodrigue.midbel@gmail.com',
+      to: 'rodrigue.midbel@gmail.com',
+      subject: 'NODEMAILER TEST 1',
+      text: 'Mail test de  nodemailer' 
+  };
+  transporter.sendMail(mailOptions,(err,res)=>{
+      if(err){
+          console.log(err);
+      }
+      else {
   
+      }
+  })
   
+}) */

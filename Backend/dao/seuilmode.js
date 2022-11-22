@@ -20,10 +20,12 @@ class SeuilmodeDAO {
   async getAllSeuilmode() {
     return await db('seuilmodes')
       .join('types', 'types.id', 'seuilmodes.type_id')
+      .join('modes', 'modes.id', 'seuilmodes.mode')
       .select(
+        'modes.libelle  as procedure',
         'seuilmodes.id as id',
         'seuilmodes.type_id as type_id',
-        'seuilmodes.mode as procedure',
+        'seuilmodes.mode as mode',
         'seuilmodes.min as min',
         'seuilmodes.max as max',
         'types.libelle as type',
