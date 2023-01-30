@@ -158,6 +158,7 @@ exports.up = function(knex) {
       table.string('gestionnaire');
       table.integer('type_id').references('id').inTable('types').notNullable();
       table.integer('localisation_id').references('id').inTable('localisations').notNullable();
+      table.integer('ppm');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -173,6 +174,7 @@ exports.up = function(knex) {
       table.string('taux_reception');
       table.string('niveau_traitement');
       table.string('taux_avencement');
+      table.boolean('ordre_cmd').defaultTo(false);
       table.string('dossier');
       table.string('statut');
       table.integer('created_by');
@@ -187,6 +189,7 @@ exports.up = function(knex) {
       table.integer('montant_lot').notNullable();
       table.integer('montant_vente');
       table.string('statut');
+      table.string('observation');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -269,7 +272,13 @@ exports.up = function(knex) {
       table.string('heure_depot');
       table.string('nom_prenom_dep');
       table.string('telephone_dep');
-      table.string('montant_offre');
+      table.integer('montant_offre');
+      table.integer('montant_min');
+      table.integer('montant_max');
+      table.string('banque');
+      table.string('ref_caution');
+      table.string('mnt_caution');
+      table.integer('delai_exe');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -300,20 +309,10 @@ exports.up = function(knex) {
     .createTable('deliberations', (table) => {
       table.increments('id');
       table.integer('dossier_id').references('id').inTable('dossiers').notNullable();
-      table.string('date_convocation');
+      table.string('date_delib');
       table.string('date_transpv_sign');
       table.string('date_retourpv_sign');
       table.string('date_transpv_dgcmef');
-      table.string('lot_id');
-      table.string('attributaire');
-      table.boolean('attr_statut').defaultTo(false);
-      table.string('attributaire2');
-      table.boolean('attr_statut2').defaultTo(false);
-      table.string('attributaire3');
-      table.boolean('attr_statut3').defaultTo(false);
-      table.string('montant_initiale');
-      table.string('montant_corrige');
-      table.string('duree_execution');
       table.string('typedelib');
       table.string('pvdeliberation');
       table.integer('created_by');
@@ -325,7 +324,15 @@ exports.up = function(knex) {
       table.string('libelle');
       table.integer('dossier_id').references('id').inTable('dossiers').notNullable();
       table.string('date_effec_ana');
-      table.string('date_trans_dgcmef');
+      table.string('lot_id');
+      table.string('attributaire');
+      table.integer('montant_init');
+      table.integer('montant_corri');
+      table.integer('montant_min_init');
+      table.integer('montant_min_corri');
+      table.integer('montant_max_init');
+      table.integer('montant_max_corri');
+      table.string('duree_execution');
       table.string('observation');
       table.string('rapport');
       table.integer('created_by');
@@ -338,9 +345,8 @@ exports.up = function(knex) {
       table.string('date_par_res').notNullable();
       table.string('num_par_res').notNullable();
       table.string('attributaire');
-      table.string('litige');
       table.string('fichierpub');
-      table.string('fichierlitige');
+      table.string('fichier');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -372,17 +378,16 @@ exports.up = function(knex) {
     .createTable('notifications', (table) => {
       table.increments('id');
       table.integer('not_dossier_id').references('id').inTable('dossiers').notNullable();
-      table.integer('offre_id').references('id').inTable('offres').notNullable();
       table.string('numero');
-      table.string('objet');
       table.string('date_notif');
       table.integer('fournisseur_id').references('id').inTable('fournisseurs').notNullable();
       table.integer('lot_id').references('id').inTable('lots').notNullable();
+      table.string('fichiernot');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
     })
-    .createTable('marches', (table) => {
+    .createTable('marches', (table) => { 
       table.increments('id');
       table.integer('dossier_id').references('id').inTable('dossiers').notNullable();
       table.string('num_ref').notNullable();
@@ -390,10 +395,10 @@ exports.up = function(knex) {
       table.integer('notification_id').references('id').inTable('notifications').notNullable();
       table.integer('fournisseur_id').references('id').inTable('fournisseurs').notNullable();
       table.integer('lot_id').references('id').inTable('lots').notNullable();
-      table.integer('montant').notNullable();
-      table.string('montant_lettre');
-      table.integer('delai').notNullable();
-      table.string('delai_lettre');
+      table.integer('montant');
+      table.integer('montant_min');
+      table.integer('montant_max');
+      table.integer('delai');
       table.string('date_rem_sign');
       table.string('date_retour_sign');
       table.string('date_trans_visa');
@@ -404,6 +409,7 @@ exports.up = function(knex) {
       table.string('date_rem_enr');
       table.string('date_retour_enr');
       table.string('marche');
+      table.string('num_visa');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -411,6 +417,7 @@ exports.up = function(knex) {
     .createTable('cautions', (table) => {
       table.increments('id');
       table.integer('dossier_id').references('id').inTable('dossiers').notNullable();
+      table.string('nature_caution');
       table.string('soumissionaire');
       table.string('banque');
       table.string('montant_caution');
@@ -418,6 +425,8 @@ exports.up = function(knex) {
       table.string('date_trans');
       table.string('date_lettre');
       table.string('date_recp_lettre');
+      table.string('lettre_demande');
+      table.string('lettre_confirmation');
       table.string('caution');
       table.integer('created_by');
       table.integer('modified_by');
@@ -427,6 +436,7 @@ exports.up = function(knex) {
       table.increments('id');
       table.integer('marche_id').references('id').inTable('marches').notNullable();
       table.string('date_rem_site').notNullable();
+      table.string('fichier');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -441,15 +451,46 @@ exports.up = function(knex) {
     .createTable('ordreservs', (table) => {
       table.increments('id');
       table.integer('marche_id').references('id').inTable('marches').notNullable();
-      table.integer('typordre_id').references('id').inTable('typordres').notNullable();
       table.string('ref');
-      table.string('objet');
-      table.integer('fournisseur_id').references('id').inTable('fournisseurs').notNullable();
       table.string('date_notif');
       table.string('date_demarrage');
       table.string('charge_notif');
-      table.string('charge_notif_dist');
+      table.string('charge_notif_titre');
+      table.integer('delai_couru');
+      table.integer('delai_restant');
       table.string('ordre');
+      table.integer('created_by');
+      table.integer('modified_by');
+      table.timestamps(true, false);
+    })
+    .createTable('ordsuspensions', (table) => {
+      table.increments('id');
+      table.integer('marche_id').references('id').inTable('marches').notNullable();
+      table.integer('ordreserv_id').references('id').inTable('ordreservs').notNullable();
+      table.string('ref');
+      table.string('date_suspension');
+      table.string('lettre_demande');
+      table.string('notif_suspension');
+      table.string('motif');
+      table.integer('delai_couru');
+      table.integer('delai_restant');
+      table.string('charge_notif');
+      table.string('charge_notif_titre');
+      table.integer('created_by');
+      table.integer('modified_by');
+      table.timestamps(true, false);
+    })
+    .createTable('ordreprises', (table) => {
+      table.increments('id');
+      table.integer('marche_id').references('id').inTable('marches').notNullable();
+      table.integer('ordsuspension_id').references('id').inTable('ordsuspensions').notNullable();
+      table.string('ref');
+      table.string('date_reprise');
+      table.string('date_prob_fin');
+      table.integer('delai_couru');
+      table.integer('delai_restant');
+      table.string('charge_notif');
+      table.string('charge_notif_titre');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -474,11 +515,9 @@ exports.up = function(knex) {
     .createTable('recepdemandes', (table) => {
       table.increments('id');
       table.integer('marche_id').references('id').inTable('marches').notNullable();
-      table.integer('ordreserv_id').references('id').inTable('marches').notNullable();
-      table.string('date_demande');
-      table.string('date_recep_cou');
-      table.string('motif');
-      table.string('courrier');
+      table.string('ref_demande');
+      table.string('date_recep_demande');
+      table.string('demande');
       table.integer('created_by');
       table.integer('modified_by');
       table.timestamps(true, false);
@@ -489,9 +528,9 @@ exports.up = function(knex) {
       table.integer('marche_id').references('id').inTable('marches').notNullable();
       table.integer('fournisseur_id').references('id').inTable('fournisseurs');
       table.string('date_recept');
-      table.string('heure_recept');
       table.string('membre');
       table.string('autre');
+      table.string('observation');
       table.string('pv_recept');
       table.integer('created_by');
       table.integer('modified_by');
@@ -506,7 +545,6 @@ exports.up = function(knex) {
       table.integer('localisation_id').references('id').inTable('localisations').notNullable();
       table.boolean('cam').defaultTo(false);
       table.boolean('sct').defaultTo(false);
-      table.boolean('pv').defaultTo(false);
       table.boolean('ordre').defaultTo(false);
       table.boolean('actif').defaultTo(false);
       table.integer('created_by');
@@ -542,6 +580,71 @@ exports.up = function(knex) {
       table.integer('delib_id').references('id').inTable('deliberations').notNullable();
       table.integer('fournisseur_id').references('id').inTable('fournisseurs').notNullable();
       table.boolean('statut').defaultTo(false);
+    })
+    .createTable('demeures', (table) => {
+      table.increments('id');
+      table.integer('marche_id').references('id').inTable('marches').notNullable();
+      table.string('date_demeure');
+      table.string('ref_correspande');
+      table.integer('delai');
+      table.integer('created_by');
+      table.integer('modified_by');
+      table.timestamps(true, false);
+    })
+    .createTable('avenants', (table) => {
+      table.increments('id');
+      table.integer('marche_id').references('id').inTable('marches').notNullable();
+      table.string('objet');
+      table.integer('montant');
+      table.integer('delai');
+      table.integer('created_by');
+      table.integer('modified_by');
+      table.timestamps(true, false);
+    })
+    .createTable('resiliations', (table) => {
+      table.increments('id');
+      table.integer('marche_id').references('id').inTable('marches').notNullable();
+      table.string('ref_decision');
+      table.string('date_decision');
+      table.string('fichier');
+      table.integer('created_by');
+      table.integer('modified_by');
+      table.timestamps(true, false);
+    })
+    .createTable('penalites', (table) => {
+      table.increments('id');
+      table.integer('marche_id').references('id').inTable('marches').notNullable();
+      table.string('fichier');
+      table.integer('created_by');
+      table.integer('modified_by');
+      table.timestamps(true, false);
+    })
+    .createTable('decisions', (table) => {
+      table.increments('id');
+      table.integer('marche_id').references('id').inTable('marches').notNullable();
+      table.string('nature_decision');
+      table.integer('montant_marche');
+      table.integer('montant_penalite');
+      table.integer('montant_guarantie');
+      table.integer('montant_decision');
+      table.integer('solde_marche');
+      table.string('bordereau_liv');
+      table.string('ref_fact');
+      table.string('facture_def');
+      table.string('decision');
+      table.string('caution');
+      table.string('autre_doc');
+      table.integer('created_by');
+      table.integer('modified_by');
+      table.timestamps(true, false);
+    })
+    .createTable('reglements', (table) => {
+      table.increments('id');
+      table.integer('marche_id').references('id').inTable('marches').notNullable();
+      table.string('fichier');
+      table.integer('created_by');
+      table.integer('modified_by');
+      table.timestamps(true, false);
     })
     
 };

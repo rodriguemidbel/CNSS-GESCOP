@@ -3,8 +3,8 @@ const db = require('../db/db');
 class PlanitemDAO {
     
   async createPlanitem(plan_id,num_ordre,budget,imputation,montant_estime,montant_depense,credit,designation,nbr_lot,
-    mode,date_lanc,date_remise,temp,date_prob_demarrage,delai_exe,date_prob_fin,gestionnaire,type_id,
-    localisation_id,created_by,modified_by) {
+    mode,date_lanc,date_remise,temp,date_prob_demarrage,delai_exe,date_prob_fin,gestionnaire,ppm,type_id,
+    localisation_id) {
     const [id] = await db('planitems')
       .insert({
         plan_id,
@@ -24,10 +24,9 @@ class PlanitemDAO {
         delai_exe,
         date_prob_fin,
         gestionnaire,
+        ppm,
         type_id,
-        localisation_id,
-        created_by,
-        modified_by
+        localisation_id
 
       })
       .returning('id');
@@ -66,6 +65,7 @@ class PlanitemDAO {
       'planitems.date_prob_fin as date_prob_fin',
       'planitems.date_reel_fin as date_reel_fin',
       'planitems.gestionnaire as gestionnaire',
+      'planitems.ppm as ppm',
       'modes.id as mode_id',
       'modes.libelle as mode',
       'types.id as type_id',
@@ -166,6 +166,7 @@ class PlanitemDAO {
      'planitems.date_prob_fin as date_prob_fin',
      'planitems.date_reel_fin as date_reel_fin',
      'planitems.gestionnaire as gestionnaire',
+     'planitems.ppm as ppm',
      'modes.id as mode_id',
      'modes.libelle as mode',
      'types.id as type_id',
@@ -214,6 +215,7 @@ class PlanitemDAO {
       'planitems.date_prob_fin as date_prob_fin',
       'planitems.date_reel_fin as date_reel_fin',
       'planitems.gestionnaire as gestionnaire',
+      'planitems.ppm as ppm',
       'modes.id as mode_id',
       'modes.libelle as mode',
       'types.id as type_id',
@@ -262,6 +264,7 @@ class PlanitemDAO {
       'planitems.date_prob_fin as date_prob_fin',
       'planitems.date_reel_fin as date_reel_fin',
       'planitems.gestionnaire as gestionnaire',
+      'planitems.ppm as ppm',
       'modes.id as mode_id',
       'modes.libelle as mode',
       'types.id as type_id',

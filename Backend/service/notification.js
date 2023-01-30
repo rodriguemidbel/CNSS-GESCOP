@@ -2,8 +2,8 @@ const notificationDAO = require('../dao/notification');
 
 class notificationService {
   createNotification(NotificationDto) {
-    const { not_dossier_id,offre_id,numero,objet,date_notif,fournisseur_id,lot_id } = NotificationDto;
-    return notificationDAO.createNotification(not_dossier_id,offre_id,numero,objet,date_notif,fournisseur_id,lot_id);
+    const { not_dossier_id,numero,date_notif,fournisseur_id,lot_id,fichiernot } = NotificationDto;
+    return notificationDAO.createNotification(not_dossier_id,numero,date_notif,fournisseur_id,lot_id,fichiernot);
   };
   getAllNotification(not_dossier_id) {
     return notificationDAO.getAllNotification(not_dossier_id);

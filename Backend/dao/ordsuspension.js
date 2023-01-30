@@ -1,16 +1,20 @@
 const db = require('../db/db');
 
 class OrdsuspenDAO {
-  async createOrdsuspen(marche_id,ref,date_notif,date_suspension,charge_notif,charge_notif_dist,ordre) {
+  async createOrdsuspen(marche_id,ordreserv_id,ref,date_suspension,lettre_demande,notif_suspension,motif,delai_couru,delai_restant,charge_notif,charge_notif_titre) {
     const [id] = await db('ordsuspensions')
       .insert({
         marche_id,
+        ordreserv_id,
         ref,
-        date_notif,
         date_suspension,
+        lettre_demande,
+        notif_suspension,
+        motif,
+        delai_couru,
+        delai_restant,
         charge_notif,
-        charge_notif_dist,
-        ordre
+        charge_notif_titre
       })
       .returning('id');
 
@@ -23,7 +27,6 @@ class OrdsuspenDAO {
   async getAllOrdsuspen() {
     return await db('ordsuspensions')
       .join('marches', 'marches.id', 'ordsuspensions.marche_id')
-      .join('fournisseurs', 'fournisseurs.id', 'marches.attributaire')
       .join('dossiers', 'dossiers.id', 'marches.dossier_id')
       .join('planitems', 'planitems.id', 'dossiers.planitem_id')
       .join('plans', 'plans.id', 'planitems.plan_id')
@@ -38,23 +41,18 @@ class OrdsuspenDAO {
         'marches.delai as delai',
         'marches.delai_lettre as delai_lettre',
         'marches.date_fin as date_fin',
-        'fournisseurs.telephone1 as telephone1',
-        'fournisseurs.telephone2 as telephone2',
-        'fournisseurs.adresse as adresse',
-        'fournisseurs.nom_four as nom_four',
-        'fournisseurs.rccm as rccm',
-        'fournisseurs.ifu as ifu',
-        'fournisseurs.num_employeur as num_employeur',
-        'fournisseurs.titre_resp as titre_resp',
-        'fournisseurs.nom_prenom_resp as nom_prenom_resp',
         'ordsuspensions.id as id',
         'ordsuspensions.ref as ref',
-        'ordsuspensions.objet as objet',
-        'ordsuspensions.date_notif as date_notif',
+        'ordsuspensions.ordreserv_id as ordreserv_id',
         'ordsuspensions.date_suspension as date_suspension',
+        'ordsuspensions.lettre_demande as lettre_demande',
+        'ordsuspensions.notif_suspension as notif_suspension',
+        'ordsuspensions.motif as motif',
+        'ordsuspensions.delai_couru as delai_couru',
+        'ordsuspensions.delai_restant as delai_restant',
         'ordsuspensions.charge_notif as charge_notif',
-        'ordsuspensions.charge_notif_dist as charge_notif_dist',
-        'ordsuspensions.ordre as ordre'
+        'ordsuspensions.charge_notif_titre as charge_notif_titre'
+   
       )
   };
 
@@ -76,7 +74,6 @@ class OrdsuspenDAO {
   async findOrdsuspen(marche_id) {
     return await db('ordsuspensions')
     .join('marches', 'marches.id', 'ordsuspensions.marche_id')
-    .join('fournisseurs', 'fournisseurs.id', 'marches.attributaire')
     .join('dossiers', 'dossiers.id', 'marches.dossier_id')
     .join('planitems', 'planitems.id', 'dossiers.planitem_id')
     .join('plans', 'plans.id', 'planitems.plan_id')
@@ -91,23 +88,17 @@ class OrdsuspenDAO {
       'marches.delai as delai',
       'marches.delai_lettre as delai_lettre',
       'marches.date_fin as date_fin',
-      'fournisseurs.telephone1 as telephone1',
-      'fournisseurs.telephone2 as telephone2',
-      'fournisseurs.adresse as adresse',
-      'fournisseurs.nom_four as nom_four',
-      'fournisseurs.rccm as rccm',
-      'fournisseurs.ifu as ifu',
-      'fournisseurs.num_employeur as num_employeur',
-      'fournisseurs.titre_resp as titre_resp',
-      'fournisseurs.nom_prenom_resp as nom_prenom_resp',
       'ordsuspensions.id as id',
       'ordsuspensions.ref as ref',
-      'ordsuspensions.objet as objet',
-      'ordsuspensions.date_notif as date_notif',
+      'ordsuspensions.ordreserv_id as ordreserv_id',
       'ordsuspensions.date_suspension as date_suspension',
+      'ordsuspensions.lettre_demande as lettre_demande',
+      'ordsuspensions.notif_suspension as notif_suspension',
+      'ordsuspensions.motif as motif',
+      'ordsuspensions.delai_couru as delai_couru',
+      'ordsuspensions.delai_restant as delai_restant',
       'ordsuspensions.charge_notif as charge_notif',
-      'ordsuspensions.charge_notif_dist as charge_notif_dist',
-      'ordsuspensions.ordre as ordre'
+      'ordsuspensions.charge_notif_titre as charge_notif_titre'
     )
     .where({marche_id})
   };

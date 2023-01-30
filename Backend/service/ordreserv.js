@@ -2,8 +2,8 @@ const ordreservDAO = require('../dao/ordreserv');
 
 class OrdreservService {
   createOrdreserv(OrdreservDto) {
-    const { marche_id,ref,objet,typordre_id,fournisseur_id,date_notif,date_demarrage,charge_notif,charge_notif_dist,ordre } = OrdreservDto;
-    return ordreservDAO.createOrdreserv(marche_id,ref,objet,typordre_id,fournisseur_id,date_notif,date_demarrage,charge_notif,charge_notif_dist,ordre);
+    const { marche_id,ref,date_notif,date_demarrage,charge_notif,charge_notif_titre,delai_couru,delai_restant,ordre } = OrdreservDto;
+    return ordreservDAO.createOrdreserv(marche_id,ref,date_notif,date_demarrage,charge_notif,charge_notif_titre,delai_couru,delai_restant,ordre);
   };
   getAllOrdreserv() {
     return ordreservDAO.getAllOrdreserv();

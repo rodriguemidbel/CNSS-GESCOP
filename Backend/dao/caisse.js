@@ -21,10 +21,12 @@ class CaisseDAO {
     .join('ventes', 'ventes.id', 'caisses.vente_id')
     .join('users', 'users.id', 'caisses.user_id')
     .join('lots', 'lots.id', 'ventes.lot_id')
+    .join('dossiers', 'dossiers.id', 'lots.dossier_id')
     .join('modepaiements', 'modepaiements.id', 'caisses.modepaiement_id')
     .join('fournisseurs', 'fournisseurs.id', 'ventes.fournisseur_id')
     .select(
         'users.name as name',
+        'dossiers.numero_doss as numero_doss',
         'lots.id as lotID',
         'lots.intitule_lot as intitule_lot',
         'fournisseurs.id as fourID',

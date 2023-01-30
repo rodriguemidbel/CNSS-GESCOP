@@ -1,7 +1,7 @@
 const db = require('../db/db');
 
 class SignataireDAO {
-  async createSignataire(nom,prenom,titre,distinction,localisation_id,cam,sct,pv,ordre,actif) {
+  async createSignataire(nom,prenom,titre,distinction,localisation_id,cam,sct,ordre,actif) {
     const [id] = await db('signataires')
       .insert({
         nom,
@@ -11,7 +11,6 @@ class SignataireDAO {
         localisation_id,
         cam,
         sct,
-        pv,
         ordre,
         actif
       })
@@ -35,7 +34,6 @@ class SignataireDAO {
         'signataires.localisation_id as localisation_id',
         'signataires.cam as cam',
         'signataires.sct as sct',
-        'signataires.pv as pv',
         'signataires.ordre as ordre',
         'signataires.actif as actif',
         'localisations.dr_no as dr_no',
@@ -70,7 +68,6 @@ class SignataireDAO {
         'signataires.localisation_id as localisation_id',
         'signataires.cam as cam',
         'signataires.sct as sct',
-        'signataires.pv as pv',
         'signataires.ordre as ordre',
         'signataires.actif as actif',
         'localisations.dr_no as dr_no',

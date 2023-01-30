@@ -3,9 +3,9 @@ const dossierDAO = require('../dao/dossier');
 class dossierService {
   createDossier(DossierDto) {
     const { planitem_id,numero_doss,intitule_doss,date_trans_sign,date_retour_sign,
-      date_trans_dgcmef,taux_reception,niveau_traitement,taux_avencement,dossier,statut,created_by,modified_by } = DossierDto;
+      date_trans_dgcmef,taux_reception,niveau_traitement,taux_avencement,ordre_cmd,dossier,statut} = DossierDto;
     return dossierDAO.createDossier(planitem_id,numero_doss,intitule_doss,date_trans_sign,date_retour_sign,
-      date_trans_dgcmef,taux_reception,niveau_traitement,taux_avencement,dossier,statut,created_by,modified_by);
+      date_trans_dgcmef,taux_reception,niveau_traitement,taux_avencement,ordre_cmd,dossier,statut);
   };
   getAllDossier() {
     return dossierDAO.getAllDossier();

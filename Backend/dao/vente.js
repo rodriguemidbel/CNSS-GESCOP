@@ -41,7 +41,7 @@ class VenteDAO {
         'ventes.montant as montant',
         'ventes.vent_statut as vent_statut'
     )
-    .orderBy('ventes.vent_statut', 'desc')
+    .orderBy('ventes.vent_statut', 'asc')
   };
 
   async getOneVente(id) {
@@ -175,6 +175,15 @@ class VenteDAO {
         'ventes.grpent as grpent'
     )
     .where({lot_id,fournisseur_id})
+  };
+
+  async countSellLot(vent_dossier_id) {
+    return await db('ventes')
+    .join('lots','lots.id','ventes.lot_id')
+    .select('ventes.lot_id as lotID','lots.num_lot as num_lot','lots.intitule_lot as intitule_lot')
+    .count('ventes.id as nbr')
+    .where({vent_dossier_id})
+    .groupBy('ventes.lot_id','lots.num_lot','lots.intitule_lot')
   };
 
  

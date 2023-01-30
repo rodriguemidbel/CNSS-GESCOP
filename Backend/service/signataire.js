@@ -2,8 +2,8 @@ const signataireDAO = require('../dao/signataire');
 
 class signataireService {
   createSignataire(SignataireDto) {
-    const { nom,prenom,titre,distinction,localisation_id,cam,sct,pv,ordre,actif } = SignataireDto;
-    return signataireDAO.createSignataire(nom,prenom,titre,distinction,localisation_id,cam,sct,pv,ordre,actif);
+    const { nom,prenom,titre,distinction,localisation_id,cam,sct,ordre,actif } = SignataireDto;
+    return signataireDAO.createSignataire(nom,prenom,titre,distinction,localisation_id,cam,sct,ordre,actif);
   };
   getAllSignataire() {
     return signataireDAO.getAllSignataire();

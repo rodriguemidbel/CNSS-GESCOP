@@ -2,7 +2,7 @@ const db = require('../db/db');
 
 class DossierDAO {
   async createDossier(planitem_id,numero_doss,intitule_doss,date_trans_sign,date_retour_sign,
-    date_trans_dgcmef,taux_reception,niveau_traitement,taux_avencement,dossier,statut,created_by,modified_by) {
+    date_trans_dgcmef,taux_reception,niveau_traitement,taux_avencement,ordre_cmd,dossier,statut) {
     const [id] = await db('dossiers')
       .insert({
         planitem_id,
@@ -14,10 +14,9 @@ class DossierDAO {
         taux_reception,
         niveau_traitement,
         taux_avencement,
+        ordre_cmd,
         dossier,
-        statut,
-        created_by,
-        modified_by
+        statut
       })
       .returning('id');
 
@@ -61,6 +60,7 @@ class DossierDAO {
       'dossiers.date_trans_sign as date_trans_sign',
       'dossiers.date_retour_sign as date_retour_sign',
       'dossiers.date_trans_dgcmef as date_trans_dgcmef',
+      'dossiers.ordre_cmd as ordre_cmd',
       'dossiers.dossier as dossier',
       'dossiers.statut as statut'
      
@@ -108,6 +108,7 @@ class DossierDAO {
       'dossiers.date_retour_sign as date_retour_sign',
       'dossiers.date_trans_dgcmef as date_trans_dgcmef',
       'dossiers.dossier as dossier',
+      'dossiers.ordre_cmd as ordre_cmd'
     )
 
     .where({id});
@@ -161,6 +162,7 @@ class DossierDAO {
         'dossiers.date_trans_sign as date_trans_sign',
         'dossiers.date_retour_sign as date_retour_sign',
         'dossiers.date_trans_dgcmef as date_trans_dgcmef',
+        'dossiers.ordre_cmd as ordre_cmd',
         'dossiers.dossier as dossier',
         'dossiers.statut as statut'
     )
@@ -206,6 +208,7 @@ class DossierDAO {
      'dossiers.date_trans_sign as date_trans_sign',
      'dossiers.date_retour_sign as date_retour_sign',
      'dossiers.date_trans_dgcmef as date_trans_dgcmef',
+     'dossiers.ordre_cmd as ordre_cmd',
      'dossiers.dossier as dossier',
      'dossiers.statut as statut'
  )
@@ -252,6 +255,7 @@ class DossierDAO {
      'dossiers.date_trans_sign as date_trans_sign',
      'dossiers.date_retour_sign as date_retour_sign',
      'dossiers.date_trans_dgcmef as date_trans_dgcmef',
+     'dossiers.ordre_cmd as ordre_cmd',
      'dossiers.dossier as dossier',
      'dossiers.statut as statut'
  )
@@ -298,6 +302,7 @@ async findDossierByLocaAndType(annee,type_id,localisation_id) {
    'dossiers.date_trans_sign as date_trans_sign',
    'dossiers.date_retour_sign as date_retour_sign',
    'dossiers.date_trans_dgcmef as date_trans_dgcmef',
+   'dossiers.ordre_cmd as ordre_cmd',
    'dossiers.dossier as dossier',
    'dossiers.statut as statut'
 )

@@ -8,7 +8,7 @@ exports.seed = function(knex) {
         {
           id: 1, 
           annee: 2022, 
-          date_plan: '2022-11-04',
+          date_plan: '04/11/22',
 		  statut: 'Projet'
         }
       ]);

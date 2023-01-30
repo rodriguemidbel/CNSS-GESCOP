@@ -1,11 +1,14 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class LogDAO {
-  async createLog(user_id,action) {
+  async createLog(user_id,action,created_by) {
     const [id] = await db('logs')
       .insert({
-        user_id,
-        action 
+        user_id : user_id,
+        action : action,
+        created_by: created_by,
+        created_at : commonUtils.formatOracleDate()
       })
       .returning('id');
 

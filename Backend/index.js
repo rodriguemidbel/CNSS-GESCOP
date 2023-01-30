@@ -91,16 +91,18 @@ if (!files) {
 })
 
 /*====================Envoie de mail====================*/
-/*app.post('/sendmail',(req,res)=>{
+app.post('/sendmail',(req,res)=>{
+
+   console.log('Vous etes dans l\'API de mail');
   let transporter = nodemailer.createTransport({
-      service: 'smtp.meditekbf.com',
+      service: 'smtp.nytia-bf.com',
       auth: {
-          user: 'rodrigue.midbel@gmail.com',
-          password: 'dream787liner'
+          user: 'nytia@nytia-bf.com',
+          password: 'Nytia@2019'
       }
   });
   var mailOptions = {
-      from: 'rodrigue.midbel@gmail.com',
+      from: 'nytia@nytia-bf.com',
       to: 'rodrigue.midbel@gmail.com',
       subject: 'NODEMAILER TEST 1',
       text: 'Mail test de  nodemailer' 
@@ -114,4 +116,4 @@ if (!files) {
       }
   })
   
-}) */
+}) 

@@ -1,15 +1,15 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class PlanDAO {
-  async createPlan(annee,libelle,date_plan,statut,created_by,modified_by) {
+  async createPlan(annee,libelle,date_plan,statut,created_by) {
     const [id] = await db('plans')
       .insert({
-        annee,
-        libelle,
-        date_plan,
-        statut,
-        created_by,
-        modified_by
+        annee : annee,
+        libelle : libelle,
+        date_plan : commonUtils.formatOracleDate2(date_plan),
+        statut : statut,
+        created_by : created_by
       })
       .returning('id');
 

@@ -2,8 +2,8 @@ const resultatDAO = require('../dao/resultat');
 
 class resultatService {
   createResultat(ResultatDto) {
-    const { dossier_id,date_par_res,num_par_res,attributaire,litige,fichierpub,fichierlitige } = ResultatDto;
-    return resultatDAO.createResultat(dossier_id,date_par_res,num_par_res,attributaire,litige,fichierpub,fichierlitige);
+    const { dossier_id,date_par_res,num_par_res,fichierpub,fichier } = ResultatDto;
+    return resultatDAO.createResultat(dossier_id,date_par_res,num_par_res,fichierpub,fichier);
   };
   getAllResultat(dossier_id) {
     return resultatDAO.getAllResultat(dossier_id);

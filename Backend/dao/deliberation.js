@@ -1,25 +1,15 @@
 const db = require('../db/db');
 
 class DeliberationDAO {
-  async createDeliberation(dossier_id,date_convocation,date_transpv_sign,date_retourpv_sign,date_transpv_dgcmef,
-         lot_id,attributaire,attr_statut,attributaire2,attr_statut2,attributaire3,attr_statut3,montant_initiale,montant_corrige,duree_execution,typedelib,pvdeliberation) {
+  async createDeliberation(dossier_id,date_delib,date_transpv_sign,date_retourpv_sign,date_transpv_dgcmef,
+         typedelib,pvdeliberation) {
     const [id] = await db('deliberations')
       .insert({
         dossier_id,
-        date_convocation,
+        date_delib,
         date_transpv_sign,
         date_retourpv_sign,
         date_transpv_dgcmef,
-        lot_id,
-        attributaire,
-        attr_statut,
-        attributaire2,
-        attr_statut2,
-        attributaire3,
-        attr_statut3,
-        montant_initiale,
-        montant_corrige,
-        duree_execution,
         typedelib,
         pvdeliberation
       })
@@ -35,14 +25,15 @@ class DeliberationDAO {
         'dossiers.numero_doss as numero',
         'dossiers.intitule_doss as intitule',
         'deliberations.id as id',
-        'deliberations.date_convocation as date_convocation',
+        'deliberations.date_delib as date_delib',
         'deliberations.date_transpv_sign as date_transpv_sign',
         'deliberations.date_retourpv_sign as date_retourpv_sign',
         'deliberations.date_transpv_dgcmef as date_transpv_dgcmef',
         'deliberations.typedelib as typedelib',
-        'deliberations.pvdeliberation as pv'
-        
+        'deliberations.pvdeliberation as pvdeliberation'
       )
+      .orderBy('deliberations.date_delib','asc')
+     
       
   };
 
@@ -64,19 +55,19 @@ class DeliberationDAO {
   async findDeliberation(dossier_id) {
     return await db('deliberations')
     .join('dossiers', 'dossiers.id', 'deliberations.dossier_id')
-      .select(
-        'dossiers.numero_doss as numero',
-        'dossiers.intitule_doss as intitule',
-        'deliberations.id as id',
-        'deliberations.date_convocation as date_convocation',
-        'deliberations.date_transpv_sign as date_transpv_sign',
-        'deliberations.date_retourpv_sign as date_retourpv_sign',
-        'deliberations.date_transpv_dgcmef as date_transpv_dgcmef',
-        'deliberations.typedelib as typedelib',
-        'deliberations.pvdeliberation as pv'
-        
-      )
-      .where({dossier_id})
+    .select(
+      'dossiers.numero_doss as numero',
+      'dossiers.intitule_doss as intitule',
+      'deliberations.id as id',
+      'deliberations.date_delib as date_delib',
+      'deliberations.date_transpv_sign as date_transpv_sign',
+      'deliberations.date_retourpv_sign as date_retourpv_sign',
+      'deliberations.date_transpv_dgcmef as date_transpv_dgcmef',
+      'deliberations.typedelib as typedelib',
+      'deliberations.pvdeliberation as pvdeliberation'
+    )
+    .where({dossier_id})
+    .orderBy('deliberations.date_delib','asc')
   };
 
   

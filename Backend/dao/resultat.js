@@ -1,16 +1,14 @@
 const db = require('../db/db');
 
 class ResultatDAO {
-  async createResultat(dossier_id,date_par_res,num_par_res,attributaire,litige,fichierpub,fichierlitige) {
+  async createResultat(dossier_id,date_par_res,num_par_res,fichierpub,fichier) {
     const [id] = await db('resultats')
       .insert({
         dossier_id,
         date_par_res,
         num_par_res,
-        attributaire,
-        litige,
         fichierpub,
-        fichierlitige
+        fichier
       })
       .returning('id');
 
@@ -23,21 +21,14 @@ class ResultatDAO {
   async getAllResultat(dossier_id) {
     return await db('resultats')
       .join('dossiers', 'dossiers.id', 'resultats.dossier_id')
-      .join('planitems', 'planitems.id', 'dossiers.planitem_id')
-      .join('fournisseurs','fournisseurs.id','resultats.attributaire')
       .select(
-        'planitems.mode as mode',
         'dossiers.numero_doss as numero',
         'dossiers.intitule_doss as intitule',
-        'fournisseurs.id as fourID',
-        'fournisseurs.nom_four as nom_four',
         'resultats.id as id',
         'resultats.date_par_res as date_par_res',
         'resultats.num_par_res as num_par_res',
-        'resultats.attributaire as attributaire',
-        'resultats.litige as litige',
         'resultats.fichierpub as fichierpub',
-        'resultats.fichierlitige as fichierlitige'
+        'resultats.fichier as fichier'
       )
       .where({dossier_id})
   };

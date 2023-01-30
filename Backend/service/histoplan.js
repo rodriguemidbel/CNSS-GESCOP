@@ -2,8 +2,8 @@ const planDAO = require('../dao/histoplan');
 
 class PlanService {
   createHistoplan(PlanDto) {
-    const { plan_id,statut,created_by } = PlanDto;
-    return planDAO.createHistoplan(plan_id,statut,created_by);
+    const { plan_id,statut,created_by,created_at } = PlanDto;
+    return planDAO.createHistoplan(plan_id,statut,created_by,created_at);
   };
   getAllHistoplan() {
     return planDAO.getAllHistoplan();

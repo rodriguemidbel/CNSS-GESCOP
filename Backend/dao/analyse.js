@@ -1,15 +1,23 @@
 const db = require('../db/db');
 
 class AnalyseDAO {
-  async createAnalyse(dossier_id,libelle,date_effec_ana,date_trans_dgcmef,observation,rapport) {
+  async createAnalyse(dossier_id,date_effec_ana,libelle,lot_id,attributaire,montant_init,
+   montant_corri,montant_min_init,montant_min_corri,montant_max_init,montant_max_corri,
+    duree_execution) {
     const [id] = await db('analyses')
       .insert({
         dossier_id,
-        libelle,
         date_effec_ana,
-        date_trans_dgcmef,
-        observation,
-        rapport
+        libelle,
+        lot_id,
+        attributaire,
+        montant_init,
+        montant_corri,
+        montant_min_init,
+        montant_min_corri,
+        montant_max_init,
+        montant_max_corri,
+        duree_execution
       })
       .returning('id');
 
@@ -26,11 +34,17 @@ class AnalyseDAO {
         'dossiers.numero_doss as numero',
         'dossiers.intitule_doss as intitule',
         'analyses.id as id',
-        'analyses.libelle as libelle',
         'analyses.date_effec_ana as date_effec_ana',
-        'analyses.date_trans_dgcmef as date_trans_dgcmef',
-        'analyses.observation as observation',
-        'analyses.rapport as rapport'
+        'analyses.libelle as libelle',
+        'analyses.lot_id as lot_id',
+        'analyses.attributaire as attributaire',
+        'analyses.montant_init as montant_init',
+        'analyses.montant_corri as montant_corri',
+        'analyses.montant_min_init as montant_min_init',
+        'analyses.montant_min_corri as montant_min_corri',
+        'analyses.montant_max_init as montant_max_init',
+        'analyses.montant_max_corri as montant_max_corri',
+        'analyses.duree_execution as duree_execution'
         
       )
       .where({dossier_id})
@@ -58,13 +72,20 @@ class AnalyseDAO {
         'dossiers.numero_doss as numero',
         'dossiers.intitule_doss as intitule',
         'analyses.id as id',
-        'analyses.libelle as libelle',
         'analyses.date_effec_ana as date_effec_ana',
-        'analyses.date_trans_dgcmef as date_trans_dgcmef',
-        'analyses.observation as observation',
-        'analyses.rapport as rapport'
+        'analyses.libelle as libelle',
+        'analyses.lot_id as lot_id',
+        'analyses.attributaire as attributaire',
+        'analyses.montant_init as montant_init',
+        'analyses.montant_corri as montant_corri',
+        'analyses.montant_min_init as montant_min_init',
+        'analyses.montant_min_corri as montant_min_corri',
+        'analyses.montant_max_init as montant_max_init',
+        'analyses.montant_max_corri as montant_max_corri',
+        'analyses.duree_execution as duree_execution'
       )
       .where({dossier_id})
+      .orderBy('analyses.date_effec_ana','asc')
   };
 
  

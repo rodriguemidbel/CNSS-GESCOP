@@ -1,9 +1,27 @@
 const db = require('../db/db');
 
 class MarcheDAO {
-  async createMarche(dossier_id,num_ref,notification_id,objet,fournisseur_id,lot_id,montant,date_envoi_appro,
-    date_appro,date_notif,delai,date_rem_sign,date_retour_sign,date_rem_enr,date_retour_enr,
-    date_trans_visa,date_retour_visa,marche) {
+  async createMarche(dossier_id,
+                      num_ref,
+                      notification_id,
+                      objet,
+                      fournisseur_id,
+                      lot_id,
+                      montant,
+                      montant_min,
+                      montant_max,
+                      delai,
+                      date_rem_sign,
+                      date_retour_sign,
+                      date_trans_visa,
+                      date_retour_visa,
+                      date_envoi_appro,
+                      date_appro,
+                      date_notif,
+                      date_rem_enr,
+                      date_retour_enr,
+                      num_visa,
+                      marche){
     const [id] = await db('marches')
       .insert({
         dossier_id,
@@ -13,6 +31,8 @@ class MarcheDAO {
         fournisseur_id,
         lot_id,
         montant,
+        montant_min,
+        montant_max,
         delai,
         date_rem_sign,
         date_retour_sign,
@@ -23,6 +43,7 @@ class MarcheDAO {
         date_notif,
         date_rem_enr,
         date_retour_enr,
+        num_visa,
         marche
       })
       .returning('id');
@@ -46,7 +67,8 @@ class MarcheDAO {
         'marches.num_ref as num_ref',
         'marches.objet as objet',
         'marches.montant as montant',
-        'marches.montant_lettre as montant_lettre',
+        'marches.montant_min as montant_min',
+        'marches.montant_max as montant_max',
         'marches.delai as delai',
         'marches.delai_lettre as delai_lettre',
         'marches.date_rem_sign as date_rem_sign',
@@ -58,6 +80,7 @@ class MarcheDAO {
         'marches.date_notif as date_notif',
         'marches.date_rem_enr as date_rem_enr',
         'marches.date_retour_enr as date_retour_enr',
+        'marches.num_visa as num_visa',
         'marches.marche as marche'
       )
   };
@@ -90,7 +113,8 @@ class MarcheDAO {
         'marches.num_ref as num_ref',
         'marches.objet as objet',
         'marches.montant as montant',
-        'marches.montant_lettre as montant_lettre',
+        'marches.montant_min as montant_min',
+        'marches.montant_max as montant_max',
         'marches.delai as delai',
         'marches.delai_lettre as delai_lettre',
         'marches.date_rem_sign as date_rem_sign',
@@ -102,6 +126,7 @@ class MarcheDAO {
         'marches.date_notif as date_notif',
         'marches.date_rem_enr as date_rem_enr',
         'marches.date_retour_enr as date_retour_enr',
+        'marches.num_visa as num_visa',
         'marches.marche as marche'
       )
       .where({dossier_id})

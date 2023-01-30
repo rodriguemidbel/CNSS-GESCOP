@@ -41,7 +41,6 @@ const courrierController = require('../controller/courrier');
 
 
 const ordreservController = require('../controller/ordreserv');
-
 const ordsuspensionController = require('../controller/ordsuspension');
 const ordrepriseController = require('../controller/ordreprise');
 
@@ -65,6 +64,12 @@ const signataireController = require('../controller/signataire');
 const seuilmodeController = require('../controller/seuilmode');
 
 const delibfrsController = require('../controller/delibfrs');
+
+const decisionController = require('../controller/decision');
+
+const avenantController = require('../controller/avenant');
+const demeureController = require('../controller/demeure');
+const resiliationController = require('../controller/resiliation');
 
 
 const router = express.Router();
@@ -244,6 +249,8 @@ router.get('/sumMontantAllVente',venteController.sumMontantAllVente);
 router.get('/sumMontantVenteByStatut/:vent_statut',venteController.sumMontantVenteByStatut);
 
 router.get('/findVenteID/:lot_id/:fournisseur_id', venteController.findVenteID);
+
+router.get('/countSellLot/:vent_dossier_id',venteController.countSellLot);
 /*-------------------------CAISSE---------------------------------*/
 router.post('/createCaisse', caisseController.createCaisse);
 router.get('/getAllCaisse', caisseController.getAllCaisse);
@@ -341,7 +348,7 @@ router.get('/findContestation/:dossier_id', contestationController.findContestat
 //notificationController
 /*-------------------------NOTIFICATION----------------------------------*/
 router.post('/createNotification',notificationController.createNotification);
-router.get('/getAllNotification', notificationController.getAllNotification);
+router.get('/getAllNotification/:not_dossier_id', notificationController.getAllNotification);
 router.get('/getOneNotification/:id', notificationController.getOneNotification);
 router.delete('/removeNotification/:id', notificationController.removeNotification);
 router.patch('/updateNotification/:id', notificationController.updateNotification);
@@ -483,6 +490,37 @@ router.get('/getOneSeuilmode/:id', seuilmodeController.getOneSeuilmode);
 router.delete('/removeSeuilmode/:id', seuilmodeController.removeSeuilmode);
 router.patch('/updateSeuilmode/:id', seuilmodeController.updateSeuilmode);
 router.get('/findSeuilmode/:type_id/:mode',authenticateToken, seuilmodeController.findSeuilmode);
+
+// decisionController
+/*-------------------------Decision----------------------------------*/
+router.post('/createDecision',decisionController.createDecision);
+router.get('/getAllDecision', decisionController.getAllDecision);
+router.get('/getOneDecision/:id', decisionController.getOneDecision);
+router.delete('/removeDecision/:id', decisionController.removeDecision);
+router.patch('/updateDecision/:id', decisionController.updateDecision);
+
+/*-------------------------Avenant----------------------------------*/
+router.post('/createAvenant',avenantController.createAvenant);
+router.get('/getAllAvenant', avenantController.getAllAvenant);
+router.get('/getOneAvenant/:id', avenantController.getOneAvenant);
+router.delete('/removeAvenant/:id', avenantController.removeAvenant);
+router.patch('/updateAvenant/:id', avenantController.updateAvenant);
+
+/*-------------------------Demeure----------------------------------*/
+router.post('/createDemeure',demeureController.createDemeure);
+router.get('/getAllDemeure', demeureController.getAllDemeure);
+router.get('/getOneDemeure/:id', demeureController.getOneDemeure);
+router.delete('/removeDemeure/:id', demeureController.removeDemeure);
+router.patch('/updateDemeure/:id', demeureController.updateDemeure);
+
+/*-------------------------Resiliation----------------------------------*/
+router.post('/createResiliation',resiliationController.createResiliation);
+router.get('/getAllResiliation', resiliationController.getAllResiliation);
+router.get('/getOneResiliation/:id', resiliationController.getOneResiliation);
+router.delete('/removeResiliation/:id', resiliationController.removeResiliation);
+router.patch('/updateResiliation/:id', resiliationController.updateResiliation);
+
+//authenticateToken,
 /*========Envoie de mail ========================*/
 /*
 let mailTransport = nodemailer.createTransport({

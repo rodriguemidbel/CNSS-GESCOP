@@ -1,9 +1,12 @@
 const logDAO = require('../dao/log');
 
+
 class LogService {
   createLog(LogDto) {
-    const { user_id,action } = LogDto;
-    return logDAO.createLog(user_id,action);
+    const { user_id,action,created_by,created_at} = LogDto;
+    return logDAO.createLog(user_id,action,created_by,created_at);
+
+      //commonUtils.formatMySqlDate(new Date()),
   };
   getAllLog() {
     return logDAO.getAllLog();

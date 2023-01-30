@@ -2,8 +2,8 @@ const ordsuspenDAO = require('../dao/ordsuspension');
 
 class OrdsuspenService {
   createOrdsuspen(OrdsuspenDto) {
-    const { marche_id,ref,date_notif,date_suspension,charge_notif,charge_notif_dist,ordre } = OrdsuspenDto;
-    return ordsuspenDAO.createOrdsuspen(marche_id,ref,date_notif,date_suspension,charge_notif,charge_notif_dist,ordre);
+    const { marche_id,ordreserv_id,ref,date_suspension,lettre_demande,notif_suspension,motif,delai_couru,delai_restant,charge_notif,charge_notif_titre } = OrdsuspenDto;
+    return ordsuspenDAO.createOrdsuspen(marche_id,ordreserv_id,ref,date_suspension,lettre_demande,notif_suspension,motif,delai_couru,delai_restant,charge_notif,charge_notif_titre);
   };
   getAllOrdsuspen() {
     return ordsuspenDAO.getAllOrdsuspen();

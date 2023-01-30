@@ -1,7 +1,7 @@
 const db = require('../db/db');
 
 class LotDAO {
-  async createLot(dossier_id,num_lot,intitule_lot,montant_lot,montant_vente,statut) {
+  async createLot(dossier_id,num_lot,intitule_lot,montant_lot,montant_vente,observation,statut) {
     const [id] = await db('lots')
       .insert({
         dossier_id,
@@ -9,6 +9,7 @@ class LotDAO {
         intitule_lot,
         montant_lot,
         montant_vente,
+        observation,
         statut
       })
       .returning('id');
@@ -32,6 +33,7 @@ class LotDAO {
       'lots.intitule_lot as intitule_lot',
       'lots.montant_lot as montant_lot',
       'lots.montant_vente as montant_vente',
+      'lots.observation as observation',
       'lots.statut as statut'
       )
       .orderBy('lots.id', 'asc')
@@ -67,6 +69,7 @@ class LotDAO {
       'lots.intitule_lot as intitule_lot',
       'lots.montant_lot as montant_lot',
       'lots.montant_vente as montant_vente',
+      'lots.observation as observation',
       'lots.statut as statut'
       )
       .where({dossier_id})

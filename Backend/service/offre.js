@@ -2,8 +2,10 @@ const offreDAO = require('../dao/offre');
 
 class offreService {
   createOffre(OffreDto) {
-    const { off_dossier_id,fournisseur_id,lot_id,montant_offre,date_depot,heure_depot,nom_prenom_dep,telephone_dep } = OffreDto;
-    return offreDAO.createOffre(off_dossier_id,fournisseur_id,lot_id,montant_offre,date_depot,heure_depot,nom_prenom_dep,telephone_dep);
+    const { off_dossier_id,fournisseur_id,lot_id,montant_offre,montant_min,montant_max,
+      delai_exe,date_depot,heure_depot,nom_prenom_dep,telephone_dep,banque,ref_caution,mnt_caution } = OffreDto;
+    return offreDAO.createOffre(off_dossier_id,fournisseur_id,lot_id,montant_offre,montant_min,montant_max,
+      delai_exe,date_depot,heure_depot,nom_prenom_dep,telephone_dep,banque,ref_caution,mnt_caution);
   };
   getAllOffre(off_dossier_id) {
     return offreDAO.getAllOffre(off_dossier_id);

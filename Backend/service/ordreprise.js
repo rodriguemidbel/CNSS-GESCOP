@@ -2,8 +2,8 @@ const ordrepriseDAO = require('../dao/ordreprise');
 
 class OrdrepriseService {
   createOrdreprise(OrdrepriseDto) {
-    const { marche_id,ref,date_notif,date_suspension,charge_notif,charge_notif_dist,ordre } = OrdrepriseDto;
-    return ordrepriseDAO.createOrdreprise(marche_id,ref,date_notif,date_suspension,charge_notif,charge_notif_dist,ordre);
+    const { marche_id,ordsuspension_id,ref,date_reprise,date_prob_fin,delai_couru,delai_restant,charge_notif,charge_notif_titre } = OrdrepriseDto;
+    return ordrepriseDAO.createOrdreprise(marche_id,ordsuspension_id,ref,date_reprise,date_prob_fin,delai_couru,delai_restant,charge_notif,charge_notif_titre);
   };
   getAllOrdreprise() {
     return ordrepriseDAO.getAllOrdreprise();

@@ -1,16 +1,18 @@
 const db = require('../db/db');
 
 class OrdrepriseDAO {
-  async createOrdreprise(marche_id,ref,date_notif,date_reprise,charge_notif,charge_notif_dist,ordre) {
+  async createOrdreprise(marche_id,ordsuspension_id,ref,date_reprise,date_prob_fin,delai_couru,delai_restant,charge_notif,charge_notif_titre) {
     const [id] = await db('ordreprises')
       .insert({
         marche_id,
+        ordsuspension_id,
         ref,
-        date_notif,
         date_reprise,
+        date_prob_fin,
+        delai_couru,
+        delai_restant,
         charge_notif,
-        charge_notif_dist,
-        ordre
+        charge_notif_titre
       })
       .returning('id');
 
@@ -23,7 +25,6 @@ class OrdrepriseDAO {
   async getAllOrdreprise() {
     return await db('ordreprises')
       .join('marches', 'marches.id', 'ordreprises.marche_id')
-      .join('fournisseurs', 'fournisseurs.id', 'marches.attributaire')
       .join('dossiers', 'dossiers.id', 'marches.dossier_id')
       .join('planitems', 'planitems.id', 'dossiers.planitem_id')
       .join('plans', 'plans.id', 'planitems.plan_id')
@@ -38,23 +39,15 @@ class OrdrepriseDAO {
         'marches.delai as delai',
         'marches.delai_lettre as delai_lettre',
         'marches.date_fin as date_fin',
-        'fournisseurs.telephone1 as telephone1',
-        'fournisseurs.telephone2 as telephone2',
-        'fournisseurs.adresse as adresse',
-        'fournisseurs.nom_four as nom_four',
-        'fournisseurs.rccm as rccm',
-        'fournisseurs.ifu as ifu',
-        'fournisseurs.num_employeur as num_employeur',
-        'fournisseurs.titre_resp as titre_resp',
-        'fournisseurs.nom_prenom_resp as nom_prenom_resp',
         'ordreprises.id as id',
         'ordreprises.ref as ref',
-        'ordreprises.objet as objet',
-        'ordreprises.date_notif as date_notif',
+        'ordreprises.ordsuspension_id as ordsuspension_id',
         'ordreprises.date_reprise as date_reprise',
+        'ordreprises.date_prob_fin as date_prob_fin',
         'ordreprises.charge_notif as charge_notif',
-        'ordreprises.charge_notif_dist as charge_notif_dist',
-        'ordreprises.ordre as ordre'
+        'ordreprises.charge_notif_titre as charge_notif_titre',
+        'ordreprises.delai_couru as delai_couru',
+        'ordreprises.delai_restant as delai_restant'
       )
   };
 
@@ -76,38 +69,29 @@ class OrdrepriseDAO {
   async findOrdreprise(marche_id) {
     return await db('ordreprises')
     .join('marches', 'marches.id', 'ordreprises.marche_id')
-    .join('fournisseurs', 'fournisseurs.id', 'marches.attributaire')
     .join('dossiers', 'dossiers.id', 'marches.dossier_id')
     .join('planitems', 'planitems.id', 'dossiers.planitem_id')
     .join('plans', 'plans.id', 'planitems.plan_id')
     .select(
-      'plans.annee as annee',
-      'planitems.budget as budget',
-      'marches.dossier_id as dossier_id',
-      'marches.num_ref as num_ref',
-      'marches.objet as objet',
-      'marches.montant as montant',
-      'marches.montant_lettre as montant_lettre',
-      'marches.delai as delai',
-      'marches.delai_lettre as delai_lettre',
-      'marches.date_fin as date_fin',
-      'fournisseurs.telephone1 as telephone1',
-      'fournisseurs.telephone2 as telephone2',
-      'fournisseurs.adresse as adresse',
-      'fournisseurs.nom_four as nom_four',
-      'fournisseurs.rccm as rccm',
-      'fournisseurs.ifu as ifu',
-      'fournisseurs.num_employeur as num_employeur',
-      'fournisseurs.titre_resp as titre_resp',
-      'fournisseurs.nom_prenom_resp as nom_prenom_resp',
-      'ordreprises.id as id',
-      'ordreprises.ref as ref',
-      'ordreprises.objet as objet',
-      'ordreprises.date_notif as date_notif',
-      'ordreprises.date_reprise as date_reprise',
-      'ordreprises.charge_notif as charge_notif',
-      'ordreprises.charge_notif_dist as charge_notif_dist',
-      'ordreprises.ordre as ordre'
+        'plans.annee as annee',
+        'planitems.budget as budget',
+        'marches.dossier_id as dossier_id',
+        'marches.num_ref as num_ref',
+        'marches.objet as objet',
+        'marches.montant as montant',
+        'marches.montant_lettre as montant_lettre',
+        'marches.delai as delai',
+        'marches.delai_lettre as delai_lettre',
+        'marches.date_fin as date_fin',
+        'ordreprises.id as id',
+        'ordreprises.ref as ref',
+        'ordreprises.ordsuspension_id as ordsuspension_id',
+        'ordreprises.date_reprise as date_reprise',
+        'ordreprises.date_prob_fin as date_prob_fin',
+        'ordreprises.charge_notif as charge_notif',
+        'ordreprises.charge_notif_titre as charge_notif_titre',
+        'ordreprises.delai_couru as delai_couru',
+        'ordreprises.delai_restant as delai_restant'
     )
     .where({marche_id})
   };

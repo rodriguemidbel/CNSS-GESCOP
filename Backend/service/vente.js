@@ -45,7 +45,11 @@ class VenteService {
   findVenteID(lot_id,fournisseur_id){
     return venteDAO.findVenteID(lot_id,fournisseur_id);
   }
-  
+
+  countSellLot(vent_dossier_id){
+    return venteDAO.countSellLot(vent_dossier_id);
+  }
+
 }
 
 module.exports = new VenteService();
