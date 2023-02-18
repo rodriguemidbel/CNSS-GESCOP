@@ -63,13 +63,16 @@ const litigeController = require('../controller/litige');
 const signataireController = require('../controller/signataire');
 const seuilmodeController = require('../controller/seuilmode');
 
-const delibfrsController = require('../controller/delibfrs');
-
-const decisionController = require('../controller/decision');
-
 const avenantController = require('../controller/avenant');
 const demeureController = require('../controller/demeure');
+
+
 const resiliationController = require('../controller/resiliation');
+const decisionController = require('../controller/decision');
+const penaliteController = require('../controller/penalite');
+const reglementController = require('../controller/reglement');
+
+const analitemController = require('../controller/analitem');
 
 
 const router = express.Router();
@@ -258,6 +261,8 @@ router.get('/getOneCaisse/:id', caisseController.getOneCaisse);
 router.delete('/removeCaisse/:id', caisseController.removeCaisse);
 router.patch('/updateCaisse/:id', caisseController.updateCaisse);
 router.get('/findCaisse/:vente_id', caisseController.findCaisse);
+router.get('/findCaisseByDoss/:vent_dossier_id', caisseController.findCaisseByDoss);
+router.get('/getCaisseByUser/:user_id', caisseController.getCaisseByUser)
 
 /*-------------------------PAIEMENT---------------------------------*/
 router.post('/createPaiement', paiementController.createPaiement);
@@ -296,6 +301,9 @@ router.delete('/removeOffre/:id', offreController.removeOffre);
 router.patch('/updateOffre/:id', offreController.updateOffre);
 router.get('/findOffre/:off_dossier_id', offreController.findOffre);
 router.get('/getOffreById/:id', offreController.getOffreById);
+
+router.get('/getOffreByLotID/:lot_id', offreController.getOffreByLotID);
+router.get('/getAttributaire/:lot_id/:fournisseur_id', offreController.getAttributaire)
 /*-------------------------Ouverture---------------------------------*/
 router.post('/createProceverb',proceverbController.createProceverb);
 router.get('/getAllProceverb/:dossier_id', proceverbController.getAllProceverb);
@@ -311,6 +319,7 @@ router.get('/getOneAnalyse/:id', analyseController.getOneAnalyse);
 router.delete('/removeAnalyse/:id', analyseController.removeAnalyse);
 router.patch('/updateAnalyse/:id', analyseController.updateAnalyse);
 router.get('/findAnalyse/:dossier_id', analyseController.findAnalyse);
+router.get('/findAnalyseByLot/:lot_id', analyseController.findAnalyseByLot);
 
 /*-------------------------Deliberation---------------------------------*/
 router.post('/createDeliberation',deliberationController.createDeliberation);
@@ -367,11 +376,11 @@ router.get('/countMarche/:annee', marcheController.countMarche);
 router.get('/getMarche/:dossier_id', marcheController.getMarche);
 /*-------------------------CAUTIONS---------------------------------*/
 router.post('/createCaution',cautionController.createCaution);
-router.get('/getAllCaution/:dossier_id', cautionController.getAllCaution);
+router.get('/getAllCaution', cautionController.getAllCaution);
 router.get('/getOneCaution/:id', cautionController.getOneCaution);
 router.delete('/removeCaution/:id', cautionController.removeCaution);
 router.patch('/updateCaution/:id', cautionController.updateCaution);
-router.get('/findCaution/:dossier_id', cautionController.findCaution);
+router.get('/findcautions/:dossier_id', cautionController.findcautions);
 
 /*-------------------------PUB AVIS BORDEREAU----------------------------*/
 router.post('/createPubavis',pubavisController.createPubavis);
@@ -492,12 +501,6 @@ router.patch('/updateSeuilmode/:id', seuilmodeController.updateSeuilmode);
 router.get('/findSeuilmode/:type_id/:mode',authenticateToken, seuilmodeController.findSeuilmode);
 
 // decisionController
-/*-------------------------Decision----------------------------------*/
-router.post('/createDecision',decisionController.createDecision);
-router.get('/getAllDecision', decisionController.getAllDecision);
-router.get('/getOneDecision/:id', decisionController.getOneDecision);
-router.delete('/removeDecision/:id', decisionController.removeDecision);
-router.patch('/updateDecision/:id', decisionController.updateDecision);
 
 /*-------------------------Avenant----------------------------------*/
 router.post('/createAvenant',avenantController.createAvenant);
@@ -513,12 +516,49 @@ router.get('/getOneDemeure/:id', demeureController.getOneDemeure);
 router.delete('/removeDemeure/:id', demeureController.removeDemeure);
 router.patch('/updateDemeure/:id', demeureController.updateDemeure);
 
+
 /*-------------------------Resiliation----------------------------------*/
 router.post('/createResiliation',resiliationController.createResiliation);
 router.get('/getAllResiliation', resiliationController.getAllResiliation);
 router.get('/getOneResiliation/:id', resiliationController.getOneResiliation);
 router.delete('/removeResiliation/:id', resiliationController.removeResiliation);
 router.patch('/updateResiliation/:id', resiliationController.updateResiliation);
+
+router.get('/findResiliation/:marche_id', resiliationController.findResiliation);
+
+/*-------------------------Decision----------------------------------*/
+router.post('/createDecision',decisionController.createDecision);
+router.get('/getAllDecision', decisionController.getAllDecision);
+router.get('/getOneResiliation/:id', decisionController.getOneDecision);
+router.delete('/removeDecision/:id', decisionController.removeDecision);
+router.patch('/updateDecision/:id', decisionController.updateDecision);
+
+router.get('/findDecision/:marche_id', decisionController.findDecision);
+
+/*-------------------------Penalite----------------------------------*/
+router.post('/createPenalite',penaliteController.createPenalite);
+router.get('/getAllPenalite', penaliteController.getAllPenalite);
+router.get('/getOnePenalite/:id', penaliteController.getOnePenalite);
+router.delete('/removePenalite/:id', penaliteController.removePenalite);
+router.patch('/updatePenalite/:id', penaliteController.updatePenalite);
+
+router.get('/findPenalite/:marche_id', penaliteController.findPenalite);
+
+/*-------------------------Reglement----------------------------------*/
+router.post('/createReglement',reglementController.createReglement);
+router.get('/getAllReglement', reglementController.getAllReglement);
+router.get('/getOneReglement/:id', reglementController.getOneReglement);
+router.delete('/removeReglement/:id', reglementController.removeReglement);
+router.patch('/updateReglement/:id', reglementController.updateReglement);
+
+router.get('/findReglement/:marche_id', reglementController.findReglement);
+
+/*-------------------------Analyse Item----------------------------------*/
+router.post('/createAnalitem',analitemController.createAnalitem);
+router.get('/getAllAnalitem/:analyse_id', analitemController.getAllAnalitem);
+router.get('/getOneAnalitem/:id', analitemController.getOneAnalitem);
+router.delete('/removeAnalitem/:id', analitemController.removeAnalitem);
+router.patch('/updateAnalitem/:id', analitemController.updateAnalitem);
 
 //authenticateToken,
 /*========Envoie de mail ========================*/

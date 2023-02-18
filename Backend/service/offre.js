@@ -27,7 +27,15 @@ class offreService {
 
   getOffreById(id){
     return offreDAO.getOffreById(id)
-}
+  }
+
+  getOffreByLotID(lot_id){
+    return offreDAO.getOffreByLotID(lot_id)
+  }
+
+  getAttributaire(lot_id,fournisseur_id){
+    return offreDAO.getAttributaire(lot_id,fournisseur_id)
+  }
 }
 
 module.exports = new offreService();

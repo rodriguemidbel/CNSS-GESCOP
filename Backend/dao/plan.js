@@ -41,7 +41,7 @@ class PlanDAO {
       'plans.date_plan as date_plan',
       'plans.statut as statut'
     )
-    .orderBy('plans.annee', 'desc');
+    .orderBy('plans.statut', 'asc');
   };
 
 
@@ -54,6 +54,9 @@ class PlanDAO {
   };
 
   async updatePlan(id,changes) {
+    //annee libelle date_plan statut created_by
+    changes['date_plan'] = commonUtils.formatOracleDate2(changes['date_plan']);
+
     return await db('plans').where({id}).update(changes)
     .then(() =>{
       return db('plans').where({id}).first();

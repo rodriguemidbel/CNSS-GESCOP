@@ -109,6 +109,42 @@ class OffreController {
     }
   };
 
+  async getOffreByLotID(req, res) {
+    try {
+      const {lot_id} = req.params;
+      const item = await offreService.getOffreByLotID(lot_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  async getAttributaire(req, res) {
+    try {
+      const {lot_id,fournisseur_id} = req.params;
+      const item = await offreService.getAttributaire(lot_id,fournisseur_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   
 }
 

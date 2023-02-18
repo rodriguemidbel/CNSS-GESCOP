@@ -1,6 +1,11 @@
 const express = require('express');
 const router = require('./routes');
 const multer = require('multer');
+const path = require('path');
+
+
+
+const fs = require('fs');
 
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -56,7 +61,7 @@ app.post('/api/refreshToken', (req, res) => {
 app.use(router);
 
 app.listen('3000', () => console.log('server up and listening on port :  3000'));
-/**------------------UPLOAD DE FICHIER----------------------------* */
+/**------------------STOCKAGE D'UN FICHIER AVEC MULTER----------------------------* */
 const storage = multer.diskStorage({
     destination: (req, file, callBack) => {
         callBack(null, 'uploads')
@@ -67,7 +72,7 @@ const storage = multer.diskStorage({
   })
   
 const upload = multer({ storage: storage })
-
+/**------------------UPLOAD UN FICHIER ----------------------------* */
 app.post('/file', upload.single('file'), (req, res, next) => {
     const file = req.file;
     //console.log(file.filename);
@@ -78,7 +83,7 @@ app.post('/file', upload.single('file'), (req, res, next) => {
     }
       res.send(file);
   })
-  
+/**------------------UPLOAD UN PLUSIEUR FICHIER ----------------------------* */
 app.post('/multipleFiles', upload.array('files'), (req, res, next) => {
 const files = req.files;
 console.log(files);
@@ -89,24 +94,47 @@ if (!files) {
 }
     res.send({sttus:  'ok'});
 })
+/**------------------TELECHARGER UN FICHIER  STOCKER----------------------------* */
+app.post('/download', function(req,res,next){
+  filepath = path.join(__dirname,'/uploads') +'/'+ req.body.filename;
+  res.sendFile(filepath);
+  /*---------------------------*/
+  var tmp = fs.readFileSync(filepath);
+  res.contentType("application/pdf");
+  res.send(tmp);
+});
 
 /*====================Envoie de mail====================*/
-app.post('/sendmail',(req,res)=>{
+const nodemailer = require("nodemailer");
 
-   console.log('Vous etes dans l\'API de mail');
-  let transporter = nodemailer.createTransport({
-      service: 'smtp.nytia-bf.com',
+app.get('/send_mail', function(req,res,next){
+
+  console.log('Vous etes dans l\'API de mail');
+
+    var transporter = nodemailer.createTransport({
+      service: 'pro.turbo-smtp.com',
       auth: {
-          user: 'nytia@nytia-bf.com',
-          password: 'Nytia@2019'
+          user: 'cemeau@computermediascenter.com',
+          password: 'MN8MyQmr'
       }
-  });
-  var mailOptions = {
-      from: 'nytia@nytia-bf.com',
+    });
+
+    var mailOptions = {
+      from: 'cemeau@computermediascenter.com',
       to: 'rodrigue.midbel@gmail.com',
-      subject: 'NODEMAILER TEST 1',
-      text: 'Mail test de  nodemailer' 
-  };
+      subject: 'NODE MAILER TEST 1',
+      text: 'Salut !!! Mail test 1 de  nodemailer' 
+    };
+
+    return transporter.sendMail(mailOptions);
+
+});
+
+/*app.post('/sendmail',function(){
+
+  console.log('Vous etes dans l\'API de mail');
+ 
+ 
   transporter.sendMail(mailOptions,(err,res)=>{
       if(err){
           console.log(err);
@@ -116,4 +144,4 @@ app.post('/sendmail',(req,res)=>{
       }
   })
   
-}) 
+});*/

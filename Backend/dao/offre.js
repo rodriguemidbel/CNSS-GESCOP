@@ -112,6 +112,59 @@ class OffreDAO {
     .where({id})
   };
 
+
+  async getOffreByLotID(lot_id) {
+    return await db('offres')
+      .join('fournisseurs', 'fournisseurs.id', 'offres.fournisseur_id')
+      .join('lots', 'lots.id', 'offres.lot_id')
+      .select(
+        'fournisseurs.raison_sociale as raison_sociale',
+        'lots.intitule_lot as intitule_lot',
+        'fournisseurs.id as fournisseur_id',
+        'offres.id as id',
+        'offres.lot_id as lot_id',
+        'offres.montant_offre as montant_offre',
+        'offres.montant_min as montant_min',
+        'offres.montant_max as montant_max',
+        'offres.delai_exe as delai_exe',
+        'offres.date_depot as date_depot',
+        'offres.heure_depot as heure_depot',
+        'offres.nom_prenom_dep as nom_prenom_dep',
+        'offres.telephone_dep as telephone_dep',
+        'offres.banque as banque',
+        'offres.ref_caution as ref_caution',
+        'offres.mnt_caution as mnt_caution'
+      )
+      .where({lot_id})
+      .orderBy('offres.montant_offre','asc')
+      .orderBy('offres.montant_max','asc')
+  };
+
+  async getAttributaire(lot_id,fournisseur_id) {
+    return await db('offres')
+      .join('fournisseurs', 'fournisseurs.id', 'offres.fournisseur_id')
+      .join('lots', 'lots.id', 'offres.lot_id')
+      .select(
+        'fournisseurs.raison_sociale as raison_sociale',
+        'lots.intitule_lot as intitule_lot',
+        'fournisseurs.id as fournisseur_id',
+        'offres.id as id',
+        'offres.lot_id as lot_id',
+        'offres.montant_offre as montant_offre',
+        'offres.montant_min as montant_min',
+        'offres.montant_max as montant_max',
+        'offres.delai_exe as delai_exe',
+        'offres.date_depot as date_depot',
+        'offres.heure_depot as heure_depot',
+        'offres.nom_prenom_dep as nom_prenom_dep',
+        'offres.telephone_dep as telephone_dep',
+        'offres.banque as banque',
+        'offres.ref_caution as ref_caution',
+        'offres.mnt_caution as mnt_caution'
+      )
+      .where({lot_id,fournisseur_id})
+  };
+
  
 }
 

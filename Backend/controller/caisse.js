@@ -90,6 +90,43 @@ class CaisseController {
     }
   };
 
+  async findCaisseByDoss(req, res) {
+    try {
+      const {vent_dossier_id} = req.params;
+      const Caisses = await caisseService.findCaisseByDoss(vent_dossier_id);
+      if(Caisses)
+      {
+        res.status(201).json(Caisses);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  async getCaisseByUser(req, res) {
+    try {
+      const {user_id} = req.params;
+      const Caisses = await caisseService.getCaisseByUser(user_id);
+      if(Caisses)
+      {
+        res.status(201).json(Caisses);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
   
 }
 

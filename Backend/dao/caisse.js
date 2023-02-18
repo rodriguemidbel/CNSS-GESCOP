@@ -88,6 +88,49 @@ class CaisseDAO {
   };
 
 
+  async findCaisseByDoss(vent_dossier_id){
+    return await db('caisses')
+    .join('ventes','ventes.id','caisses.vente_id')
+    .select(
+      'caisses.id as id',
+      'caisses.num_recu as num_recu',
+      'caisses.date_recu as date_recu',
+      'ventes.id as vente_id'
+    )
+    .where({vent_dossier_id})
+  };
+
+
+  async getCaisseByUser(user_id) {
+    return await db('caisses')
+    .join('ventes', 'ventes.id', 'caisses.vente_id')
+    .join('users', 'users.id', 'caisses.user_id')
+    .join('lots', 'lots.id', 'ventes.lot_id')
+    .join('dossiers', 'dossiers.id', 'lots.dossier_id')
+    .join('modepaiements', 'modepaiements.id', 'caisses.modepaiement_id')
+    .join('fournisseurs', 'fournisseurs.id', 'ventes.fournisseur_id')
+    .select(
+        'users.name as name',
+        'dossiers.numero_doss as numero_doss',
+        'lots.id as lotID',
+        'lots.intitule_lot as intitule_lot',
+        'fournisseurs.id as fourID',
+        'fournisseurs.raison_sociale as raison_sociale',
+        'modepaiements.id as modepaieID',
+        'modepaiements.libelle as modepaie',
+        'ventes.id as venteID',
+        'ventes.num_vente as num_vente',
+        'ventes.date_vente as date_vente',
+        'ventes.montant as montant',
+        'ventes.vent_statut as vent_statut',
+        'caisses.id as CaisseID',
+        'caisses.num_recu as num_recu',
+        'caisses.date_recu as date_recu'
+    )
+    .where({user_id})
+  };
+
+
  
 }
 

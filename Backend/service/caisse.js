@@ -21,6 +21,14 @@ class caisseService {
   findCaisse(vente_id){
       return caisseDAO.findCaisse(vente_id)
   }
+
+  findCaisseByDoss(vent_dossier_id){
+    return caisseDAO.findCaisseByDoss(vent_dossier_id)
+ }
+
+ getCaisseByUser(user_id){
+  return caisseDAO.getCaisseByUser(user_id)
+ }
   
 }
 
