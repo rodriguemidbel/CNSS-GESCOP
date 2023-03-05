@@ -3,6 +3,7 @@ const lotService = require('../service/lot');
 class LotController {
   async createLot(req, res) {
     try {
+      //console.log(req.body);
       const id = await lotService.createLot(req.body);
       res.status(201).json(id);
     } catch (err) {
@@ -55,6 +56,8 @@ class LotController {
 
   async updateLot(req, res) {
     try {
+      //console.log(req.body);
+      
       const {id} = req.params;
       const changes = req.body;
 

@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class MarcheDAO {
   async createMarche(dossier_id,num_ref,notification_id,date_notif,objet,fournisseur_id,lot_id,
@@ -8,7 +9,7 @@ class MarcheDAO {
       .insert({dossier_id,
                 num_ref,
                 notification_id,
-                date_notif,
+                date_notif : commonUtils.formatOracleDate2(date_notif),
                 objet,
                 fournisseur_id,
                 lot_id,
@@ -16,14 +17,14 @@ class MarcheDAO {
                 montant_min,
                 montant_max,
                 delai,
-                date_rem_sign,
-                date_retour_sign,
-                date_trans_visa,
-                date_envoi_appro,
-                date_appro,
+                date_rem_sign : commonUtils.formatOracleDate2(date_rem_sign),
+                date_retour_sign : commonUtils.formatOracleDate2(date_retour_sign),
+                date_trans_visa : commonUtils.formatOracleDate2(date_trans_visa),
+                date_envoi_appro : commonUtils.formatOracleDate2(date_envoi_appro),
+                date_appro : commonUtils.formatOracleDate2(date_appro),
                 num_visa,
-                date_rem_enr,
-                date_retour_enr,
+                date_rem_enr : commonUtils.formatOracleDate2(date_rem_enr),
+                date_retour_enr : commonUtils.formatOracleDate2(date_retour_enr),
                 marche
               })
               .returning('id');
@@ -73,6 +74,17 @@ class MarcheDAO {
   };
 
   async updateMarche(id,changes) {
+
+    changes['date_notif'] = commonUtils.formatOracleDate2(changes['date_notif']);
+    changes['date_rem_sign'] = commonUtils.formatOracleDate2(changes['date_rem_sign']);
+    changes['date_retour_sign'] = commonUtils.formatOracleDate2(changes['date_retour_sign']);
+    changes['date_trans_visa'] = commonUtils.formatOracleDate2(changes['date_trans_visa']);
+    changes['date_envoi_appro'] = commonUtils.formatOracleDate2(changes['date_envoi_appro']);
+    changes['date_appro'] = commonUtils.formatOracleDate2(changes['date_appro']);
+
+    changes['date_rem_enr'] = commonUtils.formatOracleDate2(changes['date_rem_enr']);
+    changes['date_retour_enr'] = commonUtils.formatOracleDate2(changes['date_retour_enr']);
+
     return await db('marches').where({id}).update(changes)
     .then(() =>{
       return db('marches').where({id}).first();
@@ -158,6 +170,36 @@ class MarcheDAO {
       'marches.dossier_id'
     )
     .where({dossier_id})
+  };
+
+
+  async findMarcheByID(id) {
+    return await db('marches')
+    .join('dossiers', 'dossiers.id', 'marches.dossier_id')
+      .join('fournisseurs','fournisseurs.id','marches.fournisseur_id')
+      .select(
+        'dossiers.numero_doss as numero',
+        'dossiers.intitule_doss as intitule',
+        'fournisseurs.raison_sociale as raison_sociale',
+        'marches.id as id',
+        'marches.num_ref as num_ref',
+        'marches.objet as objet',
+        'marches.montant as montant',
+        'marches.montant_min as montant_min',
+        'marches.montant_max as montant_max',
+        'marches.delai as delai',
+        'marches.date_rem_sign as date_rem_sign',
+        'marches.date_retour_sign as date_retour_sign',
+        'marches.date_trans_visa as date_trans_visa',
+        'marches.date_envoi_appro as date_envoi_appro',
+        'marches.date_appro as date_appro',
+        'marches.date_notif as date_notif',
+        'marches.date_rem_enr as date_rem_enr',
+        'marches.date_retour_enr as date_retour_enr',
+        'marches.num_visa as num_visa',
+        'marches.marche as marche'
+      )
+      .where({id})
   };
 
  

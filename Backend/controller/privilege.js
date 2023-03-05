@@ -92,6 +92,24 @@ class PrivilegeController {
     }
   };
 
+  async getPrivileges(req, res) {
+    try {
+      const {usergroup_id} = req.params;
+      const item = await privilegeService.getPrivileges(usergroup_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   
 }
 

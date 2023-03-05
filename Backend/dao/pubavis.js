@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class PubavisDAO {
   async createPubavis(dossier_id,num_bordereau,date_bordereau,observation) {
@@ -6,7 +7,7 @@ class PubavisDAO {
       .insert({
         dossier_id,
         num_bordereau,
-        date_bordereau,
+        date_bordereau : commonUtils.formatOracleDate2(date_bordereau),
         observation
       })
       .returning('id');
@@ -37,6 +38,9 @@ class PubavisDAO {
   };
 
   async updatePubavis(id,changes) {
+    
+    changes['date_bordereau'] = commonUtils.formatOracleDate2(changes['date_bordereau']);
+
     return await db('pubavis').where({id}).update(changes)
     .then(() =>{
       return db('pubavis').where({id}).first();

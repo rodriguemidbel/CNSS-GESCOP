@@ -8,7 +8,7 @@ class PlanDAO {
         plan_id:plan_id,
         statut:statut,
         created_by:created_by,
-        created_at : commonUtils.formatOracleDate()
+        created_at : created_at
       })
       .returning('id');
 

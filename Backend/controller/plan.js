@@ -3,12 +3,13 @@ const planService = require('../service/plan');
 class PlanController {
   async createPlan(req, res) {
     try {
-      
+
+      //console.log(req.body);
 
       const id = await planService.createPlan(req.body);
       res.status(201).json(id);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
   async getAllPlan(req, res) {
@@ -16,7 +17,7 @@ class PlanController {
       const plans = await planService.getAllPlan();
       res.status(201).json(plans);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
   async getOnePlan(req, res) {
@@ -33,7 +34,7 @@ class PlanController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
   async removePlan(req, res) {
@@ -50,12 +51,15 @@ class PlanController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
   async updatePlan(req, res) {
     try {
+     // console.log(req.params);
+     // console.log(req.body);
+
       const {id} = req.params;
       const changes = req.body;
 
@@ -70,7 +74,7 @@ class PlanController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -89,7 +93,26 @@ class PlanController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
+    }
+  };
+
+
+  async findPlanByStatut(req, res) {
+    try {
+      const {statut} = req.params;
+      const item = await planService.findPlanByStatut(statut);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      //console.error(err);
     }
   };
   

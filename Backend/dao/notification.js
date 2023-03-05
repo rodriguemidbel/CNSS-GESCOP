@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class NotificationDAO {
   async createNotification(not_dossier_id,numero,date_notif,fournisseur_id,lot_id,fichiernot) {
@@ -6,7 +7,7 @@ class NotificationDAO {
       .insert({
         not_dossier_id,
         numero,
-        date_notif,
+        date_notif : commonUtils.formatOracleDate2(date_notif),
         fournisseur_id,
         lot_id,
         fichiernot
@@ -35,7 +36,8 @@ class NotificationDAO {
         'notifications.numero as numero',
         'notifications.date_notif as date_notif',
         'notifications.fournisseur_id as fournisseur_id',
-        'notifications.lot_id as lot_id'
+        'notifications.lot_id as lot_id',
+        'notifications.fichiernot as fichiernot'
     )
     .where({not_dossier_id})
     .orderBy('notifications.date_notif','desc')
@@ -50,6 +52,9 @@ class NotificationDAO {
   };
 
   async updateNotification(id,changes) {
+
+    changes['date_notif'] = commonUtils.formatOracleDate2(changes['date_notif']); 
+
     return await db('notifications').where({id}).update(changes)
     .then(() =>{
       return db('notifications').where({id}).first();
@@ -71,7 +76,8 @@ class NotificationDAO {
       'notifications.numero as numero',
       'notifications.date_notif as date_notif',
       'notifications.fournisseur_id as fournisseur_id',
-      'notifications.lot_id as lot_id'
+      'notifications.lot_id as lot_id',
+      'notifications.fichiernot as fichiernot'
     )
     .where({not_dossier_id})
   };

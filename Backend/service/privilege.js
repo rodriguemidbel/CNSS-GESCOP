@@ -22,6 +22,10 @@ class PrivilegeService {
   recherche(usergroup_id,fonctionalite_id){
     return privilegeDAO.recherche(usergroup_id,fonctionalite_id);
   };
+
+  getPrivileges(usergroup_id){
+    return privilegeDAO.getPrivileges(usergroup_id);
+  };
   
 }
 

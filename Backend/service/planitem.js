@@ -6,10 +6,10 @@ class planitemService {
   createPlanitem(PlanitemDto) {
     const { plan_id,num_ordre,budget,imputation,montant_estime,montant_depense,credit,designation,nbr_lot,
       mode,date_lanc,date_remise,temp,date_prob_demarrage,delai_exe,date_prob_fin,gestionnaire,ppm,type_id,
-      localisation_id } = PlanitemDto;
+      localisation_id,created_by,created_at } = PlanitemDto;
     return planitemDAO.createPlanitem(plan_id,num_ordre,budget,imputation,montant_estime,montant_depense,credit,designation,nbr_lot,
       mode,date_lanc,date_remise,temp,date_prob_demarrage,delai_exe,date_prob_fin,gestionnaire,ppm,type_id,
-      localisation_id);
+      localisation_id,created_by,created_at);
   };
   getAllPlanitem() {
     return planitemDAO.getAllPlanitem();

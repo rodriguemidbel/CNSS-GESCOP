@@ -1,10 +1,11 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class PlanitemDAO {
     
   async createPlanitem(plan_id,num_ordre,budget,imputation,montant_estime,montant_depense,credit,designation,nbr_lot,
     mode,date_lanc,date_remise,temp,date_prob_demarrage,delai_exe,date_prob_fin,gestionnaire,ppm,type_id,
-    localisation_id) {
+    localisation_id,created_by,created_at) {
     const [id] = await db('planitems')
       .insert({
         plan_id,
@@ -17,16 +18,18 @@ class PlanitemDAO {
         designation,
         nbr_lot,
         mode,
-        date_lanc,
-        date_remise,
+        date_lanc : commonUtils.formatOracleDate2(date_lanc),
+        date_remise : commonUtils.formatOracleDate2(date_remise),
         temp,
-        date_prob_demarrage,
+        date_prob_demarrage : commonUtils.formatOracleDate2(date_prob_demarrage),
         delai_exe,
-        date_prob_fin,
+        date_prob_fin : commonUtils.formatOracleDate2(date_prob_fin),
         gestionnaire,
         ppm,
         type_id,
-        localisation_id
+        localisation_id,
+        created_by,
+        created_at
 
       })
       .returning('id');
@@ -128,6 +131,12 @@ class PlanitemDAO {
   };
 
   async updatePlanitem(id,changes) {
+
+    changes['date_lanc'] = commonUtils.formatOracleDate2(changes['date_lanc']);
+    changes['date_remise'] = commonUtils.formatOracleDate2(changes['date_remise']);
+    changes['date_prob_demarrage'] = commonUtils.formatOracleDate2(changes['date_prob_demarrage']);
+    changes['date_prob_fin'] = commonUtils.formatOracleDate2(changes['date_prob_fin']);
+   
     return await db('planitems').where({id}).update(changes)
     .then(() =>{
       return db('planitems').where({id}).first();
@@ -223,13 +232,14 @@ class PlanitemDAO {
       'localisations.id as localisation_id',
       'localisations.sigle as localisation'
     )
-     .where({plan_id})
-     .orderBy([
-       { column: 'planitems.localisation_id', order: 'asc'}, 
-         { column: 'planitems.type_id', order: 'asc' },
-         { column: 'planitems.num_ordre', order: 'asc' }
- 
-     ])             
+    .where({plan_id})
+    .orderBy([
+      { column: 'planitems.localisation_id', order: 'asc'}, 
+      { column: 'planitems.type_id', order: 'asc' },
+      { column: 'planitems.num_ordre', order: 'asc' }
+
+
+    ])    
    };
   /*-----------*/
   async findPlanitemByLoc(plan_id,localisation_id) {

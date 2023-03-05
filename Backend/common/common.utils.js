@@ -5,6 +5,16 @@ var moment = require('moment');
 
 var commonUtils = (function() {
 
+    //console.log(moment(date).format("x")); // for milliseconds
+
+   
+    
+    var logOracleDate = function() {
+        
+        return moment().format('dd/MMM/YY hh:mm:ss');
+
+    }
+    /*--------*/
     var formatOracleDate = function() {
         
         return moment().format('DD/MMM/YY');
@@ -43,6 +53,7 @@ var commonUtils = (function() {
         return val ? moment(val).format('DD/MM/YYYY') : val;
     }
     return {
+        logOracleDate:logOracleDate,
         formatOracleDate: formatOracleDate,
         formatOracleDate2: formatOracleDate2,
         formatMySqlDate: formatMySqlDate,

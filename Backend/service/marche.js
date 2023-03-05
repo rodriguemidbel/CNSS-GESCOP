@@ -35,6 +35,10 @@ getMarche(dossier_id){
   return marcheDAO.getMarche(dossier_id)
 }
 
+findMarcheByID(id){
+  return marcheDAO.findMarcheByID(id)
+}
+
 
   
 }

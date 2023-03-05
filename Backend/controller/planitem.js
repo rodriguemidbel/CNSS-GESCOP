@@ -6,6 +6,7 @@ class PlanitemController {
 
   async createPlanitem(req, res) {
     try {
+      // console.log(req.body);
       const id = await planitemService.createPlanitem(req.body);
       res.status(201).json(id);
     } catch (err) {
@@ -59,6 +60,8 @@ class PlanitemController {
     try {
       const {id} = req.params;
       const changes = req.body;
+
+      //console.log(req.body);
 
       const items = await planitemService.updatePlanitem(id,changes);
       if(items)

@@ -2,8 +2,8 @@ const venteDAO = require('../dao/vente');
 
 class VenteService {
   createVente(VenteDto) {
-    const {vent_dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,vent_statut,grpent} = VenteDto;
-    return venteDAO.createVente(vent_dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,vent_statut,grpent);
+    const {vent_dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,vent_statut,grpent,created_by,created_at} = VenteDto;
+    return venteDAO.createVente(vent_dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,vent_statut,grpent,created_by,created_at);
   };
   getAllVente() {
     return venteDAO.getAllVente();

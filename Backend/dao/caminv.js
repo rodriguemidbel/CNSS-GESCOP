@@ -1,11 +1,12 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class CaminvDAO {
   async createCaminv(dossier_id,date_cam,heure_cam,lieu_cam,membre_cam) {
     const [id] = await db('caminvs')
       .insert({
         dossier_id,
-        date_cam,
+        date_cam : commonUtils.formatOracleDate2(date_cam),
         heure_cam,
         lieu_cam,
         membre_cam
@@ -44,6 +45,9 @@ class CaminvDAO {
   };
 
   async updateCaminv(id,changes) {
+
+    changes['date_cam'] = commonUtils.formatOracleDate2(changes['date_cam']);
+    
     return await db('caminvs').where({id}).update(changes)
     .then(() =>{
       return db('caminvs').where({id}).first();

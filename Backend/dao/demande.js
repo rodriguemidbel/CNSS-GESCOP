@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 
 class DemandeDAO {
@@ -7,7 +8,7 @@ class DemandeDAO {
       .insert({
         marche_id,
         ordreserv_id,
-        date_demande,
+        date_demande : commonUtils.formatOracleDate2(date_demande),
         motif,
         courrier
       })
@@ -32,8 +33,8 @@ class DemandeDAO {
       'fournisseurs.raison_sociale as raison_sociale',
       'recepdemandes.id as id',
       'recepdemandes.date_demande as date_demande',
-      'recepdemandes.motif as motif',
-      'recepdemandes.courrier as courrier'
+      'recepdemandes.motif as motif'
+     
       )
       .orderBy('recepdemandes.id', 'asc');
   };
@@ -47,6 +48,9 @@ class DemandeDAO {
   };
 
   async updateDemande(id,changes) {
+
+    changes['date_demande'] = commonUtils.formatOracleDate2(changes['date_demande']);
+
     return await db('recepdemandes').where({id}).update(changes)
     .then(() =>{
       return db('recepdemandes').where({id}).first();

@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 
 class ResiliationDAO {
@@ -7,7 +8,7 @@ class ResiliationDAO {
       .insert({
         marche_id,
         ref_decision,
-        date_decision,
+        date_decision : commonUtils.formatOracleDate2(date_decision),
         fichier
       })
       .returning('id');
@@ -29,6 +30,9 @@ class ResiliationDAO {
   };
 
   async updateResiliation(id,changes) {
+
+    changes['date_decision'] = commonUtils.formatOracleDate2(changes['date_decision']);
+
     return await db('resiliations').where({id}).update(changes)
     .then(() =>{
       return db('resiliations').where({id}).first();

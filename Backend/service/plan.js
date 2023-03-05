@@ -2,8 +2,8 @@ const planDAO = require('../dao/plan');
 
 class PlanService {
   createPlan(PlanDto) {
-    const { annee,libelle,date_plan,statut,created_by,modified_by } = PlanDto;
-    return planDAO.createPlan(annee,libelle,date_plan,statut,created_by,modified_by);
+    const { annee,libelle,date_plan,statut,created_by,created_at } = PlanDto;
+    return planDAO.createPlan(annee,libelle,date_plan,statut,created_by,created_at);
   };
   getAllPlan() {
     return planDAO.getAllPlan();
@@ -20,6 +20,10 @@ class PlanService {
 
   findPlan(annee){
     return planDAO.findPlan(annee);
+  };
+
+  findPlanByStatut(statut){
+    return planDAO.findPlanByStatut(statut);
   };
   
 }

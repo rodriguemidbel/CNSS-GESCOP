@@ -1,14 +1,19 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class CaisseDAO {
-  async createCaisse(num_recu,date_recu,vente_id,modepaiement_id,user_id) {
+  async createCaisse(num_recu,date_recu,vente_id,modepaiement_id,user_id,ref_cheque,banque_cheque,created_by,created_at) {
     const [id] = await db('caisses')
       .insert({
         num_recu,
-        date_recu,
+        date_recu : commonUtils.formatOracleDate2(date_recu),
         vente_id,
         modepaiement_id,
-        user_id
+        user_id,
+        ref_cheque,
+        banque_cheque,
+        created_by,
+        created_at
       })
       .returning('id');
 
@@ -53,6 +58,9 @@ class CaisseDAO {
   };
 
   async updateCaisse(id,changes) {
+
+    changes['date_recu'] = commonUtils.formatOracleDate2(changes['date_recu']);
+
     return await db('caisses').where({id}).update(changes)
     .then(() =>{
       return db('caisses').where({id}).first();

@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 
 class DecisionDAO {
@@ -9,7 +10,7 @@ class DecisionDAO {
     const [id] = await db('decisions')
       .insert({
         marche_id,
-        date_decision,
+        date_decision : commonUtils.formatOracleDate2(date_decision),
         nature_decision,
         ref_marche,
         ref_ordre,
@@ -50,6 +51,9 @@ class DecisionDAO {
   };
 
   async updateDecision(id,changes) {
+
+    changes['date_decision'] = commonUtils.formatOracleDate2(changes['date_decision']);
+
     return await db('decisions').where({id}).update(changes)
     .then(() =>{
       return db('decisions').where({id}).first();

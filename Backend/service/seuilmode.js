@@ -21,6 +21,10 @@ class seuilmodeService {
   findSeuilmode(type_id,mode){
       return seuilmodeDAO.findSeuilmode(type_id,mode)
   }
+
+  findModeByType(type_id){
+    return seuilmodeDAO.findModeByType(type_id)
+}
   
 }
 

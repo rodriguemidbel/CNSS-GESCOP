@@ -1,13 +1,14 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class AnalyseDAO {
   async createAnalyse(dossier_id,date_effec_ana,libelle,lot_id,attributaire,montant_init,
    montant_corri,montant_min_init,montant_min_corri,montant_max_init,montant_max_corri,
     duree_execution) {
-    const [id] = await db('analyses')
+      const [id] = await db('analyses')
       .insert({
         dossier_id,
-        date_effec_ana,
+        date_effec_ana : commonUtils.formatOracleDate2(date_effec_ana),
         libelle,
         lot_id,
         attributaire,
@@ -21,7 +22,7 @@ class AnalyseDAO {
       })
       .returning('id');
 
-    return id;
+      return id;
   };
 
  /* async getAllDossier() {
@@ -59,6 +60,9 @@ class AnalyseDAO {
   };
 
   async updateAnalyse(id,changes) {
+
+    changes['date_effec_ana'] = commonUtils.formatOracleDate2(changes['date_effec_ana']);
+
     return await db('analyses').where({id}).update(changes)
     .then(() =>{
       return db('analyses').where({id}).first();

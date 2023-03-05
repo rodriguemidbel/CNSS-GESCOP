@@ -22,13 +22,13 @@ class SeuilmodeDAO {
       .join('types', 'types.id', 'seuilmodes.type_id')
       .join('modes', 'modes.id', 'seuilmodes.mode')
       .select(
-        'modes.libelle  as procedure',
         'seuilmodes.id as id',
         'seuilmodes.type_id as type_id',
-        'seuilmodes.mode as mode',
+        'seuilmodes.mode as mode_id',
         'seuilmodes.min as min',
         'seuilmodes.max as max',
         'types.libelle as type',
+        'modes.libelle  as mode',
       )
   };
 
@@ -60,6 +60,20 @@ class SeuilmodeDAO {
       
     )
     .where({type_id,mode})
+  };
+
+  async findModeByType(type_id) {
+    return await db('seuilmodes')
+    .join('types', 'types.id', 'seuilmodes.type_id')
+    .join('modes', 'modes.id', 'seuilmodes.mode')
+    .select(
+      'seuilmodes.id as id',
+      'seuilmodes.type_id as type_id',
+      'seuilmodes.mode as mode_id',
+      'types.libelle as type',
+      'modes.libelle as mode',    
+    )
+    .where({type_id})
   };
 
  

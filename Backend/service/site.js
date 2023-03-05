@@ -2,8 +2,8 @@ const siteDAO = require('../dao/site');
 
 class siteService {
   createSite(SiteDto) {
-    const { marche_id,date_rem_site } = SiteDto;
-    return siteDAO.createSite(marche_id,date_rem_site);
+    const { marche_id,date_rem_site,fichier } = SiteDto;
+    return siteDAO.createSite(marche_id,date_rem_site,fichier);
   };
   getAllSite() {
     return siteDAO.getAllSite();

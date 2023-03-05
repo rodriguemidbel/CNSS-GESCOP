@@ -2,8 +2,8 @@ const lotDAO = require('../dao/lot');
 
 class lotService {
   createLot(LotDto) {
-    const { dossier_id,num_lot,intitule_lot,montant_lot,montant_vente,observation,statut } = LotDto;
-    return lotDAO.createLot(dossier_id,num_lot,intitule_lot,montant_lot,montant_vente,observation,statut);
+    const { dossier_id,num_lot,intitule_lot,montant_lot,montant_vente,observation,statut,created_by,created_at } = LotDto;
+    return lotDAO.createLot(dossier_id,num_lot,intitule_lot,montant_lot,montant_vente,observation,statut,created_by,created_at);
   };
   getAllLot() {
     return lotDAO.getAllLot();

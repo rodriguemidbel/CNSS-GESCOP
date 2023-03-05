@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class OffreDAO {
   async createOffre( off_dossier_id,fournisseur_id,lot_id,montant_offre,montant_min,montant_max,
@@ -13,7 +14,7 @@ class OffreDAO {
         montant_min,
         montant_max,
         delai_exe,
-        date_depot,
+        date_depot : commonUtils.formatOracleDate2(date_depot),
         heure_depot,
         nom_prenom_dep,
         telephone_dep,
@@ -69,6 +70,9 @@ class OffreDAO {
   };
 
   async updateOffre(id,changes) {
+
+    changes['date_depot'] = commonUtils.formatOracleDate2(changes['date_depot']);
+
     return await db('offres').where({id}).update(changes)
     .then(() =>{
       return db('offres').where({id}).first();
@@ -118,9 +122,9 @@ class OffreDAO {
       .join('fournisseurs', 'fournisseurs.id', 'offres.fournisseur_id')
       .join('lots', 'lots.id', 'offres.lot_id')
       .select(
+        'fournisseurs.id as off_frs_ID',
         'fournisseurs.raison_sociale as raison_sociale',
         'lots.intitule_lot as intitule_lot',
-        'fournisseurs.id as fournisseur_id',
         'offres.id as id',
         'offres.lot_id as lot_id',
         'offres.montant_offre as montant_offre',

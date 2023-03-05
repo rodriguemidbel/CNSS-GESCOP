@@ -29,7 +29,7 @@ class UserController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
  
   }
@@ -44,7 +44,7 @@ class UserController {
       const id = await userService.createUser(body);
       res.status(201).json(id);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
   async getAllUser(req, res) {
@@ -52,7 +52,7 @@ class UserController {
       const groups = await userService.getAllUser();
       res.status(201).json(groups);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -61,7 +61,7 @@ class UserController {
       const user = await userService.findUserByFonction();
       res.status(201).json(user);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -79,7 +79,7 @@ class UserController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
   async removeUser(req, res) {
@@ -96,7 +96,7 @@ class UserController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -116,7 +116,7 @@ class UserController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -136,7 +136,7 @@ class UserController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -154,7 +154,7 @@ class UserController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 

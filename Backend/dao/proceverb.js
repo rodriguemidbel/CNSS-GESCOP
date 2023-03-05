@@ -1,14 +1,12 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class ProceverbDAO {
-  async createProceverb(dossier_id,date_convocation,date_transpv_sign,date_retourpv_sign,date_transpv_dgcmef,pv) {
+  async createProceverb(dossier_id,date_convocation,pv) {
     const [id] = await db('proceverbs')
       .insert({
         dossier_id,
-        date_convocation,
-        date_transpv_sign,
-        date_retourpv_sign,
-        date_transpv_dgcmef,
+        date_convocation  : commonUtils.formatOracleDate2(date_convocation),
         pv
       })
       .returning('id');
@@ -42,6 +40,9 @@ class ProceverbDAO {
   };
 
   async updateProceverb(id,changes) {
+
+    changes['date_convocation'] = commonUtils.formatOracleDate2(changes['date_convocation']);
+
     return await db('proceverbs').where({id}).update(changes)
     .then(() =>{
       return db('proceverbs').where({id}).first();

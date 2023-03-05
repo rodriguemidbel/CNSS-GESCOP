@@ -5,7 +5,11 @@ class DossierController {
 
   async createDossier(req, res) {
     try {
+
+      //console.log(req.body);
+
       const id = await dossierService.createDossier(req.body);
+      console.log(req.body);
       res.status(201).json(id);
     } catch (err) {
       console.error(err);
@@ -17,7 +21,7 @@ class DossierController {
       const Dossiers = await dossierService.getAllDossier();
       res.status(201).json(Dossiers);
     } catch (err) {
-      console.error(err);
+     // console.error(err);
     }
   };
 
@@ -35,7 +39,7 @@ class DossierController {
       }
       
     } catch (err) {
-      console.error(err);
+     // console.error(err);
     }
   };
   /*----*/
@@ -55,12 +59,14 @@ class DossierController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
   async updateDossier(req, res) {
     try {
+      //console.log(req.body);
+
       const {id} = req.params;
       const changes = req.body;
 
@@ -75,7 +81,7 @@ class DossierController {
       }
       
     } catch (err) {
-      console.error(err);
+     // console.error(err);
     }
   };
 
@@ -93,7 +99,7 @@ class DossierController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -111,7 +117,7 @@ class DossierController {
       }
       
     } catch (err) {
-      console.error(err);
+     // console.error(err);
     }
   };
 
@@ -130,7 +136,7 @@ class DossierController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -148,7 +154,7 @@ class DossierController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
   /*=========================*/
@@ -168,7 +174,7 @@ class DossierController {
       }
       
     } catch (err) {
-      console.error(err);
+     // console.error(err);
     }
   };
   /*---------------------------*/

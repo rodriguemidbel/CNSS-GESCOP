@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class CourrierDAO {
   async createCourrier(dossier_id,objet,date_courrier,fichier) {
@@ -6,7 +7,7 @@ class CourrierDAO {
       .insert({
         dossier_id,
         objet,
-        date_courrier,
+        date_courrier  : commonUtils.formatOracleDate2(date_courrier),
         fichier
       })
       .returning('id');
@@ -40,6 +41,9 @@ class CourrierDAO {
   };
 
   async updateCourrier(id,changes) {
+
+    changes['date_courrier'] = commonUtils.formatOracleDate2(changes['date_courrier']);
+
     return await db('courriers').where({id}).update(changes)
     .then(() =>{
       return db('courriers').where({id}).first();

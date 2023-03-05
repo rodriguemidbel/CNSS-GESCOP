@@ -2,14 +2,16 @@ const db = require('../db/db');
 var commonUtils = require('../common/common.utils');
 
 class PlanDAO {
-  async createPlan(annee,libelle,date_plan,statut,created_by) {
+  async createPlan(annee,libelle,date_plan,statut,created_by,created_at) {
     const [id] = await db('plans')
       .insert({
         annee : annee,
         libelle : libelle,
         date_plan : commonUtils.formatOracleDate2(date_plan),
         statut : statut,
-        created_by : created_by
+        created_by : created_by,
+        created_at : created_at
+        
       })
       .returning('id');
 
@@ -41,7 +43,8 @@ class PlanDAO {
       'plans.date_plan as date_plan',
       'plans.statut as statut'
     )
-    .orderBy('plans.statut', 'asc');
+    .orderBy('plans.annee', 'desc')
+    .orderBy('plans.statut', 'desc');
   };
 
 
@@ -54,13 +57,15 @@ class PlanDAO {
   };
 
   async updatePlan(id,changes) {
-    //annee libelle date_plan statut created_by
+    
     changes['date_plan'] = commonUtils.formatOracleDate2(changes['date_plan']);
 
     return await db('plans').where({id}).update(changes)
     .then(() =>{
       return db('plans').where({id}).first();
     });
+
+    
   };
 
   /*async findPlan(annee) {
@@ -83,6 +88,18 @@ class PlanDAO {
       'plans.statut as statut'
     )
     .where({annee})
+  };
+
+  async findPlanByStatut(statut) {
+    return await db('plans')
+    .select(
+      'plans.id as id',
+      'plans.annee as annee',
+      'plans.libelle as libelle',
+      'plans.date_plan as date_plan',
+      'plans.statut as statut'
+    )
+    .where({statut})
   };
 
   

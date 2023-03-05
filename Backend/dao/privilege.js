@@ -71,6 +71,24 @@ class PrivilegeDAO {
     .where({usergroup_id,fonctionalite_id})
   };
 
+  async getPrivileges(usergroup_id) {
+    return await db('privileges')
+    .join('usergroups', 'usergroups.id', 'privileges.usergroup_id')
+    .join('fonctionalites', 'fonctionalites.id', 'privileges.fonctionalite_id')
+    .select(
+      'usergroups.id as group_id',
+      'usergroups.name as name',
+      'fonctionalites.id as fonctionalite_id',
+      'fonctionalites.libelle as libelle',
+      'privileges.id as id',
+      'privileges.view as view',
+      'privileges.add as add',
+      'privileges.edit as edit',
+      'privileges.remove as remove'
+    )
+    .where({usergroup_id})
+  };
+
  
 }
 

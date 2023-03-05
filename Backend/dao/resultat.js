@@ -1,11 +1,12 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class ResultatDAO {
   async createResultat(dossier_id,date_par_res,num_par_res,fichierpub,fichier) {
     const [id] = await db('resultats')
       .insert({
         dossier_id,
-        date_par_res,
+        date_par_res : commonUtils.formatOracleDate2(date_par_res),
         num_par_res,
         fichierpub,
         fichier
@@ -42,6 +43,9 @@ class ResultatDAO {
   };
 
   async updateResultat(id,changes) {
+
+    changes['date_par_res'] = commonUtils.formatOracleDate2(changes['date_par_res']);
+
     return await db('resultats').where({id}).update(changes)
     .then(() =>{
       return db('resultats').where({id}).first();

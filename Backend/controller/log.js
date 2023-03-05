@@ -3,10 +3,13 @@ const logService = require('../service/log');
 class LogController {
   async createLog(req, res) {
     try {
+
+      //console.log(req.body);
+
       const id = await logService.createLog(req.body);
       res.status(201).json(id);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -15,7 +18,7 @@ class LogController {
       const Logs = await logService.getAllLog();
       res.status(201).json(Logs);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -24,7 +27,7 @@ class LogController {
       const Logs = await logService.findLog();
       res.status(201).json(Logs);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
   
@@ -42,7 +45,7 @@ class LogController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
   async removeLog(req, res) {
@@ -59,7 +62,7 @@ class LogController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
@@ -79,7 +82,7 @@ class LogController {
       }
       
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 

@@ -1,11 +1,15 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 
 class DemeureDAO {
   async createDemeure(marche_id,date_demeure,ref_correspande,delai) {
     const [id] = await db('demeures')
       .insert({
-        marche_id,date_demeure,ref_correspande,delai
+        marche_id,
+        date_demeure : commonUtils.formatOracleDate2(date_demeure),
+        ref_correspande,
+        delai
       })
       .returning('id');
 
@@ -25,6 +29,9 @@ class DemeureDAO {
   };
 
   async updateDemeure(id,changes) {
+
+    changes['date_demeure'] = commonUtils.formatOracleDate2(changes['date_demeure']);
+
     return await db('demeures').where({id}).update(changes)
     .then(() =>{
       return db('demeures').where({id}).first();

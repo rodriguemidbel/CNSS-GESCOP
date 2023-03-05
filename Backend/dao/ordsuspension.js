@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class OrdsuspenDAO {
   async createOrdsuspen(marche_id,ordreserv_id,ref,date_suspension,lettre_demande,notif_suspension,motif,delai_couru,delai_restant,charge_notif,charge_notif_titre) {
@@ -7,7 +8,7 @@ class OrdsuspenDAO {
         marche_id,
         ordreserv_id,
         ref,
-        date_suspension,
+        date_suspension : commonUtils.formatOracleDate2(date_suspension),
         lettre_demande,
         notif_suspension,
         motif,
@@ -65,6 +66,9 @@ class OrdsuspenDAO {
   };
 
   async updateOrdsuspen(id,changes) {
+
+    changes['date_suspension'] = commonUtils.formatOracleDate2(changes['date_suspension']);
+
     return await db('ordsuspensions').where({id}).update(changes)
     .then(() =>{
       return db('ordsuspensions').where({id}).first();

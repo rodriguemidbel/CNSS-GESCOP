@@ -1,4 +1,5 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 
 class PenaliteDAO {
@@ -7,15 +8,15 @@ class PenaliteDAO {
     const [id] = await db('penalites')
       .insert({
         marche_id,
-        date_pen,
+        date_pen : commonUtils.formatOracleDate2(date_pen),
         ref_marche,
         attributaire,
         montant_ht,
         delai,
         tx_pen,
         ref_ord,
-        date_recep_tech,
-        date_recep_prov,
+        date_recep_tech : commonUtils.formatOracleDate2(date_recep_tech),
+        date_recep_prov : commonUtils.formatOracleDate2(date_recep_prov),
         delai_reel,
         nbj_pen,
         montant_pen,
@@ -41,6 +42,12 @@ class PenaliteDAO {
   };
 
   async updatePenalite(id,changes) {
+
+    changes['date_pen'] = commonUtils.formatOracleDate2(changes['date_pen']);
+
+    changes['date_recep_tech'] = commonUtils.formatOracleDate2(changes['date_recep_tech']);
+    changes['date_recep_prov'] = commonUtils.formatOracleDate2(changes['date_recep_prov']);
+
     return await db('penalites').where({id}).update(changes)
     .then(() =>{
       return db('penalites').where({id}).first();

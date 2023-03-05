@@ -5,6 +5,7 @@ class AnalyseController {
     try {
       const id = await analyseService.createAnalyse(req.body);
       res.status(201).json(id);
+      console.log(id);
     } catch (err) {
       console.error(err);
     }

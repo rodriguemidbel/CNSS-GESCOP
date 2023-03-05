@@ -58,13 +58,9 @@ class LitigeDAO {
   async findLitige(dossier_id) {
     return await db('litiges')
     .join('dossiers', 'dossiers.id', 'litiges.dossier_id')
-      .join('lots', 'lots.id', 'litiges.lot_id')
       .select(
         'dossiers.numero_doss as numero',
         'dossiers.intitule_doss as intitule',
-        'lots.num_lot as num_lot',
-        'lots.intitule_lot as intitule_lot',
-        'lots.montant_lot as montant_lot',
         'litiges.id as id',
         'litiges.lot_id as lot_id',
         'litiges.motif as motif',
@@ -72,6 +68,7 @@ class LitigeDAO {
         'litiges.date_ord as date_ord',
         'litiges.fournisseur_id as fournisseur_id',
         'litiges.resultat as resultat',
+        'litiges.plainte as plainte',
         'litiges.fichier as fichier'
         )
       .where({dossier_id})

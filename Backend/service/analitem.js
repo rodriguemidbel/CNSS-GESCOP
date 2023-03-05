@@ -2,20 +2,21 @@ const AnalitemDAO = require('../dao/analitem');
 
 class AnalitemService {
   createAnalitem(AnalitemDto) {
-    const { analyse_id,lot_id,soumissionnaire_id,off_mnt,off_mnt_min,off_mnt_max,conformite,
-        motif,observation,statut } = AnalitemDto;
+    const { analyse_id,lot_id,soumissionnaire_id,soumissionnaire,off_mnt,off_mnt_min,off_mnt_max,conformite,
+      motif,observation,statut } = AnalitemDto;
     return AnalitemDAO.createAnalitem(
-        Analitem_id,
-        lot_id,
-        soumissionnaire_id,
-        off_mnt,
-        off_mnt_min,
-        off_mnt_max,
-        conformite,
-        motif,
-        observation,
-        statut
-        );
+      analyse_id,
+      lot_id,
+      soumissionnaire_id,
+      soumissionnaire,
+      off_mnt,
+      off_mnt_min,
+      off_mnt_max,
+      conformite,
+      motif,
+      observation,
+      statut
+      );
   };
   getAllAnalitem(analyse_id) {
     return AnalitemDAO.getAllAnalitem(analyse_id);

@@ -1,17 +1,20 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class VenteDAO {
-  async createVente(vent_dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,vent_statut,grpent) {
+  async createVente(vent_dossier_id,num_vente,lot_id,fournisseur_id,date_vente,montant,vent_statut,grpent,created_by,created_at) {
     const [id] = await db('ventes')
       .insert({
         vent_dossier_id,
         num_vente,
         lot_id,
         fournisseur_id,
-        date_vente,
+        date_vente: commonUtils.formatOracleDate2(date_vente),
         montant,
         vent_statut,
-        grpent
+        grpent,
+        created_by,
+        created_at
 
       })
       .returning('id');
@@ -53,6 +56,9 @@ class VenteDAO {
   };
 
   async updateVente(id,changes) {
+
+    changes['date_vente'] = commonUtils.formatOracleDate2(changes['date_vente']);
+
     return await db('ventes').where({id}).update(changes)
     .then(() =>{
       return db('ventes').where({id}).first();

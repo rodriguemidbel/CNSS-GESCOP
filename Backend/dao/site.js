@@ -1,11 +1,13 @@
 const db = require('../db/db');
+var commonUtils = require('../common/common.utils');
 
 class SiteDAO {
-  async createSite(marche_id,date_rem_site) {
+  async createSite(marche_id,date_rem_site,fichier) {
     const [id] = await db('sites')
       .insert({
         marche_id,
-        date_rem_site
+        date_rem_site : commonUtils.formatOracleDate2(date_rem_site),
+        fichier
       })
       .returning('id');
 
@@ -33,6 +35,9 @@ class SiteDAO {
   };
 
   async updateSite(id,changes) {
+
+    changes['date_rem_site'] = commonUtils.formatOracleDate2(changes['date_rem_site']);
+
     return await db('sites').where({id}).update(changes)
     .then(() =>{
       return db('sites').where({id}).first();
