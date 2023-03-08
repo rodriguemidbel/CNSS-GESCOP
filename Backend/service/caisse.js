@@ -29,6 +29,10 @@ class caisseService {
  getCaisseByUser(user_id){
   return caisseDAO.getCaisseByUser(user_id)
  }
+
+ countCaisse(){
+  return caisseDAO.countCaisse()
+ }
   
 }
 

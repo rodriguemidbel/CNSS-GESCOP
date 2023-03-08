@@ -2,8 +2,10 @@ const fournisseurDAO = require('../dao/fournisseur');
 
 class FournisseurService {
   createFournisseur(FournisseurDto) {
-    const { raison_sociale,rccm,ifu,num_employeur,telephone1,telephone2,adresse,email,domaine,titre_resp,nom_prenom_resp,type } = FournisseurDto;
-    return fournisseurDAO.createFournisseur(raison_sociale,rccm,ifu,num_employeur,telephone1,telephone2,adresse,email,domaine,titre_resp,nom_prenom_resp,type);
+    const { raison_sociale,rccm,ifu,num_employeur,telephone1,telephone2,
+      adresse,email,domaine,activite,titre_resp,nom_prenom_resp,type,created_by,created_at } = FournisseurDto;
+    return fournisseurDAO.createFournisseur(raison_sociale,rccm,ifu,num_employeur,telephone1,telephone2,
+      adresse,email,domaine,activite,titre_resp,nom_prenom_resp,type,created_by,created_at);
   };
   getAllFournisseur() {
     return fournisseurDAO.getAllFournisseur();

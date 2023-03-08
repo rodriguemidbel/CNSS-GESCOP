@@ -3,6 +3,9 @@ const fournisseurService = require('../service/fournisseur');
 class FournisseurController {
   async createFournisseur(req, res) {
     try {
+
+      //console.log(req.body);
+
       const id = await fournisseurService.createFournisseur(req.body);
       res.status(201).json(id);
     } catch (err) {

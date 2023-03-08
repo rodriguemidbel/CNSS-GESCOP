@@ -3,6 +3,7 @@ const caisseService = require('../service/caisse');
 class CaisseController {
   async createCaisse(req, res) {
     try {
+      //console.log(req.body);
       const id = await caisseService.createCaisse(req.body);
       res.status(201).json(id);
     } catch (err) {
@@ -112,6 +113,24 @@ class CaisseController {
     try {
       const {user_id} = req.params;
       const Caisses = await caisseService.getCaisseByUser(user_id);
+      if(Caisses)
+      {
+        res.status(201).json(Caisses);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  async countCaisse(req, res) {
+    try {
+      //const {user_id} = req.params;
+      const Caisses = await caisseService.countCaisse();
       if(Caisses)
       {
         res.status(201).json(Caisses);

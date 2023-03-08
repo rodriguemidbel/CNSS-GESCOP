@@ -2,25 +2,33 @@ const db = require('../db/db');
 var commonUtils = require('../common/common.utils');
 
 class OffreDAO {
-  async createOffre( off_dossier_id,fournisseur_id,lot_id,montant_offre,montant_min,montant_max,
-    delai_exe,date_depot,heure_depot,nom_prenom_dep,telephone_dep,banque,ref_caution,
-    mnt_caution) {
+  async createOffre( off_dossier_id,fournisseur_id,lot_id,montant,montant_ttc,montant_min,montant_min_ttc,montant_max,
+    montant_max_ttc,delai_exe,rabais,condi,taux,date_depot,heure_depot,nom_prenom_dep,telephone_dep,banque,ref_caution,
+    mnt_caution,created_by,created_at) {
     const [id] = await db('offres')
       .insert({
         off_dossier_id,
         fournisseur_id,
         lot_id,
-        montant_offre,
-        montant_min,
-        montant_max,
+        montant : montant,
+        montant_ttc : montant_ttc,
+        montant_min : montant_min,
+        montant_min_ttc : montant_min_ttc,
+        montant_max : montant_max,
+        montant_max_ttc : montant_max_ttc,
         delai_exe,
+        rabais,
+        condi,
+        taux,
         date_depot : commonUtils.formatOracleDate2(date_depot),
         heure_depot,
         nom_prenom_dep,
         telephone_dep,
         banque,
         ref_caution,
-        mnt_caution
+        mnt_caution,
+        created_by,
+        created_at
       })
       .returning('id');
 
@@ -44,9 +52,12 @@ class OffreDAO {
         'offres.id as id',
         'offres.fournisseur_id as fournisseur_id',
         'offres.lot_id as lot_id',
-        'offres.montant_offre as montant_offre',
+        'offres.montant as montant',
+        'offres.montant_ttc as montant_ttc',
         'offres.montant_min as montant_min',
+        'offres.montant_min_ttc as montant_min_ttc',
         'offres.montant_max as montant_max',
+        'offres.montant_max_ttc as montant_max_ttc',
         'offres.delai_exe as delai_exe',
         'offres.date_depot as date_depot',
         'offres.heure_depot as heure_depot',
@@ -54,7 +65,10 @@ class OffreDAO {
         'offres.telephone_dep as telephone_dep',
         'offres.banque as banque',
         'offres.ref_caution as ref_caution',
-        'offres.mnt_caution as mnt_caution'
+        'offres.mnt_caution as mnt_caution',
+        'offres.rabais as rabais',
+        'offres.condi as condi',
+        'offres.taux as taux',
       )
       .where({off_dossier_id})
       .orderBy('offres.date_depot','asc')
@@ -88,7 +102,7 @@ class OffreDAO {
       'offres.id as id',
       'offres.fournisseur_id as fournisseur_id',
       'offres.lot_id as lot_id',
-      'offres.montant_offre as montant_offre',
+      'offres.montant as montant_offre',
       'offres.montant_min as montant_min',
       'offres.montant_max as montant_max',
       'offres.delai_exe as delai_exe',
@@ -127,9 +141,12 @@ class OffreDAO {
         'lots.intitule_lot as intitule_lot',
         'offres.id as id',
         'offres.lot_id as lot_id',
-        'offres.montant_offre as montant_offre',
+        'offres.montant as montant',
+        'offres.montant_ttc as montant_ttc',
         'offres.montant_min as montant_min',
+        'offres.montant_min_ttc as montant_min_ttc',
         'offres.montant_max as montant_max',
+        'offres.montant_max_ttc as montant_max_ttc',
         'offres.delai_exe as delai_exe',
         'offres.date_depot as date_depot',
         'offres.heure_depot as heure_depot',
@@ -140,7 +157,7 @@ class OffreDAO {
         'offres.mnt_caution as mnt_caution'
       )
       .where({lot_id})
-      .orderBy('offres.montant_offre','asc')
+      .orderBy('offres.montant','asc')
       .orderBy('offres.montant_max','asc')
   };
 
@@ -150,13 +167,17 @@ class OffreDAO {
       .join('lots', 'lots.id', 'offres.lot_id')
       .select(
         'fournisseurs.raison_sociale as raison_sociale',
+        'lots.num_lot as num_lot',
         'lots.intitule_lot as intitule_lot',
-        'fournisseurs.id as fournisseur_id',
         'offres.id as id',
+        'offres.fournisseur_id as fournisseur_id',
         'offres.lot_id as lot_id',
-        'offres.montant_offre as montant_offre',
+        'offres.montant as montant',
+        'offres.montant_ttc as montant_ttc',
         'offres.montant_min as montant_min',
+        'offres.montant_min_ttc as montant_min_ttc',
         'offres.montant_max as montant_max',
+        'offres.montant_max_ttc as montant_max_ttc',
         'offres.delai_exe as delai_exe',
         'offres.date_depot as date_depot',
         'offres.heure_depot as heure_depot',
@@ -164,7 +185,10 @@ class OffreDAO {
         'offres.telephone_dep as telephone_dep',
         'offres.banque as banque',
         'offres.ref_caution as ref_caution',
-        'offres.mnt_caution as mnt_caution'
+        'offres.mnt_caution as mnt_caution',
+        'offres.rabais as rabais',
+        'offres.condi as condi',
+        'offres.taux as taux',
       )
       .where({lot_id,fournisseur_id})
   };

@@ -3,6 +3,9 @@ const offreService = require('../service/offre');
 class OffreController {
   async createOffre(req, res) {
     try {
+
+      console.log(req.body);
+      
       const id = await offreService.createOffre(req.body);
       res.status(201).json(id);
     } catch (err) {

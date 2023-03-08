@@ -1,7 +1,8 @@
 const db = require('../db/db');
 
 class FournisseurDAO {
-  async createFournisseur(raison_sociale,rccm,ifu,num_employeur,telephone1,telephone2,adresse,email,domaine,activite,titre_resp,nom_prenom_resp,type) {
+  async createFournisseur(raison_sociale,rccm,ifu,num_employeur,telephone1,telephone2,
+    adresse,email,domaine,activite,titre_resp,nom_prenom_resp,type,created_by,created_at) {
     const [id] = await db('fournisseurs')
       .insert({
         raison_sociale,
@@ -16,7 +17,9 @@ class FournisseurDAO {
         activite,
         titre_resp,
         nom_prenom_resp,
-        type
+        type,
+        created_by,
+        created_at
       })
       .returning('id');
 

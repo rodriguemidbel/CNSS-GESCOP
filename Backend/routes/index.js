@@ -162,7 +162,7 @@ router.patch('/updateFournisseur/:id',authenticateToken, fournisseurController.u
 
 router.get('/findFrs/:ifu/:rccm',authenticateToken, fournisseurController.findFrs);
 
-router.get('/getAllEntreprise',authenticateToken, fournisseurController.getAllEntreprise);
+router.get('/getAllEntreprise', fournisseurController.getAllEntreprise);
 router.get('/getAllGroupement',authenticateToken, fournisseurController.getAllGroupement);
 /*-------------------------BUDGET---------------------------------*/
 router.post('/createBudget',authenticateToken, budgetController.createBudget);
@@ -256,6 +256,8 @@ router.get('/sumMontantVenteByStatut/:vent_statut',venteController.sumMontantVen
 router.get('/findVenteID/:lot_id/:fournisseur_id',authenticateToken, venteController.findVenteID);
 
 router.get('/countSellLot/:vent_dossier_id',venteController.countSellLot);
+
+router.get('/countVente',venteController.countVente);
 /*-------------------------CAISSE---------------------------------*/
 router.post('/createCaisse',authenticateToken, caisseController.createCaisse);
 router.get('/getAllCaisse',authenticateToken, caisseController.getAllCaisse);
@@ -265,6 +267,8 @@ router.patch('/updateCaisse/:id',authenticateToken, caisseController.updateCaiss
 router.get('/findCaisse/:vente_id',authenticateToken, caisseController.findCaisse);
 router.get('/findCaisseByDoss/:vent_dossier_id',authenticateToken, caisseController.findCaisseByDoss);
 router.get('/getCaisseByUser/:user_id',authenticateToken, caisseController.getCaisseByUser)
+
+router.get('/countCaisse',caisseController.countCaisse);
 
 /*-------------------------PAIEMENT---------------------------------*/
 router.post('/createPaiement',authenticateToken, paiementController.createPaiement);
@@ -297,15 +301,15 @@ router.patch('/updateScaminv/:id',authenticateToken, scaminvController.updateSca
 router.get('/findScaminv/:dossier_id',authenticateToken, scaminvController.findScaminv);
 /*-------------------------OFFRE---------------------------------*/
 router.post('/createOffre',offreController.createOffre);
-router.get('/getAllOffre/:off_dossier_id',authenticateToken, offreController.getAllOffre);
+router.get('/getAllOffre/:off_dossier_id', offreController.getAllOffre);
 router.get('/getOneOffre/:id',authenticateToken, offreController.getOneOffre);
 router.delete('/removeOffre/:id',authenticateToken, offreController.removeOffre);
 router.patch('/updateOffre/:id',authenticateToken, offreController.updateOffre);
 router.get('/findOffre/:off_dossier_id',authenticateToken, offreController.findOffre);
 router.get('/getOffreById/:id',authenticateToken, offreController.getOffreById);
 
-router.get('/getOffreByLotID/:lot_id',authenticateToken, offreController.getOffreByLotID);
-router.get('/getAttributaire/:lot_id/:fournisseur_id',authenticateToken, offreController.getAttributaire)
+router.get('/getOffreByLotID/:lot_id', offreController.getOffreByLotID);
+router.get('/getAttributaire/:lot_id/:fournisseur_id', offreController.getAttributaire)
 /*-------------------------Ouverture---------------------------------*/
 router.post('/createProceverb',proceverbController.createProceverb);
 router.get('/getAllProceverb/:dossier_id',authenticateToken, proceverbController.getAllProceverb);

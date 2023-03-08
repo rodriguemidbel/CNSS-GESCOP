@@ -50,6 +50,10 @@ class VenteService {
     return venteDAO.countSellLot(vent_dossier_id);
   }
 
+  countVente(){
+    return venteDAO.countVente();
+  }
+
 }
 
 module.exports = new VenteService();

@@ -3,6 +3,9 @@ const venteService = require('../service/vente');
 class VenteController {
   async createVente(req, res) {
     try {
+
+      //console.log(req.body);
+
       const id = await venteService.createVente(req.body);
       res.status(201).json(id);
     } catch (err) {
@@ -54,6 +57,9 @@ class VenteController {
 
   async updateVente(req, res) {
     try {
+
+      //console.log(req.body);
+      
       const {id} = req.params;
       const changes = req.body;
 
@@ -112,6 +118,24 @@ class VenteController {
     try {
       const {vent_dossier_id} = req.params;
       const item = await venteService.findVenteByDossID(vent_dossier_id);
+      if(item)
+      {
+        res.status(201).json(item);
+      }
+      else
+      {
+        res.status(404).json({message: 'Data not exists'});
+      }
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  async countVente(req, res) {
+    try {
+      //const {vent_dossier_id} = req.params;
+      const item = await venteService.countVente();
       if(item)
       {
         res.status(201).json(item);

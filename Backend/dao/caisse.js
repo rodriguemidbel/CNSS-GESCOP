@@ -138,6 +138,12 @@ class CaisseDAO {
     .where({user_id})
   };
 
+  async countCaisse() {
+    return await db('caisses')
+    .join('ventes', 'ventes.id', 'caisses.vente_id')
+    .count('caisses.id as nbr')
+  };
+
 
  
 }

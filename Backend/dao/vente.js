@@ -192,6 +192,12 @@ class VenteDAO {
     .groupBy('ventes.lot_id','lots.num_lot','lots.intitule_lot')
   };
 
+  async countVente() {
+    return await db('ventes')
+    .join('lots','lots.id','ventes.lot_id')
+    .count('ventes.id as nbr')
+  };
+
  
 }
 

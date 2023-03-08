@@ -3,6 +3,9 @@ const ventefrsService = require('../service/ventefrs');
 class VentefrsController {
   async createVentefrs(req, res) {
     try {
+     
+      //console.log(req.body);
+
       const id = await ventefrsService.createVentefrs(req.body);
       res.status(201).json(id);
     } catch (err) {
