@@ -6,7 +6,7 @@ class CaisseDAO {
     const [id] = await db('caisses')
       .insert({
         num_recu,
-        date_recu : commonUtils.formatOracleDate2(date_recu),
+        date_recu :date_recu,
         vente_id,
         modepaiement_id,
         user_id,
@@ -58,8 +58,6 @@ class CaisseDAO {
   };
 
   async updateCaisse(id,changes) {
-
-    changes['date_recu'] = commonUtils.formatOracleDate2(changes['date_recu']);
 
     return await db('caisses').where({id}).update(changes)
     .then(() =>{

@@ -7,7 +7,7 @@ class PlanDAO {
       .insert({
         annee : annee,
         libelle : libelle,
-        date_plan : commonUtils.formatOracleDate2(date_plan),
+        date_plan : date_plan,
         statut : statut,
         created_by : created_by,
         created_at : created_at
@@ -58,8 +58,6 @@ class PlanDAO {
 
   async updatePlan(id,changes) {
     
-    changes['date_plan'] = commonUtils.formatOracleDate2(changes['date_plan']);
-
     return await db('plans').where({id}).update(changes)
     .then(() =>{
       return db('plans').where({id}).first();

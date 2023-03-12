@@ -18,12 +18,12 @@ class PlanitemDAO {
         designation,
         nbr_lot,
         mode,
-        date_lanc : commonUtils.formatOracleDate2(date_lanc),
-        date_remise : commonUtils.formatOracleDate2(date_remise),
+        date_lanc : date_lanc,
+        date_remise : date_remise,
         temp,
-        date_prob_demarrage : commonUtils.formatOracleDate2(date_prob_demarrage),
+        date_prob_demarrage : date_prob_demarrage,
         delai_exe,
-        date_prob_fin : commonUtils.formatOracleDate2(date_prob_fin),
+        date_prob_fin : date_prob_fin,
         gestionnaire,
         ppm,
         type_id,
@@ -132,11 +132,6 @@ class PlanitemDAO {
 
   async updatePlanitem(id,changes) {
 
-    changes['date_lanc'] = commonUtils.formatOracleDate2(changes['date_lanc']);
-    changes['date_remise'] = commonUtils.formatOracleDate2(changes['date_remise']);
-    changes['date_prob_demarrage'] = commonUtils.formatOracleDate2(changes['date_prob_demarrage']);
-    changes['date_prob_fin'] = commonUtils.formatOracleDate2(changes['date_prob_fin']);
-   
     return await db('planitems').where({id}).update(changes)
     .then(() =>{
       return db('planitems').where({id}).first();

@@ -17,12 +17,17 @@ class PlanDAO {
 
   async getAllHistoPlan() {
     return await db('histoplans')
+    .join('users', 'users.id', 'histoplans.created_by')
     .join('plans', 'plans.id', 'histoplans.plan_id')
     .select(
       'plans.id as planid',
       'plans.annee as annee',
+      'users.name as name',
+      'users.username as username',
       'plans.date_plan as date_plan',
-      'histoplans.statut as statut'
+      'histoplans.statut as statut',
+      'histoplans.created_by as created_by',
+      'histoplans.created_at as created_at'
     )
     .orderBy('plans.annee', 'desc');
   };

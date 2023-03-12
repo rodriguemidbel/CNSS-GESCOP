@@ -25,12 +25,14 @@ class LogDAO {
     .join('usergroups', 'usergroups.id', 'users.usergroup_id')
     .select(
       'usergroups.id as usergroup_id',
-      'usergroups.name as name',
+      'usergroups.name as group_name',
       'users.name as name',
       'users.username as username',
       'users.localisation_id as localisation_id',
       'logs.user_id as user_id',
-      'logs.action as action'
+      'logs.action as action',
+      'logs.created_by as created_by',
+      'logs.created_at as created_at'
     )
     .orderBy([
       { column: 'logs.id', order: 'desc'}

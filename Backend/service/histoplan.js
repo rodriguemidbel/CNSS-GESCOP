@@ -5,8 +5,8 @@ class PlanService {
     const { plan_id,statut,created_by,created_at } = PlanDto;
     return planDAO.createHistoplan(plan_id,statut,created_by,created_at);
   };
-  getAllHistoplan() {
-    return planDAO.getAllHistoplan();
+  getAllHistoPlan() {
+    return planDAO.getAllHistoPlan();
   };
   getOneHistoplan(id) {
     return planDAO.getOneHistoplan(id);

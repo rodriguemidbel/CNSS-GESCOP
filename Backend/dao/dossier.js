@@ -10,9 +10,9 @@ class DossierDAO {
         planitem_id : planitem_id,
         numero_doss : numero_doss,
         intitule_doss : intitule_doss,
-        date_trans_sign : commonUtils.formatOracleDate2(date_trans_sign),
-        date_retour_sign : commonUtils.formatOracleDate2(date_retour_sign),
-        date_trans_dgcmef : commonUtils.formatOracleDate2(date_trans_dgcmef),
+        date_trans_sign : date_trans_sign,
+        date_retour_sign :date_retour_sign,
+        date_trans_dgcmef : date_trans_dgcmef,
         taux_reception : taux_reception,
         niveau_traitement : niveau_traitement,
         taux_avencement : taux_avencement,
@@ -127,10 +127,6 @@ class DossierDAO {
   };
 
   async updateDossier(id,changes) {
-
-    changes['date_trans_sign'] = commonUtils.formatOracleDate2(changes['date_trans_sign']);
-    changes['date_retour_sign'] = commonUtils.formatOracleDate2(changes['date_retour_sign']);
-    changes['date_trans_dgcmef'] = commonUtils.formatOracleDate2(changes['date_trans_dgcmef']);
 
     return await db('dossiers').where({id}).update(changes)
     .then(() =>{

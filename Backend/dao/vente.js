@@ -9,7 +9,7 @@ class VenteDAO {
         num_vente,
         lot_id,
         fournisseur_id,
-        date_vente: commonUtils.formatOracleDate2(date_vente),
+        date_vente: date_vente,
         montant,
         vent_statut,
         grpent,
@@ -56,8 +56,6 @@ class VenteDAO {
   };
 
   async updateVente(id,changes) {
-
-    changes['date_vente'] = commonUtils.formatOracleDate2(changes['date_vente']);
 
     return await db('ventes').where({id}).update(changes)
     .then(() =>{
