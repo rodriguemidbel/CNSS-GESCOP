@@ -32,7 +32,7 @@ class UserDAO {
     .select(
       'usergroups.id as groupid',
       'usergroups.name as groupname',
-      'users.id as userid',
+      'users.id as id',
       'users.name as name',
       'users.username as username',
       'users.password as password',
