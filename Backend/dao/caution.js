@@ -11,7 +11,7 @@ class CautionDAO {
         ref_marche,
         soumissionaire,
         nature_caution,
-        date_caution : commonUtils.formatOracleDate2(date_caution),
+        date_caution : date_caution,
         banque,
         montant_caution,
         date_trans,
@@ -57,8 +57,6 @@ class CautionDAO {
   };
 
   async updateCaution(id,changes) {
-
-    changes['date_caution'] = commonUtils.formatOracleDate2(changes['date_caution']);
 
     return await db('cautions').where({id}).update(changes)
     .then(() =>{

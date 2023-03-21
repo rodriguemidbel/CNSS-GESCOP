@@ -9,7 +9,7 @@ class MarcheDAO {
       .insert({dossier_id,
                 num_ref,
                 notification_id,
-                date_notif : commonUtils.formatOracleDate2(date_notif),
+                date_notif : date_notif,
                 objet,
                 fournisseur_id,
                 lot_id,
@@ -17,14 +17,14 @@ class MarcheDAO {
                 montant_min,
                 montant_max,
                 delai,
-                date_rem_sign : commonUtils.formatOracleDate2(date_rem_sign),
-                date_retour_sign : commonUtils.formatOracleDate2(date_retour_sign),
-                date_trans_visa : commonUtils.formatOracleDate2(date_trans_visa),
-                date_envoi_appro : commonUtils.formatOracleDate2(date_envoi_appro),
-                date_appro : commonUtils.formatOracleDate2(date_appro),
+                date_rem_sign : date_rem_sign,
+                date_retour_sign : date_retour_sign,
+                date_trans_visa : date_trans_visa,
+                date_envoi_appro : date_envoi_appro,
+                date_appro : date_appro,
                 num_visa,
-                date_rem_enr : commonUtils.formatOracleDate2(date_rem_enr),
-                date_retour_enr : commonUtils.formatOracleDate2(date_retour_enr),
+                date_rem_enr : date_rem_enr,
+                date_retour_enr : date_retour_enr,
                 marche
               })
               .returning('id');
@@ -74,17 +74,6 @@ class MarcheDAO {
   };
 
   async updateMarche(id,changes) {
-
-    changes['date_notif'] = commonUtils.formatOracleDate2(changes['date_notif']);
-    changes['date_rem_sign'] = commonUtils.formatOracleDate2(changes['date_rem_sign']);
-    changes['date_retour_sign'] = commonUtils.formatOracleDate2(changes['date_retour_sign']);
-    changes['date_trans_visa'] = commonUtils.formatOracleDate2(changes['date_trans_visa']);
-    changes['date_envoi_appro'] = commonUtils.formatOracleDate2(changes['date_envoi_appro']);
-    changes['date_appro'] = commonUtils.formatOracleDate2(changes['date_appro']);
-
-    changes['date_rem_enr'] = commonUtils.formatOracleDate2(changes['date_rem_enr']);
-    changes['date_retour_enr'] = commonUtils.formatOracleDate2(changes['date_retour_enr']);
-
     return await db('marches').where({id}).update(changes)
     .then(() =>{
       return db('marches').where({id}).first();

@@ -7,7 +7,7 @@ class PubresultatDAO {
       .insert({
         dossier_id,
         num_bordereau,
-        date_bordereau : commonUtils.formatOracleDate2(date_bordereau)
+        date_bordereau : date_bordereau
       })
       .returning('id');
 
@@ -36,8 +36,6 @@ class PubresultatDAO {
   };
 
   async updatePubresultat(id,changes) {
-
-    changes['date_bordereau'] = commonUtils.formatOracleDate2(changes['date_bordereau']);
 
     return await db('pubresultats').where({id}).update(changes)
     .then(() =>{

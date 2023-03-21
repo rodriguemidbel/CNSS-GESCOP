@@ -18,6 +18,7 @@ const planController = require('../controller/plan');
 const histoplanController = require('../controller/histoplan');
 const planitemController = require('../controller/planitem');
 const dossierController = require('../controller/dossier');
+const histodossController = require('../controller/histodossier');
 const lotController = require('../controller/lot');
 const venteController = require('../controller/vente');
 const caisseController = require('../controller/caisse');
@@ -228,7 +229,14 @@ router.get('/findDossierByLoca/:annee/:localisation_id',authenticateToken, dossi
 router.get('/findDossierByLocaAndType/:annee/:type_id/:localisation_id',authenticateToken, dossierController.findDossierByLocaAndType);
 
 router.get('/countDossier/:annee',authenticateToken, dossierController.countDossier);
-
+//histodossController
+/*-------------------------Histo Dossier---------------------------------*/
+router.post('/createHistodoss',authenticateToken, histodossController.createHistodoss);
+router.get('/getAllHistodoss',authenticateToken, histodossController.getAllHistodoss);
+router.get('/getOneHistodoss/:id',authenticateToken, histodossController.getOneHistodoss);
+router.delete('/removeHistodoss/:id',authenticateToken, histodossController.removeHistodoss);
+router.patch('/updateHistodoss/:id',authenticateToken, histodossController.updateHistodoss);
+router.get('/findHistodoss/:numero_doss',authenticateToken, histodossController.findHistodoss);
 /*-------------------------LOT---------------------------------*/
 router.post('/createLot',authenticateToken, lotController.createLot);
 router.get('/getAllLot',authenticateToken, lotController.getAllLot);

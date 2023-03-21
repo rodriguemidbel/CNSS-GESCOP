@@ -20,7 +20,7 @@ class OffreDAO {
         rabais,
         condi,
         taux,
-        date_depot : commonUtils.formatOracleDate2(date_depot),
+        date_depot : date_depot,
         heure_depot,
         nom_prenom_dep,
         telephone_dep,
@@ -84,8 +84,6 @@ class OffreDAO {
   };
 
   async updateOffre(id,changes) {
-
-    changes['date_depot'] = commonUtils.formatOracleDate2(changes['date_depot']);
 
     return await db('offres').where({id}).update(changes)
     .then(() =>{

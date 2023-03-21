@@ -6,7 +6,7 @@ class SiteDAO {
     const [id] = await db('sites')
       .insert({
         marche_id,
-        date_rem_site : commonUtils.formatOracleDate2(date_rem_site),
+        date_rem_site : date_rem_site,
         fichier
       })
       .returning('id');
@@ -35,8 +35,6 @@ class SiteDAO {
   };
 
   async updateSite(id,changes) {
-
-    changes['date_rem_site'] = commonUtils.formatOracleDate2(changes['date_rem_site']);
 
     return await db('sites').where({id}).update(changes)
     .then(() =>{

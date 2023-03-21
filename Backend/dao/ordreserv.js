@@ -7,8 +7,8 @@ class OrdreservDAO {
       .insert({
         marche_id,
         ref,
-        date_notif : commonUtils.formatOracleDate2(date_notif),
-        date_demarrage : commonUtils.formatOracleDate2(date_demarrage),
+        date_notif : date_notif,
+        date_demarrage : date_demarrage,
         charge_notif,
         charge_notif_titre,
         delai_couru,
@@ -59,9 +59,6 @@ class OrdreservDAO {
   };
 
   async updateOrdreserv(id,changes) {
-
-    changes['date_notif'] = commonUtils.formatOracleDate2(changes['date_notif']);
-    changes['date_demarrage'] = commonUtils.formatOracleDate2(changes['date_demarrage']);
 
     return await db('ordreservs').where({id}).update(changes)
     .then(() =>{

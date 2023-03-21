@@ -6,7 +6,7 @@ class ScaminvDAO {
     const [id] = await db('scaminvs')
       .insert({
         dossier_id,
-        date_scam : commonUtils.formatOracleDate2(date_scam),
+        date_scam : date_scam,
         heure_scam,
         lieu_scam,
         membre_scam
@@ -45,8 +45,6 @@ class ScaminvDAO {
   };
 
   async updateScaminv(id,changes) {
-
-    changes['date_scam'] = commonUtils.formatOracleDate2(changes['date_scam']);
 
     return await db('scaminvs').where({id}).update(changes)
     .then(() =>{

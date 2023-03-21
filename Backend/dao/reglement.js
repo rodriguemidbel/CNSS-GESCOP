@@ -11,7 +11,7 @@ class ReglementDAO {
         ref_marche,
         ref_decision,
         attributaire,
-        date_reglement : commonUtils.formatOracleDate2(date_reglement),
+        date_reglement : date_reglement,
         montant_decision,
         atd,
         fichier
@@ -35,8 +35,6 @@ class ReglementDAO {
   };
 
   async updateReglement(id,changes) {
-
-    changes['date_reglement'] = commonUtils.formatOracleDate2(changes['date_reglement']);
 
     return await db('reglements').where({id}).update(changes)
     .then(() =>{

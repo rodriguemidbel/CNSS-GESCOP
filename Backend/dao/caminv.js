@@ -6,7 +6,7 @@ class CaminvDAO {
     const [id] = await db('caminvs')
       .insert({
         dossier_id,
-        date_cam : commonUtils.formatOracleDate2(date_cam),
+        date_cam : date_cam,
         heure_cam,
         lieu_cam,
         membre_cam
@@ -46,8 +46,6 @@ class CaminvDAO {
 
   async updateCaminv(id,changes) {
 
-    changes['date_cam'] = commonUtils.formatOracleDate2(changes['date_cam']);
-    
     return await db('caminvs').where({id}).update(changes)
     .then(() =>{
       return db('caminvs').where({id}).first();

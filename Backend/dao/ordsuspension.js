@@ -8,7 +8,7 @@ class OrdsuspenDAO {
         marche_id,
         ordreserv_id,
         ref,
-        date_suspension : commonUtils.formatOracleDate2(date_suspension),
+        date_suspension : date_suspension,
         lettre_demande,
         notif_suspension,
         motif,
@@ -66,8 +66,6 @@ class OrdsuspenDAO {
   };
 
   async updateOrdsuspen(id,changes) {
-
-    changes['date_suspension'] = commonUtils.formatOracleDate2(changes['date_suspension']);
 
     return await db('ordsuspensions').where({id}).update(changes)
     .then(() =>{

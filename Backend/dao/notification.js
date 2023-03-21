@@ -7,7 +7,7 @@ class NotificationDAO {
       .insert({
         not_dossier_id,
         numero,
-        date_notif : commonUtils.formatOracleDate2(date_notif),
+        date_notif : date_notif,
         fournisseur_id,
         lot_id,
         fichiernot
@@ -52,8 +52,6 @@ class NotificationDAO {
   };
 
   async updateNotification(id,changes) {
-
-    changes['date_notif'] = commonUtils.formatOracleDate2(changes['date_notif']); 
 
     return await db('notifications').where({id}).update(changes)
     .then(() =>{

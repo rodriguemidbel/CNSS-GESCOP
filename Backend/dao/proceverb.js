@@ -6,7 +6,7 @@ class ProceverbDAO {
     const [id] = await db('proceverbs')
       .insert({
         dossier_id,
-        date_convocation  : commonUtils.formatOracleDate2(date_convocation),
+        date_convocation  : date_convocation,
         pv
       })
       .returning('id');
@@ -40,8 +40,6 @@ class ProceverbDAO {
   };
 
   async updateProceverb(id,changes) {
-
-    changes['date_convocation'] = commonUtils.formatOracleDate2(changes['date_convocation']);
 
     return await db('proceverbs').where({id}).update(changes)
     .then(() =>{

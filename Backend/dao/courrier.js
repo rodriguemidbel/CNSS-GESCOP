@@ -7,7 +7,7 @@ class CourrierDAO {
       .insert({
         dossier_id,
         objet,
-        date_courrier  : commonUtils.formatOracleDate2(date_courrier),
+        date_courrier  : date_courrier,
         fichier
       })
       .returning('id');
@@ -41,8 +41,6 @@ class CourrierDAO {
   };
 
   async updateCourrier(id,changes) {
-
-    changes['date_courrier'] = commonUtils.formatOracleDate2(changes['date_courrier']);
 
     return await db('courriers').where({id}).update(changes)
     .then(() =>{

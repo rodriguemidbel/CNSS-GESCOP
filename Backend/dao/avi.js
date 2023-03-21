@@ -6,7 +6,7 @@ class AviDAO {
     const [id] = await db('avis')
       .insert({
         dossier_id,
-        date_publi : commonUtils.formatOracleDate2(date_publi),
+        date_publi : date_publi,
         num_publi,
         fichier
       })
@@ -44,9 +44,7 @@ class AviDAO {
   };
 
   async updateAvi(id,changes) {
-     
-    changes['date_publi'] = commonUtils.formatOracleDate2(changes['date_publi']);
-
+    
     return await db('avis').where({id}).update(changes)
     .then(() =>{
       return db('avis').where({id}).first();

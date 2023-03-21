@@ -7,10 +7,10 @@ class DeliberationDAO {
     const [id] = await db('deliberations')
       .insert({
         dossier_id,
-        date_delib : commonUtils.formatOracleDate2(date_delib),
-        date_transpv_sign  : commonUtils.formatOracleDate2(date_transpv_sign),
-        date_retourpv_sign  : commonUtils.formatOracleDate2(date_retourpv_sign),
-        date_transpv_dgcmef  : commonUtils.formatOracleDate2(date_transpv_dgcmef),
+        date_delib : date_delib,
+        date_transpv_sign  : date_transpv_sign,
+        date_retourpv_sign  : date_retourpv_sign,
+        date_transpv_dgcmef  : date_transpv_dgcmef,
         typedelib,
         pvdeliberation
       })
@@ -47,11 +47,6 @@ class DeliberationDAO {
   };
 
   async updateDeliberation(id,changes) {
-
-    changes['date_delib'] = commonUtils.formatOracleDate2(changes['date_delib']);
-    changes['date_transpv_sign'] = commonUtils.formatOracleDate2(changes['date_transpv_sign']);
-    changes['date_retourpv_sign'] = commonUtils.formatOracleDate2(changes['date_retourpv_sign']);
-    changes['date_transpv_dgcmef'] = commonUtils.formatOracleDate2(changes['date_transpv_dgcmef']);
 
     return await db('deliberations').where({id}).update(changes)
     .then(() =>{

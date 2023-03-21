@@ -7,7 +7,7 @@ class DemeureDAO {
     const [id] = await db('demeures')
       .insert({
         marche_id,
-        date_demeure : commonUtils.formatOracleDate2(date_demeure),
+        date_demeure : date_demeure,
         ref_correspande,
         delai
       })
@@ -29,8 +29,6 @@ class DemeureDAO {
   };
 
   async updateDemeure(id,changes) {
-
-    changes['date_demeure'] = commonUtils.formatOracleDate2(changes['date_demeure']);
 
     return await db('demeures').where({id}).update(changes)
     .then(() =>{

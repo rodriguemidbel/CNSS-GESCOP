@@ -8,7 +8,7 @@ class AnalyseDAO {
       const [id] = await db('analyses')
       .insert({
         dossier_id,
-        date_effec_ana : commonUtils.formatOracleDate2(date_effec_ana),
+        date_effec_ana : date_effec_ana,
         libelle,
         lot_id,
         attributaire,
@@ -60,8 +60,6 @@ class AnalyseDAO {
   };
 
   async updateAnalyse(id,changes) {
-
-    changes['date_effec_ana'] = commonUtils.formatOracleDate2(changes['date_effec_ana']);
 
     return await db('analyses').where({id}).update(changes)
     .then(() =>{

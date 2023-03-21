@@ -8,7 +8,7 @@ class DemandeDAO {
       .insert({
         marche_id,
         ordreserv_id,
-        date_demande : commonUtils.formatOracleDate2(date_demande),
+        date_demande : date_demande,
         motif,
         courrier
       })
@@ -48,8 +48,6 @@ class DemandeDAO {
   };
 
   async updateDemande(id,changes) {
-
-    changes['date_demande'] = commonUtils.formatOracleDate2(changes['date_demande']);
 
     return await db('recepdemandes').where({id}).update(changes)
     .then(() =>{

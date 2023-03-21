@@ -10,7 +10,7 @@ class ReceptionDAO {
         typreception_id,
         marche_id,
         fournisseur_id,
-        date_recept  : commonUtils.formatOracleDate2(date_recept),
+        date_recept  : date_recept,
         membre,
         autre,
         pv_recept
@@ -54,8 +54,6 @@ class ReceptionDAO {
   };
 
   async updateReception(id,changes) {
-
-    changes['date_recept'] = commonUtils.formatOracleDate2(changes['date_recept']);
 
     return await db('receptions').where({id}).update(changes)
     .then(() =>{

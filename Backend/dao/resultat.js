@@ -6,7 +6,7 @@ class ResultatDAO {
     const [id] = await db('resultats')
       .insert({
         dossier_id,
-        date_par_res : commonUtils.formatOracleDate2(date_par_res),
+        date_par_res : date_par_res,
         num_par_res,
         fichierpub,
         fichier
@@ -43,8 +43,6 @@ class ResultatDAO {
   };
 
   async updateResultat(id,changes) {
-
-    changes['date_par_res'] = commonUtils.formatOracleDate2(changes['date_par_res']);
 
     return await db('resultats').where({id}).update(changes)
     .then(() =>{
